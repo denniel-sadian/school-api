@@ -46,4 +46,4 @@ class Record(models.Model):
     score = models.IntegerField(default=1)
 
     def __str__(self):
-        return f"{self.student.name}'s {self.work.name} for {self.gsheet.subject}"
+        return f"{self.student}'s {self.work.name} for {self.gsheet.subject}"
