@@ -1,3 +1,5 @@
 from django.db import models
 
-# Create your models here.
+from information.models import Student
+from information.models import Section
+from information.models import Department
