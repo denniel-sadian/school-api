@@ -7,6 +7,7 @@ class UserEmployeeSerializer(serializers.Serializer):
     This is the serializer that is used to create both
     user and employee objects.
     """
+    username = serializers.CharField()
     first_name = serializers.CharField()
     last_name = serializers.CharField()
     email = serializers.EmailField()
