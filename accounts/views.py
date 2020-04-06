@@ -2,7 +2,7 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from serializers import UserEmployeeSerializer
+from .serializers import UserEmployeeSerializer
 
 
 class CreateUserEmployeeView(GenericAPIView):
