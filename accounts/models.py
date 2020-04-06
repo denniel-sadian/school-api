@@ -16,6 +16,9 @@ class Employee(models.Model):
     role = models.CharField(max_length=7, choices=ROLES)
     photo = models.ImageField()
 
+    def __str__(self):
+        return f'{self.user.first_name} {self.user.last_name}'
+
 
 class EmployeeUserCreationInvitation(models.Model):
     date = models.DateField(auto_now_add=True)
