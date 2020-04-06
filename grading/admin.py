@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from . import models
+
+admin.site.register(models.GradingSheet)
+admin.site.register(models.Work)
+admin.site.register(models.Record)
