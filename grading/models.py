@@ -30,6 +30,9 @@ class Work(models.Model):
     work_type = models.CharField(max_length=1, choices=TYPES)
     highest_score = models.IntegerField(default=1)
 
+    def __str__(self):
+        return self.name
+
 
 class Record(models.Model):
     date = models.DateField(auto_now_add=True)
@@ -37,3 +40,6 @@ class Record(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     work = models.ForeignKey(Work, on_delete=models.CASCADE)
     score = models.IntegerField(default=1)
+
+    def __str__(self):
+        return f"{self.student.name}'s {self.work.name} for {self.gsheet.subject}"
