@@ -25,6 +25,7 @@ class Work(models.Model):
     )
 
     date = models.DateField(auto_now_add=True)
+    name = models.CharField(max_length=100)
     gsheet = models.ForeignKey(GradingSheet, on_delete=models.CASCADE, related_name='works')
     work_type = models.CharField(max_length=1, choices=TYPES)
     highest_score = models.IntegerField(default=1)
