@@ -1,3 +1,10 @@
 from django.contrib import admin
 
-# Register your models here.
+from . import models
+
+admin.site.register(models.Department)
+admin.site.register(models.Section)
+admin.site.register(models.Subject)
+admin.site.register(models.GuardianViewingPermission)
+admin.site.register(models.GradingSheet)
+admin.site.register(models.Student)
