@@ -8,7 +8,7 @@ class EmployeeAdmin(admin.ModelAdmin):
 
 
 class EmployeeUserCreationInvitationAdmin(admin.ModelAdmin):
-    list_display = ('date', 'role', 'first_name', 'last_name', 'department', 'photo')
+    list_display = ('date', 'role', 'first_name', 'last_name', 'department')
 
 
 admin.site.register(models.Employee, EmployeeAdmin)
