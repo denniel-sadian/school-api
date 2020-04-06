@@ -22,4 +22,5 @@ class EmployeeUserCreationInvitation(models.Model):
     role = models.CharField(max_length=7, choices=ROLES)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE)
     code = models.CharField(max_length=50)

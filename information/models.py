@@ -4,19 +4,31 @@ from django.db import models
 class Department(models.Model):
     name = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.name
+
 
 class Section(models.Model):
     name = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.name
+
 
 class Subject(models.Model):
     name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
 
 
 class GuardianViewingPermission(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
     code = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.code
 
 
 class Student(models.Model):
@@ -39,8 +51,8 @@ class Student(models.Model):
         ('c4', 'Fourth Year College')
     )
 
-    firstname = models.CharField(max_length=50)
-    lastname = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
     id_number = models.CharField(max_length=100)
     cp_number = models.CharField(max_length=12)
     guardian_cp_number = models.CharField(max_length=12)
@@ -49,3 +61,6 @@ class Student(models.Model):
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     grade_level = models.CharField(max_length=2, choices=LEVELS)
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
