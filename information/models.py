@@ -13,6 +13,12 @@ class Subject(models.Model):
     name = models.CharField(max_length='50')
 
 
+class GuardianViewingPermission(models.Model):
+    date = models.DateTimeField(auto_now_add=True)
+    section = models.ForeignKey(Section, on_delete=models.CASCADE)
+    code = models.CharField(max_length='100')
+
+
 class Student(models.Model):
     LEVELS = (
         ('1', 'Grade 1'),
@@ -40,6 +46,6 @@ class Student(models.Model):
     guardian_cp_number = models.CharField(max_length='12')
     address = models.CharField(max_length='255')
     photo = models.ImageField()
-    department = Department
+    department = models.ForeignKey(Department, on_delete=models.CASCADE)
     grade_level = models.CharField(max_length='2', choices=LEVELS)
-    section = Section
+    section = models.ForeignKey(Section, on_delete=models.CASCADE)
