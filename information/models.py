@@ -1,5 +1,14 @@
 from django.db import models
 
+
+class Department(models.Model):
+    name = models.CharField(max_length='50')
+
+
+class Section(models.Model):
+    name = models.CharField(max_length='50')
+
+
 class Student(models.Model):
     LEVELS = (
         ('1', 'Grade 1'),
@@ -27,6 +36,6 @@ class Student(models.Model):
     guardian_cp_number = models.CharField(max_length='12')
     address = models.CharField(max_length='255')
     photo = models.ImageField()
-    department = None
+    department = Department
     grade_level = models.CharField(max_length='2', choices=LEVELS)
-    section = None
+    section = Section
