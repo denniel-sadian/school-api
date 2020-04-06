@@ -9,6 +9,10 @@ class Section(models.Model):
     name = models.CharField(max_length='50')
 
 
+class Subject(models.Model):
+    name = models.CharField(max_length='50')
+
+
 class Student(models.Model):
     LEVELS = (
         ('1', 'Grade 1'),
