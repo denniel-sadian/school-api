@@ -6,8 +6,8 @@ from information.models import Department
 
 class Employee(models.Model):
     ROLES = (
-        'admin', 'Admin',
-        'teacher', 'Teacher'
+        ('admin', 'Admin'),
+        ('teacher', 'Teacher')
     )
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
