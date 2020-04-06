@@ -11,8 +11,12 @@ class GradingSheet(models.Model):
     date = models.DateField(auto_now_add=True)
     teacher = models.ForeignKey(Employee, on_delete=models.CASCADE)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
+    section = models.ForeignKey(Section, on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     publish = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.section} for {self.subject}'
 
 
 class Work(models.Model):
