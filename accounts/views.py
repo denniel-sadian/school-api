@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from rest_framework.views import APIView
 
-# Create your views here.
+from serializers import UserEmployeeSerializer
+
+
+class CreateUserEmployeeView(APIView):
+
+    def post(self, request):
+        data = UserEmployeeSerializer(data=request.POST)
