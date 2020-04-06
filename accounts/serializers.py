@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
+from .models import Employee
+
 
 class UserEmployeeSerializer(serializers.Serializer):
     """
@@ -17,6 +19,13 @@ class UserEmployeeSerializer(serializers.Serializer):
     id_number = serializers.CharField()
     department = serializers.IntegerField()
     photo = serializers.ImageField()
+
+
+class EmployeeProfileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Employee
+        fields = '__all__'
 
 
 class LoginSerializer(serializers.Serializer):
