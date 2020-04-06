@@ -15,6 +15,7 @@ class UserEmployeeSerializer(serializers.Serializer):
     password1 = serializers.CharField()
     role = serializers.CharField()
     id_number = serializers.CharField()
+    department = serializers.IntegerField()
     photo = serializers.ImageField()
 
 
