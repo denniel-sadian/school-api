@@ -9,5 +9,6 @@ router.register('employees', views.EmployeeProfileViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('login/', views.LoginView.as_view(), name='login'),
+    path('logout/', views.log_out, name='logout'),
     path('register-employee-user/', views.CreateUserEmployeeView.as_view(), name='register')
 ]
