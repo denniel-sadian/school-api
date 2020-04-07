@@ -5,6 +5,7 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 
@@ -30,6 +31,7 @@ class LoginView(GenericAPIView):
     View for logging user in.
     """
     serializer_class = LoginSerializer
+    permission_classes = ()
 
     def post(self, request):
         serializer = self.get_serializer(data=request.data)
@@ -54,11 +56,14 @@ class ProfileView(GenericAPIView):
     """
     View for retrieving and updating user instance.
     """
-    permission_classes = (IsAuthenticated,)
 
     def get(self, request):
         user = UserSerializer(request.user)
-        profile = EmployeeSerializer(request.user.employee)
+        if Employee.objects.filter(user=user).exists():
+            profile = EmployeeSerializer(request.user.employee)
+        else:
+            profile = Employee.objects.create(user=user)
+            profile = EmployeeSerializer(profile)
         data = {'user': user.data, 'profile': profile.data}
         return Response(data, status=status.HTTP_200_OK)
 
