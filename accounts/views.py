@@ -5,7 +5,7 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAdminUser
 from rest_framework import status
 
 from information.models import Department
@@ -70,6 +70,7 @@ class ProfileView(GenericAPIView):
 
 class CreateUserProfileView(GenericAPIView):
     serializer_class = UserProfileSerializer
+    permission_classes = (IsAdminUser,)
 
     def post(self, request):
         serializer = self.get_serializer(data=request.data)
