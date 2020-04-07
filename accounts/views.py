@@ -109,7 +109,7 @@ class ProfileView(GenericAPIView):
             profile.photo = request.FILES['photo']
             profile.save()
         
-        return Response({'message': 'Profile updated.'} status=status.HTTP_200_OK)
+        return Response({'message': 'Profile updated.'}, status=status.HTTP_200_OK)
 
 
 class ChangePasswordView(UpdateAPIView):
@@ -201,7 +201,7 @@ class CreateUserProfileView(GenericAPIView):
         
         # Log the user in
         login(request, user)
-        
+
         return Response({'message': 'Registered'}, status=status.HTTP_201_CREATED)
 
 
