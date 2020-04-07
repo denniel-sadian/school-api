@@ -10,7 +10,8 @@ from rest_framework import status
 
 from information.models import Department
 from .serializers import UserEmployeeSerializer
-from .serializers import EmployeeProfileSerializer
+from .serializers import EmployeeSerializer
+from .serializers import UserSerializer
 from .serializers import LoginSerializer
 from .models import Employee
 
@@ -24,9 +25,9 @@ def log_out(request):
     return Response({'detail': 'Logged out'}, status=status.HTTP_200_OK)
 
 
-class EmployeeProfileViewSet(ModelViewSet):
+class EmployeeViewSet(ModelViewSet):
     queryset = Employee.objects.all()
-    serializer_class = EmployeeProfileSerializer
+    serializer_class = EmployeeSerializer
 
 
 class LoginView(GenericAPIView):
