@@ -1,7 +1,9 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
+from information.models import Department
 from .models import Employee
+from .models import ROLES
 
 
 class UserEmployeeSerializer(serializers.Serializer):
@@ -15,9 +17,9 @@ class UserEmployeeSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField()
     password1 = serializers.CharField()
-    role = serializers.CharField()
+    role = serializers.ChoiceField(ROLES)
     id_number = serializers.CharField()
-    department = serializers.IntegerField()
+    department = serializers.PrimaryKeyRelatedField(queryset=Department.objects.all())
     photo = serializers.ImageField()
 
 
