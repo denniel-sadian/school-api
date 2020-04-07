@@ -4,6 +4,7 @@ from django.contrib.auth import logout, login
 from rest_framework.generics import GenericAPIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
+from rest_framework.decorators import api_view
 from rest_framework import status
 
 from information.models import Department
@@ -11,6 +12,15 @@ from .serializers import UserEmployeeSerializer
 from .serializers import EmployeeProfileSerializer
 from .serializers import LoginSerializer
 from .models import Employee
+
+
+@api_view(['GET'])
+def log_out(request):
+    """
+    For logging out the user.
+    """
+    logout(request)
+    return Response({'detail': 'Logged out'}, status=status.HTTP_200_OK)
 
 
 class EmployeeProfileViewSet(ModelViewSet):
