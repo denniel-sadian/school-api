@@ -13,6 +13,7 @@ from .serializers import UserProfileSerializer
 from .serializers import ProfileSerializer
 from .serializers import UserSerializer
 from .serializers import LoginSerializer
+from .permissions import IsAdminOrInvited
 from .models import Profile
 
 
@@ -77,14 +78,14 @@ class CreateUserProfileView(GenericAPIView):
         serializer.is_valid(raise_exception=True)
         data = serializer.data
         user = User.objects.create(first_name=data['first_name'],
-                           last_name=data['last_name'],
-                           email=data['email'],
-                           username=data['username'],
-                           password=data['password'])
+                                   last_name=data['last_name'],
+                                   email=data['email'],
+                                   username=data['username'],
+                                   password=data['password'])
         profile = Profile(user=user,
-                            id_number=data['id_number'],
-                            department=Department.objects.get(id=data['department']),
-                            role=data['role'],
-                            photo=request.FILES['photo'])
+                          id_number=data['id_number'],
+                          department=Department.objects.get(id=data['department']),
+                          role=data['role'],
+                          photo=request.FILES['photo'])
         profile.save()
         return Response(data, status=status.HTTP_201_CREATED)
