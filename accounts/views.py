@@ -112,6 +112,7 @@ class CreateUserProfileView(GenericAPIView):
                                department=Department.objects.get(name=data['department']),
                                role=data['role'],
                                photo=request.FILES['photo'])
+        login(request, user)
         return Response(data, status=status.HTTP_201_CREATED)
 
 
