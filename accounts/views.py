@@ -25,11 +25,6 @@ def log_out(request):
     return Response({'detail': 'Logged out'}, status=status.HTTP_200_OK)
 
 
-class EmployeeViewSet(ModelViewSet):
-    queryset = Employee.objects.all()
-    serializer_class = EmployeeSerializer
-
-
 class LoginView(GenericAPIView):
     """
     View for logging user in.
