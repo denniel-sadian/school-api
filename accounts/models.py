@@ -28,4 +28,4 @@ class ProfileUserCreationPermission(models.Model):
     last_name = models.CharField(max_length=50)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     code = models.CharField(max_length=50, primary_key=True)
-    used = models.BooleanField()
+    used = models.BooleanField(default=False)
