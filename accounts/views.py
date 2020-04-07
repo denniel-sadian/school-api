@@ -60,12 +60,9 @@ class ProfileView(GenericAPIView):
     def get(self, request):
         user = UserSerializer(request.user)
         profile = None
-        print('fuck')
         if Employee.objects.filter(user=request.user).exists():
-            print('fuck1')
             profile = EmployeeSerializer(request.user.employee)
         else:
-            print('Fuck2')
             profile = Employee.objects.create(user=request.user)
             profile = EmployeeSerializer(profile)
         data = {'user': user.data, 'profile': profile.data}
