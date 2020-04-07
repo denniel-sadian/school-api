@@ -14,6 +14,7 @@ from .serializers import ProfileSerializer
 from .serializers import UserSerializer
 from .serializers import LoginSerializer
 from .serializers import ProfileUserCreationInvitationSerializer
+from .serializers import UpdateAccountSerializer
 from .permissions import IsAdminOrInvited
 from .models import Profile
 from .models import ProfileUserCreationInvitation
@@ -58,7 +59,7 @@ class ProfileView(GenericAPIView):
     """
     View for retrieving and updating user instance.
     """
-    serializer_class = UserProfileSerializer
+    serializer_class = UpdateAccountSerializer
 
     def get(self, request):
         user = UserSerializer(request.user)
