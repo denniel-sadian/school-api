@@ -11,6 +11,7 @@ class UserProfileSerializer(serializers.Serializer):
     This is the serializer that is used to create both
     user and profile objects.
     """
+    code = serializers.CharField(required=False)
     username = serializers.CharField()
     first_name = serializers.CharField()
     last_name = serializers.CharField()
