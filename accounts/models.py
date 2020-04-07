@@ -21,7 +21,7 @@ class Profile(models.Model):
 
 
 class ProfileUserCreationInvitation(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='invitations')
+    from_who = models.ForeignKey(User, on_delete=models.CASCADE, related_name='invitations')
     date = models.DateField(auto_now_add=True)
     role = models.CharField(max_length=7, choices=ROLES)
     first_name = models.CharField(max_length=50)
