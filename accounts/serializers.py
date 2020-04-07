@@ -57,7 +57,9 @@ class ProfileUserCreationPermissionSerializer(serializers.ModelSerializer):
         model = ProfileUserCreationPermission
         fields = '__all__'
         extra_kwargs = {
-            'code': {'write_only': True, 'required': False}
+            'code': {'write_only': True, 'required': False},
+            'from_who': {'read_only': True},
+            'used': {'read_only': True}
         }
 
 
