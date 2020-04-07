@@ -1,7 +1,7 @@
 from rest_framework.permissions import BasePermission
 from rest_framework.permissions import SAFE_METHODS
 
-from .models import ProfileUserCreationInvitation
+from .models import ProfileUserCreationPermission
 
 
 class IsAdminOrInvited(BasePermission):
@@ -14,9 +14,9 @@ class IsAdminOrInvited(BasePermission):
         second = request.user and request.user.is_staff
         if 'code' in request.data and not second:
             code = request.data['code']
-            there_is = ProfileUserCreationInvitation.objects.filter(code=code).exists()
+            there_is = ProfileUserCreationPermission.objects.filter(code=code).exists()
             if there_is:
-                p = ProfileUserCreationInvitation.objects.get(code=code)
+                p = ProfileUserCreationPermission.objects.get(code=code)
                 if p.used:
                     return False
                 p.used = True

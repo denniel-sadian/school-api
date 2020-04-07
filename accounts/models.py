@@ -20,8 +20,8 @@ class Profile(models.Model):
         return f'{self.user.first_name} {self.user.last_name}'
 
 
-class ProfileUserCreationInvitation(models.Model):
-    from_who = models.ForeignKey(User, on_delete=models.CASCADE, related_name='invitations')
+class ProfileUserCreationPermission(models.Model):
+    from_who = models.ForeignKey(User, on_delete=models.CASCADE, related_name='permissions')
     date = models.DateField(auto_now_add=True)
     role = models.CharField(max_length=7, choices=ROLES)
     first_name = models.CharField(max_length=50)

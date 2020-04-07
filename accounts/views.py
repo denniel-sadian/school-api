@@ -13,11 +13,11 @@ from .serializers import UserProfileSerializer
 from .serializers import ProfileSerializer
 from .serializers import UserSerializer
 from .serializers import LoginSerializer
-from .serializers import ProfileUserCreationInvitationSerializer
+from .serializers import ProfileUserCreationPermissionSerializer
 from .serializers import UpdateAccountSerializer
 from .permissions import IsAdminOrInvited
 from .models import Profile
-from .models import ProfileUserCreationInvitation
+from .models import ProfileUserCreationPermission
 
 
 @api_view(['GET'])
@@ -117,8 +117,8 @@ class CreateUserProfileView(GenericAPIView):
 
 
 class AccountCreationInvitationViewSet(ModelViewSet):
-    queryset = ProfileUserCreationInvitation.objects.all()
-    serializer_class = ProfileUserCreationInvitationSerializer
+    queryset = ProfileUserCreationPermission.objects.all()
+    serializer_class = ProfileUserCreationPermissionSerializer
     permission_classes = (IsAdminUser,)
 
     def perform_create(self, serializer):

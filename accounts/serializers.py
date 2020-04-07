@@ -3,7 +3,7 @@ from rest_framework import serializers
 
 from information.models import Department
 from .models import Profile
-from .models import ProfileUserCreationInvitation
+from .models import ProfileUserCreationPermission
 from .models import ROLES
 
 
@@ -51,10 +51,10 @@ class UserSerializer(serializers.ModelSerializer):
         }
 
 
-class ProfileUserCreationInvitationSerializer(serializers.ModelSerializer):
+class ProfileUserCreationPermissionSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = ProfileUserCreationInvitation
+        model = ProfileUserCreationPermission
         fields = '__all__'
         extra_kwargs = {
             'code': {'write_only': True, 'required': False}
