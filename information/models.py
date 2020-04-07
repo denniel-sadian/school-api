@@ -12,7 +12,7 @@ class ModelWithNameOnly(models.Model):
     
     def save(self, **kwargs):
         self.name = self.name.upper()
-        self.save(**kwargs)
+        super().save(**kwargs)
 
 
 class Department(ModelWithNameOnly):

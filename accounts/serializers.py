@@ -42,6 +42,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class ProfileUserCreationInvitationSerializer(serializers.ModelSerializer):
+    department = serializers.PrimaryKeyRelatedField(queryset=Department.objects.all())
 
     class Meta:
         model = ProfileUserCreationInvitation
