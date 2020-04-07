@@ -116,7 +116,7 @@ class CreateUserProfileView(GenericAPIView):
         return Response(data, status=status.HTTP_201_CREATED)
 
 
-class AccountCreationInvitationViewSet(ModelViewSet):
+class AccountCreationPermissionViewSet(ModelViewSet):
     queryset = ProfileUserCreationPermission.objects.all()
     serializer_class = ProfileUserCreationPermissionSerializer
     permission_classes = (IsAdminUser,)
