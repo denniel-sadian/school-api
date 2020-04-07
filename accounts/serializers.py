@@ -46,6 +46,9 @@ class ProfileUserCreationInvitationSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProfileUserCreationInvitation
         fields = '__all__'
+        extra_kwargs = {
+            'code': {'write_only': True, 'required': False}
+        }
 
 
 class ProfileSerializer(serializers.ModelSerializer):
