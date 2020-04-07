@@ -6,7 +6,6 @@ from rest_framework.generics import UpdateAPIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from rest_framework.permissions import IsAdminUser
 from rest_framework import status
 
 from information.models import Department
@@ -99,7 +98,6 @@ class ChangePasswordView(UpdateAPIView):
     View for changing password.
     """
     serializer_class = PasswordSerializer
-    permission_classes = (IsAuthenticated,)
 
     def get_object(self):
         return self.request.user
