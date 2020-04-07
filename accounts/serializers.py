@@ -18,10 +18,6 @@ class UpdateAccountSerializer(serializers.Serializer):
 
 
 class UserProfileSerializer(UpdateAccountSerializer):
-    """
-    This is the serializer that is used to create both
-    user and profile objects.
-    """
     code = serializers.CharField(required=False)
     password = serializers.CharField()
     password1 = serializers.CharField()
