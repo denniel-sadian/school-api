@@ -34,7 +34,6 @@ class LoginView(GenericAPIView):
             if user.is_active:
                 login(request, user)
                 return Response({
-                    "token": user.auth_token.key,
                     "username": user.username,
                     "first_name": user.first_name,
                     "last_name": user.last_name,
