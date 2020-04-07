@@ -107,15 +107,17 @@ class ChangePasswordView(UpdateAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = self.get_object()
+        data = serializer.data
         
         auth = authenticate(username=user.username,
-                            password=serializer.data['password'])
+                            password=data['password'])
         if auth is None:
             return Response({'detail': 'Wrong password.'},
                             status=status.HTTP_400_BAD_REQUEST)
         
-        user.set_password(serializer.data['password2'])
+        user.set_password(data['password2'])
         user.save()
+        login(request, user)
         
         return Response({'detail': 'Password has been changed.'},
                         status=status.HTTP_200_OK)
