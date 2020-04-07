@@ -39,9 +39,13 @@ class LoginView(GenericAPIView):
     permission_classes = ()
 
     def post(self, request):
+
+        # Do the serializer
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.data
+        
+        # Authenticate and log in
         user = authenticate(username=data['username'],
                             password=data['password'])
         if user is not None:
@@ -64,33 +68,48 @@ class ProfileView(GenericAPIView):
     serializer_class = UpdateAccountSerializer
 
     def get(self, request):
+
+        # Serialize the user
         user = UserSerializer(request.user)
+        
+        # Get the user's profile if it exists
         profile = None
         if Profile.objects.filter(user=request.user).exists():
             profile = ProfileSerializer(request.user.profile)
+        
+        # Create a profile for the user instead
         else:
             profile = Profile.objects.create(user=request.user)
             profile = ProfileSerializer(profile)
+        
         data = {'user': user.data, 'profile': profile.data}
+        
         return Response(data, status=status.HTTP_200_OK)
     
     def post(self, request):
+
+        # Do the serializer
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.data
+        
+        # Update the user
         user = request.user
         user.first_name = data['first_name']
         user.last_name = data['last_name']
         user.username = data['username']
         user.email = data['email']
         user.save()
+        
+        # Update the profile if it exists
         if Profile.objects.filter(user=request.user).exists():
             profile = Profile.objects.get(user=user)
             profile.id_number = data['id_number']
             profile.department = Department.objects.get(name=data['department'])
             profile.photo = request.FILES['photo']
             profile.save()
-        return Response(status=status.HTTP_200_OK)
+        
+        return Response({'message': 'Profile updated.'} status=status.HTTP_200_OK)
 
 
 class ChangePasswordView(UpdateAPIView):
@@ -128,19 +147,31 @@ class CreateUserProfileView(GenericAPIView):
     permission_classes = (IsAdminOrInvited,)
 
     def post(self, request):
+        
+        # Do the serializer
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.data
+        
+        # Do not accept if passwords will not match
         if data['password'] != data['password1']:
             return Response({'message': 'Passwords did not match.'},
                             status=status.HTTP_400_BAD_REQUEST)
+        
+        # For the creation permission
         if 'code' in data:
+            
+            # Check if there's the permission
             if ProfileUserCreationPermission.objects.filter(code=data['code']).exists():
                 perm = ProfileUserCreationPermission.objects.get(code=data['code'])
+                
+                # Don't accept if permission has been used already
                 if perm.used:
                     return Response({
                         'message': 'The permission has been used already.'
                     }, status=status.HTTP_400_BAD_REQUEST)
+                
+                # Override the data and mark permission as used
                 else:
                     data['first_name'] = perm.first_name
                     data['last_name'] = perm.last_name
@@ -148,20 +179,29 @@ class CreateUserProfileView(GenericAPIView):
                     data['department'] = perm.department
                     perm.used = True
                     perm.save()
+        
+        # Create the user based from the data
         user = User.objects.create(first_name=data['first_name'],
                                    last_name=data['last_name'],
                                    email=data['email'],
                                    username=data['username'],
                                    password=data['password'])
+        
+        # Make the user as a staff if it's an admin
         if data['role'] == 'admin':
             user.is_staff = True
             user.save()
+        
+        # Create the profile for the user
         Profile.objects.create(user=user,
                                id_number=data['id_number'],
                                department=Department.objects.get(name=data['department']),
                                role=data['role'],
                                photo=request.FILES['photo'])
+        
+        # Log the user in
         login(request, user)
+        
         return Response({'message': 'Registered'}, status=status.HTTP_201_CREATED)
 
 
