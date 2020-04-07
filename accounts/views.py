@@ -114,7 +114,6 @@ class CreateUserProfileView(GenericAPIView):
                     data['first_name'] = perm.first_name
                     data['last_name'] = perm.last_name
                     data['role'] = perm.role
-                    print(perm.department)
                     data['department'] = perm.department
                     perm.used = True
                     perm.save()
