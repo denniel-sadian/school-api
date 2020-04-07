@@ -7,21 +7,33 @@ from .models import ProfileUserCreationInvitation
 from .models import ROLES
 
 
-class UpdateAccountSerializer(serializers.Serializer):
+class UserProfileSerializer(serializers.Serializer):
+    """
+    This is the serializer that is used to create both
+    user and profile objects.
+    """
+    code = serializers.CharField(required=False)
     username = serializers.CharField()
     first_name = serializers.CharField()
     last_name = serializers.CharField()
     email = serializers.EmailField()
+    password = serializers.CharField()
+    password1 = serializers.CharField()
+    role = serializers.ChoiceField(ROLES)
     id_number = serializers.CharField()
     department = serializers.PrimaryKeyRelatedField(queryset=Department.objects.all())
     photo = serializers.ImageField()
 
 
-class UserProfileSerializer(UpdateAccountSerializer):
-    code = serializers.CharField(required=False)
-    password = serializers.CharField()
-    password1 = serializers.CharField()
-    role = serializers.ChoiceField(ROLES)
+class UpdateAccountSerializer(serializers.Serializer):
+    username = serializers.CharField(required=False)
+    first_name = serializers.CharField(required=False)
+    last_name = serializers.CharField(required=False)
+    email = serializers.EmailField(required=False)
+    id_number = serializers.CharField(required=False)
+    department = serializers.PrimaryKeyRelatedField(
+        queryset=Department.objects.all(), required=False)
+    photo = serializers.ImageField(required=False)
 
 
 class UserSerializer(serializers.ModelSerializer):
