@@ -92,6 +92,35 @@ class ProfileView(GenericAPIView):
         return Response(status=status.HTTP_200_OK)
 
 
+class ChangePasswordView(UpdateAPIView):
+    """
+    View for changing password.
+    """
+    serializer_class = PasswordSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def get_object(self):
+        return self.request.user
+    
+    def update(self, request):
+        """Update the password."""
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = self.get_object()
+        
+        auth = authenticate(username=user.username,
+                            password=serializer.data['password'])
+        if auth is None:
+            return Response({'detail': 'Wrong password.'},
+                            status=status.HTTP_400_BAD_REQUEST)
+        
+        user.set_password(serializer.data['password2'])
+        user.save()
+        
+        return Response({'detail': 'Password has been changed.'},
+                        status=status.HTTP_200_OK)
+
+
 class CreateUserProfileView(GenericAPIView):
     serializer_class = UserProfileSerializer
     permission_classes = (IsAdminOrInvited,)
