@@ -27,3 +27,4 @@ class ProfileUserCreationInvitation(models.Model):
     last_name = models.CharField(max_length=50)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     code = models.CharField(max_length=50)
+    used = models.BooleanField()
