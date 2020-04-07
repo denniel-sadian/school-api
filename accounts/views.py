@@ -5,6 +5,7 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 
 from information.models import Department
@@ -51,6 +52,16 @@ class LoginView(GenericAPIView):
         else:
             return Response({"error": "Wrong Credentials"},
                             status=status.HTTP_400_BAD_REQUEST)
+
+
+class ProfileView(GenericAPIView):
+    """
+    View for retrieving and updating user instance.
+    """
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        return request.user
 
 
 class CreateUserEmployeeView(GenericAPIView):
