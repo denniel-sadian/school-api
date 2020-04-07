@@ -76,17 +76,19 @@ class ProfileView(GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.data
-        request.user.save(first_name=data['first_name'],
-                          last_name=data['last_name'],
-                          email=data['email'],
-                          username = data['username'])
+        user = request.user
+        user.first_name = data['first_name']
+        user.last_name = data['last_name']
+        user.username = data['username']
+        user.email = data['email']
+        user.save()
         if Profile.objects.filter(user=request.user).exists():
-            profile = Profile.objects.get(user=request.user)
-            profile.save(id_number=data['id_number'],
-                         department=Department.objects.get(id=data['department']),
-                         role=data['role'],
-                         photo=request.FILES['photo'])
-        return Response(data, status=status.HTTP_200_OK)
+            profile = Profile.objects.get(user=user)
+            profile.id_number = data['id_number']
+            profile.department = Department.objects.get(name=data['department'])
+            profile.photo = request.FILES['photo']
+            profile.save()
+        return Response(status=status.HTTP_200_OK)
 
 
 class CreateUserProfileView(GenericAPIView):
