@@ -10,11 +10,11 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 
 from information.models import Department
-from .serializers import UserEmployeeSerializer
-from .serializers import EmployeeSerializer
+from .serializers import UserProfileSerializer
+from .serializers import ProfileSerializer
 from .serializers import UserSerializer
 from .serializers import LoginSerializer
-from .models import Employee
+from .models import Profile
 
 
 @api_view(['GET'])
@@ -60,17 +60,17 @@ class ProfileView(GenericAPIView):
     def get(self, request):
         user = UserSerializer(request.user)
         profile = None
-        if Employee.objects.filter(user=request.user).exists():
-            profile = EmployeeSerializer(request.user.employee)
+        if Profile.objects.filter(user=request.user).exists():
+            profile = ProfileSerializer(request.user.profile)
         else:
-            profile = Employee.objects.create(user=request.user)
-            profile = EmployeeSerializer(profile)
+            profile = Profile.objects.create(user=request.user)
+            profile = ProfileSerializer(profile)
         data = {'user': user.data, 'profile': profile.data}
         return Response(data, status=status.HTTP_200_OK)
 
 
-class CreateUserEmployeeView(GenericAPIView):
-    serializer_class = UserEmployeeSerializer
+class CreateUserProfileView(GenericAPIView):
+    serializer_class = UserProfileSerializer
 
     def post(self, request):
         serializer = self.get_serializer(data=request.data)
@@ -81,10 +81,10 @@ class CreateUserEmployeeView(GenericAPIView):
                            email=data['email'],
                            username=data['username'],
                            password=data['password'])
-        employee = Employee(user=user,
+        profile = Profile(user=user,
                             id_number=data['id_number'],
                             department=Department.objects.get(id=data['department']),
                             role=data['role'],
                             photo=request.FILES['photo'])
-        employee.save()
+        profile.save()
         return Response(data, status=status.HTTP_201_CREATED)

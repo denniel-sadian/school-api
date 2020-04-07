@@ -3,13 +3,13 @@ from django.contrib import admin
 from . import models
 
 
-class EmployeeAdmin(admin.ModelAdmin):
+class ProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'id_number', 'department', 'role', 'photo')
 
 
-class EmployeeUserCreationInvitationAdmin(admin.ModelAdmin):
+class ProfileUserCreationInvitationAdmin(admin.ModelAdmin):
     list_display = ('date', 'role', 'first_name', 'last_name', 'department')
 
 
-admin.site.register(models.Employee, EmployeeAdmin)
-admin.site.register(models.EmployeeUserCreationInvitation, EmployeeUserCreationInvitationAdmin)
+admin.site.register(models.Profile, ProfileAdmin)
+admin.site.register(models.ProfileUserCreationInvitation, ProfileUserCreationInvitationAdmin)

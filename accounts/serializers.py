@@ -2,14 +2,14 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 
 from information.models import Department
-from .models import Employee
+from .models import Profile
 from .models import ROLES
 
 
-class UserEmployeeSerializer(serializers.Serializer):
+class UserProfileSerializer(serializers.Serializer):
     """
     This is the serializer that is used to create both
-    user and employee objects.
+    user and profile objects.
     """
     username = serializers.CharField()
     first_name = serializers.CharField()
@@ -39,10 +39,10 @@ class UserSerializer(serializers.ModelSerializer):
         }
 
 
-class EmployeeSerializer(serializers.ModelSerializer):
+class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Employee
+        model = Profile
         fields = '__all__'
 
 

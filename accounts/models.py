@@ -9,7 +9,7 @@ ROLES = (
     )
 
 
-class Employee(models.Model):
+class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     id_number = models.CharField(max_length=255, null=True)
     department = models.ForeignKey(Department, on_delete=models.CASCADE, null=True)
@@ -20,7 +20,7 @@ class Employee(models.Model):
         return f'{self.user.first_name} {self.user.last_name}'
 
 
-class EmployeeUserCreationInvitation(models.Model):
+class ProfileUserCreationInvitation(models.Model):
     date = models.DateField(auto_now_add=True)
     role = models.CharField(max_length=7, choices=ROLES)
     first_name = models.CharField(max_length=50)

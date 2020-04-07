@@ -1,6 +1,6 @@
 from django.db import models
 
-from accounts.models import Employee
+from accounts.models import Profile
 from information.models import Student
 from information.models import Subject
 from information.models import Section
@@ -9,7 +9,7 @@ from information.models import Department
 
 class GradingSheet(models.Model):
     date = models.DateField(auto_now_add=True)
-    teacher = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    teacher = models.ForeignKey(Profile, on_delete=models.CASCADE)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
