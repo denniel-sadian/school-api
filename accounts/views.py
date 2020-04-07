@@ -107,12 +107,11 @@ class CreateUserProfileView(GenericAPIView):
         if data['role'] == 'admin':
             user.is_staff = True
             user.save()
-        profile = Profile(user=user,
-                          id_number=data['id_number'],
-                          department=Department.objects.get(id=data['department']),
-                          role=data['role'],
-                          photo=request.FILES['photo'])
-        profile.save()
+        Profile.objects.create(user=user,
+                               id_number=data['id_number'],
+                               department=Department.objects.get(name=data['department']),
+                               role=data['role'],
+                               photo=request.FILES['photo'])
         return Response(data, status=status.HTTP_201_CREATED)
 
 
