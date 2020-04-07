@@ -14,5 +14,12 @@ class IsAdminOrInvited(BasePermission):
         second = request.user and request.user.is_staff
         if 'code' in request.data and not second:
             code = request.data['code']
-            return ProfileUserCreationInvitation.objects.filter(code=code).exists()
+            there_is = ProfileUserCreationInvitation.objects.filter(code=code).exists()
+            if there_is:
+                p = ProfileUserCreationInvitation.objects.get(code=code)
+                if p.used:
+                    return False
+                p.used = True
+                p.save()
+            return there_is
         return bool(first or second)
