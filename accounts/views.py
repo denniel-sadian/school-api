@@ -58,6 +58,7 @@ class ProfileView(GenericAPIView):
     """
     View for retrieving and updating user instance.
     """
+    serializer_class = UserProfileSerializer
 
     def get(self, request):
         user = UserSerializer(request.user)
@@ -69,11 +70,27 @@ class ProfileView(GenericAPIView):
             profile = ProfileSerializer(profile)
         data = {'user': user.data, 'profile': profile.data}
         return Response(data, status=status.HTTP_200_OK)
+    
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.data
+        request.user.save(first_name = data['first_name'],
+                          last_name=data['last_name'],
+                          email=data['email'],
+                          username = data['username'])
+        if Profile.objects.filter(user=request.user).exists():
+            profile = Profile.objects.get(user=request.user)
+            profile.save(id_number=data['id_number'],
+                         department=Department.objects.get(id=data['department']),
+                         role=data['role'],
+                         photo=request.FILES['photo'])
+        return Response(data, status=status.HTTP_200_OK)
 
 
 class CreateUserProfileView(GenericAPIView):
     serializer_class = UserProfileSerializer
-    permission_classes = (IsAdminUser,)
+    permission_classes = (IsAdminOrInvited,)
 
     def post(self, request):
         serializer = self.get_serializer(data=request.data)
