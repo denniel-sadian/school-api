@@ -11,10 +11,10 @@ ROLES = (
 
 class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    id_number = models.CharField(max_length=255, blank=True)
-    department = models.ForeignKey(Department, on_delete=models.CASCADE, blank=True)
-    role = models.CharField(max_length=7, choices=ROLES, blank=True)
-    photo = models.ImageField(blank=True)
+    id_number = models.CharField(max_length=255, null=True)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, null=True)
+    role = models.CharField(max_length=7, choices=ROLES, null=True)
+    photo = models.ImageField(null=True)
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name}'
