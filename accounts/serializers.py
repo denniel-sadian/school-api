@@ -3,6 +3,7 @@ from rest_framework import serializers
 
 from information.models import Department
 from .models import Profile
+from .models import ProfileUserCreationInvitation
 from .models import ROLES
 
 
@@ -38,6 +39,13 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'password': {'write_only': True, 'required': False}
         }
+
+
+class ProfileUserCreationInvitationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ProfileUserCreationInvitation
+        fields = '__all__'
 
 
 class ProfileSerializer(serializers.ModelSerializer):
