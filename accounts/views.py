@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth import logout, login
 from rest_framework.generics import GenericAPIView
+from rest_framework.generics import UpdateAPIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -15,6 +16,7 @@ from .serializers import UserSerializer
 from .serializers import LoginSerializer
 from .serializers import ProfileUserCreationPermissionSerializer
 from .serializers import UpdateAccountSerializer
+from .serializers import PasswordSerializer
 from .permissions import IsAdminOrInvited
 from .permissions import IsOwnerOrReadOnly
 from .models import Profile
