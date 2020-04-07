@@ -99,24 +99,30 @@ class CreateUserProfileView(GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.data
-        user = User.objects.create(first_name=data['first_name'],
-                                   last_name=data['last_name'],
-                                   email=data['email'],
-                                   username=data['username'],
-                                   password=data['password'])
+        if data['password'] != data['password1']:
+            return Response({'message': 'Passwords did not match.'},
+                            status=status.HTTP_400_BAD_REQUEST)
         if 'code' in data:
-            if ProfileUserCreationPermission.objects.all.filter(code=data['code']).exists():
+            if ProfileUserCreationPermission.objects.filter(code=data['code']).exists():
                 perm = ProfileUserCreationPermission.objects.get(code=data['code'])
                 if perm.used:
                     Response({
                         'message': 'The permission has been used already.'
                     }, status=status.HTTP_400_BAD_REQUEST)
                 else:
-                    data['fist_name'] = perm.first_name
+                    data['first_name'] = perm.first_name
                     data['last_name'] = perm.last_name
                     data['role'] = perm.role
+                    print(perm.department)
+                    data['department'] = perm.department
                     perm.used = True
-        if not 'code' in data and data['role'] == 'admin':
+                    perm.save()
+        user = User.objects.create(first_name=data['first_name'],
+                                   last_name=data['last_name'],
+                                   email=data['email'],
+                                   username=data['username'],
+                                   password=data['password'])
+        if data['role'] == 'admin':
             user.is_staff = True
             user.save()
         Profile.objects.create(user=user,
@@ -125,7 +131,7 @@ class CreateUserProfileView(GenericAPIView):
                                role=data['role'],
                                photo=request.FILES['photo'])
         login(request, user)
-        return Response(data, status=status.HTTP_201_CREATED)
+        return Response({'message': 'Registered'}, status=status.HTTP_201_CREATED)
 
 
 class AccountCreationPermissionViewSet(ModelViewSet):
