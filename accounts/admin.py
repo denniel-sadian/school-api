@@ -8,7 +8,7 @@ class ProfileAdmin(admin.ModelAdmin):
 
 
 class ProfileUserCreationInvitationAdmin(admin.ModelAdmin):
-    list_display = ('date', 'role', 'first_name', 'last_name', 'department')
+    list_display = ('date', 'role', 'first_name', 'last_name', 'department', 'from_who')
 
 
 admin.site.register(models.Profile, ProfileAdmin)
