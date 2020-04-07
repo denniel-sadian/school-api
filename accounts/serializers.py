@@ -79,4 +79,3 @@ class PasswordSerializer(serializers.Serializer):
         if data['password1'] != data['password2']:
             raise serializers.ValidationError('The passwords did not match.')
         return data
-
