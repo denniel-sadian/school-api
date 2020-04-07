@@ -16,6 +16,7 @@ from .serializers import LoginSerializer
 from .serializers import ProfileUserCreationPermissionSerializer
 from .serializers import UpdateAccountSerializer
 from .permissions import IsAdminOrInvited
+from .permissions import IsOwnerOrReadOnly
 from .models import Profile
 from .models import ProfileUserCreationPermission
 
@@ -137,7 +138,7 @@ class CreateUserProfileView(GenericAPIView):
 class AccountCreationPermissionViewSet(ModelViewSet):
     queryset = ProfileUserCreationPermission.objects.all()
     serializer_class = ProfileUserCreationPermissionSerializer
-    permission_classes = (IsAdminUser,)
+    permission_classes = (IsOwnerOrReadOnly,)
 
     def perform_create(self, serializer):
         serializer.save(from_who=self.request.user)
