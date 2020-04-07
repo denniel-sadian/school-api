@@ -26,14 +26,13 @@ class UserProfileSerializer(serializers.Serializer):
 
 
 class UpdateAccountSerializer(serializers.Serializer):
-    username = serializers.CharField(required=False)
-    first_name = serializers.CharField(required=False)
-    last_name = serializers.CharField(required=False)
-    email = serializers.EmailField(required=False)
-    id_number = serializers.CharField(required=False)
-    department = serializers.PrimaryKeyRelatedField(
-        queryset=Department.objects.all(), required=False)
-    photo = serializers.ImageField(required=False)
+    username = serializers.CharField()
+    first_name = serializers.CharField()
+    last_name = serializers.CharField()
+    email = serializers.EmailField()
+    id_number = serializers.CharField()
+    department = serializers.PrimaryKeyRelatedField(queryset=Department.objects.all())
+    photo = serializers.ImageField()
 
 
 class UserSerializer(serializers.ModelSerializer):

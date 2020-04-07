@@ -76,7 +76,7 @@ class ProfileView(GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.data
-        request.user.save(first_name = data['first_name'],
+        request.user.save(first_name=data['first_name'],
                           last_name=data['last_name'],
                           email=data['email'],
                           username = data['username'])
