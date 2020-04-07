@@ -82,6 +82,9 @@ class CreateUserProfileView(GenericAPIView):
                                    email=data['email'],
                                    username=data['username'],
                                    password=data['password'])
+        if data['role'] == 'admin':
+            user.is_staff = True
+            user.save()
         profile = Profile(user=user,
                           id_number=data['id_number'],
                           department=Department.objects.get(id=data['department']),
