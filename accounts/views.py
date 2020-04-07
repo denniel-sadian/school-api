@@ -57,7 +57,10 @@ class ProfileView(GenericAPIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
-        return request.user
+        user = UserSerializer(request.user)
+        profile = EmployeeSerializer(request.user.employee)
+        data = {'user': user.data, 'profile': profile.data}
+        return Response(data, status=status.HTTP_200_OK)
 
 
 class CreateUserEmployeeView(GenericAPIView):
