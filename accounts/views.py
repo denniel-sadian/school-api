@@ -104,7 +104,19 @@ class CreateUserProfileView(GenericAPIView):
                                    email=data['email'],
                                    username=data['username'],
                                    password=data['password'])
-        if data['role'] == 'admin':
+        if 'code' in data:
+            if ProfileUserCreationPermission.objects.all.filter(code=data['code']).exists():
+                perm = ProfileUserCreationPermission.objects.get(code=data['code'])
+                if perm.used:
+                    Response({
+                        'message': 'The permission has been used already.'
+                    }, status=status.HTTP_400_BAD_REQUEST)
+                else:
+                    data['fist_name'] = perm.first_name
+                    data['last_name'] = perm.last_name
+                    data['role'] = perm.role
+                    perm.used = True
+        if not 'code' in data and data['role'] == 'admin':
             user.is_staff = True
             user.save()
         Profile.objects.create(user=user,
