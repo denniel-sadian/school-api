@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
-from django.db.models import ImageField
+from django.contrib.auth import authenticate
+from django.contrib.auth import logout, login
 from rest_framework.generics import GenericAPIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
