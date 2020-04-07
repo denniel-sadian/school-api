@@ -1,25 +1,30 @@
 from django.db import models
 
 
-class Department(models.Model):
-    name = models.CharField(max_length=50)
+class ModelWithNameOnly(models.Model):
+    name = models.CharField(max_length=50, primary_key=True)
+
+    class Meta:
+        abstract = True
 
     def __str__(self):
         return self.name
+    
+    def save(self, **kwargs):
+        self.name = self.name.upper()
+        self.save(**kwargs)
 
 
-class Section(models.Model):
-    name = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.name
+class Department(ModelWithNameOnly):
+    pass
 
 
-class Subject(models.Model):
-    name = models.CharField(max_length=50)
+class Section(ModelWithNameOnly):
+    pass
 
-    def __str__(self):
-        return self.name
+
+class Subject(ModelWithNameOnly):
+    pass
 
 
 class GuardianViewingPermission(models.Model):
@@ -53,7 +58,7 @@ class Student(models.Model):
 
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    id_number = models.CharField(max_length=100)
+    id_number = models.CharField(max_length=100, primary_key=True)
     cp_number = models.CharField(max_length=12)
     guardian_cp_number = models.CharField(max_length=12)
     address = models.CharField(max_length=255)
