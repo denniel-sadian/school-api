@@ -107,7 +107,7 @@ class CreateUserProfileView(GenericAPIView):
             if ProfileUserCreationPermission.objects.filter(code=data['code']).exists():
                 perm = ProfileUserCreationPermission.objects.get(code=data['code'])
                 if perm.used:
-                    Response({
+                    return Response({
                         'message': 'The permission has been used already.'
                     }, status=status.HTTP_400_BAD_REQUEST)
                 else:
