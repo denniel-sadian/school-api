@@ -39,7 +39,6 @@ class LoginView(GenericAPIView):
     permission_classes = ()
 
     def post(self, request):
-
         # Do the serializer
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -68,7 +67,6 @@ class ProfileView(GenericAPIView):
     serializer_class = UpdateAccountSerializer
 
     def get(self, request):
-
         # Serialize the user
         user = UserSerializer(request.user)
         
@@ -87,7 +85,6 @@ class ProfileView(GenericAPIView):
         return Response(data, status=status.HTTP_200_OK)
     
     def post(self, request):
-
         # Do the serializer
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -147,7 +144,6 @@ class CreateUserProfileView(GenericAPIView):
     permission_classes = (IsAdminOrInvited,)
 
     def post(self, request):
-        
         # Do the serializer
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
