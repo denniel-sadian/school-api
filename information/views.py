@@ -10,31 +10,31 @@ from .serializers import SectionSerializer
 from .serializers import SubjectSerializer
 from .serializers import GuardianViewingPermissionSerializer
 from .serializers import StudentSerializer
-from .permissions import IsAdminOrReadOnly
+from .permissions import IsAuthenticatedOrAdmin
 
 
 class DepartmentViewSet(ModelViewSet):
     queryset = Department.objects.all()
     serializer_class = DepartmentSerializer
-    permission_classes = (IsAdminOrReadOnly,)
+    permission_classes = (IsAuthenticatedOrAdmin,)
 
 
 class SectionViewSet(ModelViewSet):
     queryset = Section.objects.all()
     serializer_class = SectionSerializer
-    permission_classes = (IsAdminOrReadOnly,)
+    permission_classes = (IsAuthenticatedOrAdmin,)
 
 
 class SubjectViewSet(ModelViewSet):
     queryset = Subject.objects.all()
     serializer_class = SubjectSerializer
-    permission_classes = (IsAdminOrReadOnly,)
+    permission_classes = (IsAuthenticatedOrAdmin,)
 
 
 class GuardianViewingPermissionViewSet(ModelViewSet):
     queryset = GuardianViewingPermission.objects.all()
     serializer_class = GuardianViewingPermissionSerializer
-    permission_classes = (IsAdminOrReadOnly,)
+    permission_classes = (IsAuthenticatedOrAdmin,)
 
 
 class StudentViewSet(ModelViewSet):
