@@ -8,7 +8,7 @@ class ProfileAdmin(admin.ModelAdmin):
 
 
 class ProfileUserCreationPermissionAdmin(admin.ModelAdmin):
-    list_display = ('date', 'role', 'first_name', 'last_name', 'department', 'from_who', 'used')
+    list_display = ('date', 'role', 'first_name', 'last_name', 'department', 'used')
 
 
 admin.site.register(models.Profile, ProfileAdmin)
