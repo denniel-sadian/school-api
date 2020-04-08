@@ -180,18 +180,18 @@ class CreateUserProfileView(GenericAPIView):
         user = User.objects.create(first_name=data['first_name'],
                                    last_name=data['last_name'],
                                    email=data['email'],
-                                   username=data['username'],
-                                   password=data['password'])
+                                   username=data['username'])
+        user.set_password(data['password'])
         
         # Make the user as a staff if it's an admin
         if data['role'] == 'admin':
             user.is_staff = True
-            user.save()
+        user.save()
         
         # Create the profile for the user
         Profile.objects.create(user=user,
                                id_number=data['id_number'],
-                               department=Department.objects.get(name=data['department']),
+                               department=data['department'],
                                role=data['role'],
                                photo=request.FILES['photo'])
         
