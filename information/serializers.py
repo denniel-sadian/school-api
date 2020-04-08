@@ -14,11 +14,19 @@ class DepartmentSerializer(serializers.HyperlinkedModelSerializer):
         fields = '__all__'
 
 
+class StudentSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = Student
+        fields = '__all__'
+
+
 class SectionSerializer(serializers.HyperlinkedModelSerializer):
+    students = StudentSerializer(many=True, read_only=True)
 
     class Meta:
         model = Section
-        fields = '__all__'
+        fields = ('url', 'name', 'students')
 
 
 class SubjectSerializer(serializers.HyperlinkedModelSerializer):
@@ -29,10 +37,11 @@ class SubjectSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class DepartmentSerializer(serializers.HyperlinkedModelSerializer):
+    sections = SectionSerializer(many=True, read_only=True)
 
     class Meta:
         model = Department
-        fields = '__all__'
+        fields = ('url', 'name', 'sections')
 
 
 class GuardianViewingPermissionSerializer(serializers.HyperlinkedModelSerializer):
@@ -40,10 +49,3 @@ class GuardianViewingPermissionSerializer(serializers.HyperlinkedModelSerializer
     class Meta:
         model = GuardianViewingPermission
         fields = ('url', 'code', 'section', 'date')
-
-
-class StudentSerializer(serializers.HyperlinkedModelSerializer):
-
-    class Meta:
-        model = Student
-        fields = '__all__'
