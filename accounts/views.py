@@ -205,6 +205,3 @@ class AccountCreationPermissionViewSet(ModelViewSet):
     queryset = ProfileUserCreationPermission.objects.all()
     serializer_class = ProfileUserCreationPermissionSerializer
     permission_classes = (IsOwnerOrReadOnly,)
-
-    def perform_create(self, serializer):
-        serializer.save(from_who=self.request.user)
