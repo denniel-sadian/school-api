@@ -9,7 +9,12 @@ ROLES = (
 
 
 class Profile(models.Model):
+    GENDERS = (
+        ('m', 'Male'),
+        ('f', 'Female')
+    )
     user = models.OneToOneField('auth.user', on_delete=models.CASCADE)
+    gender = models.CharField(max_length=1, choices=GENDERS)
     id_number = models.CharField(max_length=255, null=True, unique=True)
     department = models.ForeignKey(Department, on_delete=models.CASCADE, null=True)
     role = models.CharField(max_length=7, choices=ROLES, null=True)
