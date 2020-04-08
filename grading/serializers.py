@@ -29,7 +29,7 @@ class WorkSerializer(serializers.HyperlinkedModelSerializer):
 
 class GradingSheetSerializer(serializers.HyperlinkedModelSerializer):
     works = WorkSerializer(many=True, read_only=True)
-    records = RecordsSerializer(many=True, read_only=True)
+    records = RecordSerializer(many=True, read_only=True)
 
     class Meta:
         model = GradingSheet
