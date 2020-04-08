@@ -7,28 +7,28 @@ from .models import GuardianViewingPermission
 from .models import Student
 
 
-class DepartmentSerializer(serializers.HyperLinkedModelSerializer):
+class DepartmentSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Department
         feilds = '__all__'
 
 
-class SectionSerializer(serializers.HyperLinkedModelSerializer):
+class SectionSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Section
         feilds = '__all__'
 
 
-class SubjectSerializer(serializers.HyperLinkedModelSerializer):
+class SubjectSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Subject
         feilds = '__all__'
 
 
-class DepartmentSerializer(serializers.HyperLinkedModelSerializer):
+class DepartmentSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Department
