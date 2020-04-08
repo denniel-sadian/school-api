@@ -35,7 +35,7 @@ def log_out(request):
 class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = IsAuthenticatedOrReadOnly
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
 
 class LoginView(GenericAPIView):
