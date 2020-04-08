@@ -117,6 +117,7 @@ class ProfileView(GenericAPIView):
             profile = Profile.objects.get(user=user)
             profile.id_number = data['id_number']
             profile.department = Department.objects.get(id=data['department'])
+            profile.gender = data['gender']
             profile.photo = request.FILES['photo']
             profile.save()
         
@@ -185,6 +186,7 @@ class CreateUserProfileView(GenericAPIView):
                 else:
                     data['first_name'] = perm.first_name
                     data['last_name'] = perm.last_name
+                    data['gender'] = perm.gender
                     data['role'] = perm.role
                     data['department'] = perm.department
                     perm.used = True
@@ -205,6 +207,7 @@ class CreateUserProfileView(GenericAPIView):
         # Create the profile for the user
         Profile.objects.create(user=user,
                                id_number=data['id_number'],
+                               gender=data['gender']
                                department=data['department'],
                                role=data['role'],
                                photo=request.FILES['photo'])
