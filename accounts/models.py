@@ -2,13 +2,12 @@ from django.db import models
 
 from information.models import Department
 
-ROLES = (
+
+class Profile(models.Model):
+    ROLES = (
         ('admin', 'Admin'),
         ('teacher', 'Teacher')
     )
-
-
-class Profile(models.Model):
     GENDERS = (
         ('m', 'Male'),
         ('f', 'Female')
@@ -31,6 +30,7 @@ class ProfileUserCreationPermission(models.Model):
     role = models.CharField(max_length=7, choices=ROLES)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
+    gender = models.CharField(max_length=1, choices=Profile.GENDERS)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     code = models.CharField(max_length=50, unique=True)
     used = models.BooleanField(default=False)
