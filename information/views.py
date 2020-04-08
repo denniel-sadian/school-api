@@ -28,7 +28,6 @@ class SectionViewSet(ModelViewSet):
 class SubjectViewSet(ModelViewSet):
     queryset = Subject.objects.all()
     serializer_class = SubjectSerializer
-    permission_classes = (IsAuthenticatedOrAdmin,)
 
 
 class GuardianViewingPermissionViewSet(ModelViewSet):
