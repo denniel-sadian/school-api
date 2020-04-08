@@ -11,7 +11,7 @@ ROLES = (
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    id_number = models.CharField(max_length=255, null=True)
+    id_number = models.CharField(max_length=255, null=True, unique=True)
     department = models.ForeignKey(Department, on_delete=models.CASCADE, null=True)
     role = models.CharField(max_length=7, choices=ROLES, null=True)
     photo = models.ImageField(null=True)
