@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class ModelWithNameOnly(models.Model):
@@ -28,6 +29,7 @@ class Subject(ModelWithNameOnly):
 
 
 class GuardianViewingPermission(models.Model):
+    from_who = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
     code = models.CharField(max_length=100)
