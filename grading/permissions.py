@@ -21,5 +21,5 @@ class IsTeacherAndOwnerOrReadOnly(BasePermission):
             return True
         # Allow only the owners
         if type(obj) in (Work, Record):
-            return obj.gsheet.teacher == obj.teacher
+            return obj.gsheet.teacher == request.user
         return request.user == obj.teacher
