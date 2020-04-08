@@ -39,7 +39,7 @@ class GuardianViewingPermissionSerializer(serializers.HyperlinkedModelSerializer
 
     class Meta:
         model = GuardianViewingPermission
-        fields = '__all__'
+        fields = ('url', 'code', 'section')
 
 
 class StudentSerializer(serializers.HyperlinkedModelSerializer):
