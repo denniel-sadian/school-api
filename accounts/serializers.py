@@ -4,7 +4,6 @@ from rest_framework import serializers
 from information.models import Department
 from .models import Profile
 from .models import ProfileUserCreationPermission
-from .models import ROLES
 
 
 class UserProfileSerializer(serializers.Serializer):
@@ -19,7 +18,7 @@ class UserProfileSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField()
     password1 = serializers.CharField()
-    role = serializers.ChoiceField(ROLES, required=False)
+    role = serializers.ChoiceField(Profile.ROLES, required=False)
     gender = serializers.ChoiceField(Profile.GENDERS, required=False)
     id_number = serializers.CharField(required=False)
     department = serializers.PrimaryKeyRelatedField(queryset=Department.objects.all())
