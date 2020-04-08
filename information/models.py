@@ -61,7 +61,7 @@ class Student(models.Model):
 
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    id_number = models.CharField(max_length=100, primary_key=True)
+    id_number = models.CharField(max_length=100, unique=True)
     cp_number = models.CharField(max_length=12)
     guardian_cp_number = models.CharField(max_length=12)
     address = models.CharField(max_length=255)
