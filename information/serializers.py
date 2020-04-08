@@ -3,6 +3,8 @@ from rest_framework import serializers
 from .models import Department
 from .models import Section
 from .models import Subject
+from .models import GuardianViewingPermission
+from .models import Student
 
 
 class DepartmentSerializer(serializers.HyperLinkedModelSerializer):
@@ -31,3 +33,17 @@ class DepartmentSerializer(serializers.HyperLinkedModelSerializer):
     class Meta:
         model = Department
         feilds = '__all__'
+
+
+class GuardianViewingPermissionSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = GuardianViewingPermission
+        fields = '__all__'
+
+
+class StudentSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = Student
+        fields = '__all__'
