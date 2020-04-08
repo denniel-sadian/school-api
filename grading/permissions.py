@@ -10,7 +10,7 @@ class IsTeacherAndOwnerOrReadOnly(BasePermission):
     def has_permission(self, request, view):
         # Allow if read-only and authenticated or a teacher
         authenticated = request.user.is_authenticated
-        is_teacher = not request.user.is_staff
+        is_teacher = authenticated and not request.user.is_staff
         if request.method in SAFE_METHODS and authenticated or is_teacher:
             return True
         return False
