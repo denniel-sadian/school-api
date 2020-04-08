@@ -9,7 +9,7 @@ class RecordSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Record
-        fields = '__all__'
+        fields = ('url', 'id', 'date', 'gsheet', 'student', 'work', 'score')
         extra_kwargs = {
             'date': {'read_only': True}
         }
@@ -20,8 +20,8 @@ class WorkSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Work
-        fields = ('url', 'name', 'gsheet', 'work_type', 'highest_score', 'records',
-                  'date')
+        fields = ('url', 'id', 'name', 'gsheet', 'work_type',
+                  'date', 'records', 'highest_score')
         extra_kwargs = {
             'date': {'read_only': True},
         }
@@ -33,7 +33,7 @@ class GradingSheetSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = GradingSheet
-        fields = ('url', 'teacher', 'subject', 'department',
+        fields = ('url', 'id', 'teacher', 'subject', 'department',
                   'section', 'date', 'publish', 'works', 'records')
         extra_kwargs = {
             'date': {'read_only': True},
