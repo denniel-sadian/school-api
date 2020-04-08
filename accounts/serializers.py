@@ -51,11 +51,12 @@ class UserSerializer(serializers.ModelSerializer):
         }
 
 
-class ProfileUserCreationPermissionSerializer(serializers.ModelSerializer):
+class ProfileUserCreationPermissionSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = ProfileUserCreationPermission
         fields = '__all__'
+        depth = 2
         extra_kwargs = {
             'code': {'write_only': True, 'required': False},
             'used': {'read_only': True},
