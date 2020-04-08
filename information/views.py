@@ -35,6 +35,9 @@ class GuardianViewingPermissionViewSet(ModelViewSet):
     serializer_class = GuardianViewingPermissionSerializer
     permission_classes = (IsAuthenticatedOrAdmin,)
 
+    def perform_create(self, serializer):
+        serializer.save(from_who=self.request.user)
+
 
 class StudentViewSet(ModelViewSet):
     queryset = Student.objects.all()
