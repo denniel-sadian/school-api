@@ -50,11 +50,18 @@ class LoginView(GenericAPIView):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return Response({
+                data = {
                     "username": user.username,
                     "first_name": user.first_name,
                     "last_name": user.last_name,
-                }, status=status.HTTP_200_OK)
+                }
+                if Profile.objects.filter(user=request.user).exists():
+                    profile = ProfileSerializer(request.user.profile).data
+                    data['id_number'] = profile['id_number']
+                    data['role'] = profile['role']
+                    data['photo'] = profile['photo']
+                    data['department'] = profile['department']
+                return Response(data, status=status.HTTP_200_OK)
         else:
             return Response({"error": "Wrong Credentials"},
                             status=status.HTTP_400_BAD_REQUEST)
