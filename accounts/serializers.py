@@ -57,7 +57,6 @@ class ProfileUserCreationPermissionSerializer(serializers.HyperlinkedModelSerial
         model = ProfileUserCreationPermission
         fields = '__all__'
         extra_kwargs = {
-            'code': {'write_only': True, 'required': False},
             'used': {'read_only': True},
             'from_who': {'read_only': True}
         }
