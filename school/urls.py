@@ -22,7 +22,8 @@ from django.views.static import serve
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls'))
+    path('accounts/', include('accounts.urls')),
+    path('information/', include('information.urls')),
 ]
 
 if settings.DEBUG:
