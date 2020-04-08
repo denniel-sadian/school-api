@@ -6,7 +6,6 @@ from rest_framework.generics import UpdateAPIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from rest_framework.permissions import IsAdminUser
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework import status
 
@@ -19,6 +18,7 @@ from .serializers import ProfileUserCreationPermissionSerializer
 from .serializers import UpdateAccountSerializer
 from .serializers import PasswordSerializer
 from .permissions import IsAdminOrInvited
+from .permissions import IsOwnerOrReadOnly
 from .models import Profile
 from .models import ProfileUserCreationPermission
 
@@ -218,7 +218,7 @@ class CreateUserProfileView(GenericAPIView):
 class AccountCreationPermissionViewSet(ModelViewSet):
     queryset = ProfileUserCreationPermission.objects.all()
     serializer_class = ProfileUserCreationPermissionSerializer
-    permission_classes = (IsAdminUser,)
+    permission_classes = (IsOwnerOrReadOnly,)
 
     def perform_create(self, serializer):
         serializer.save(from_who=self.request.user)
