@@ -21,7 +21,8 @@ class Department(ModelWithNameOnly):
 
 
 class Section(ModelWithNameOnly):
-    pass
+    department = models.ForeignKey(Department, on_delete=models.CASCADE,
+                                   related_name='sections')
 
 
 class Subject(ModelWithNameOnly):
