@@ -15,7 +15,8 @@ class GradingSheet(models.Model):
                                    related_name='grading_sheets')
     section = models.ForeignKey(Section, on_delete=models.CASCADE,
                                 related_name='grading_sheets')
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE,
+                                related_name='grading_sheets')
     publish = models.BooleanField(default=False)
 
     def __str__(self):
