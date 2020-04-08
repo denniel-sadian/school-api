@@ -20,7 +20,6 @@ class Profile(models.Model):
 
 
 class ProfileUserCreationPermission(models.Model):
-    from_who = models.ForeignKey('auth.user', on_delete=models.CASCADE, related_name='permissions')
     date = models.DateField(auto_now_add=True)
     role = models.CharField(max_length=7, choices=ROLES)
     first_name = models.CharField(max_length=50)
