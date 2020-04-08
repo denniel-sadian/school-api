@@ -102,7 +102,7 @@ class ProfileView(GenericAPIView):
         if Profile.objects.filter(user=request.user).exists():
             profile = Profile.objects.get(user=user)
             profile.id_number = data['id_number']
-            profile.department = Department.objects.get(name=data['department'])
+            profile.department = Department.objects.get(id=data['department'])
             profile.photo = request.FILES['photo']
             profile.save()
         
