@@ -7,6 +7,7 @@ router = DefaultRouter()
 router.register('departments', views.DepartmentViewSet)
 router.register('sections', views.SectionViewSet)
 router.register('subjects', views.SubjectViewSet)
+router.register('students', views.StudentViewSet)
 router.register('viewing-permissions', views.GuardianViewingPermissionViewSet)
 
 urlpatterns = [
