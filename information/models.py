@@ -61,9 +61,14 @@ class Student(models.Model):
         ('c3', 'Third Year College'),
         ('c4', 'Fourth Year College')
     )
+    GENDERS = (
+        ('m', 'Male'),
+        ('f', 'Female')
+    )
 
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
+    gender = models.CharField(max_length=1, choices=GENDERS)
     id_number = models.CharField(max_length=100, unique=True)
     cp_number = models.CharField(max_length=12)
     guardian_cp_number = models.CharField(max_length=12)
