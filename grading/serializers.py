@@ -21,9 +21,10 @@ class WorkSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Work
         fields = ('url', 'name', 'gsheet', 'work_type', 'highest_score', 'records',
-                  'date')
+                  'date', 'teacher')
         extra_kwargs = {
-            'date': {'read_only': True}
+            'date': {'read_only': True},
+            'teacher': {'read_only': True}
         }
 
 
