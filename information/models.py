@@ -71,7 +71,7 @@ class Student(models.Model):
     photo = models.ImageField(null=True)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     grade_level = models.CharField(max_length=2, choices=LEVELS)
-    section = models.ForeignKey(Section, on_delete=models.CASCADE)
+    section = models.ForeignKey(Section, on_delete=models.CASCADE, related_name='students')
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
