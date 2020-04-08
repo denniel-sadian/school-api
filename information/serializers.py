@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from grading.serializers import RecordSerializer
 from .models import Department
 from .models import Section
 from .models import Subject
@@ -15,10 +16,14 @@ class DepartmentSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class StudentSerializer(serializers.HyperlinkedModelSerializer):
+    records = RecordSerializer(many=True, read_only=True)
 
     class Meta:
         model = Student
-        fields = '__all__'
+        fields = ('url', 'first_name', 'last_name', 'gender',
+                  'id_number', 'cp_number', 'guardian_cp_number',
+                  'address', 'photo', 'department', 'grade_level',
+                  'section', 'records')
 
 
 class SectionSerializer(serializers.HyperlinkedModelSerializer):
