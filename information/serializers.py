@@ -11,28 +11,28 @@ class DepartmentSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Department
-        feilds = '__all__'
+        fields = '__all__'
 
 
 class SectionSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Section
-        feilds = '__all__'
+        fields = '__all__'
 
 
 class SubjectSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Subject
-        feilds = '__all__'
+        fields = '__all__'
 
 
 class DepartmentSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Department
-        feilds = '__all__'
+        fields = '__all__'
 
 
 class GuardianViewingPermissionSerializer(serializers.HyperlinkedModelSerializer):
