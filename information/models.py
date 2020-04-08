@@ -74,5 +74,7 @@ class Student(models.Model):
         return f'{self.first_name} {self.last_name}'
     
     def save(self, **kwargs):
-        self.name = self.name.upper()
+        self.first_name = self.first_name.upper()
+        self.last_name = self.last_name.upper()
+        self.address = self.address.upper()
         super().save(**kwargs)
