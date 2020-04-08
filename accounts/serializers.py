@@ -22,7 +22,7 @@ class UserProfileSerializer(serializers.Serializer):
     role = serializers.ChoiceField(ROLES, required=False)
     id_number = serializers.CharField(required=False)
     department = serializers.PrimaryKeyRelatedField(queryset=Department.objects.all())
-    photo = serializers.ImageField(required=False)
+    photo = serializers.ImageField()
 
 
 class UpdateAccountSerializer(serializers.Serializer):
