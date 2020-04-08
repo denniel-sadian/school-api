@@ -10,27 +10,21 @@ from .permissions import IsTeacherAndOwnerOrReadOnly
 
 
 class GradingSheetViewSet(ModelViewSet):
+    queryset = GradingSheet.objects.all()
     serializer_class = GradingSheetSerializer
     permission_classes = (IsTeacherAndOwnerOrReadOnly,)
-
-    def get_queryset(self):
-        return GradingSheet.objects.filter(teacher=self.request.user)
 
     def perform_create(self, serializer):
         serializer.save(teacher=self.request.user)
 
 
 class WorkViewSet(ModelViewSet):
+    queryset = Work.objects.all()
     serializer_class = WorkSerializer
     permission_classes = (IsTeacherAndOwnerOrReadOnly,)
-    
-    def get_queryset(self):
-        return Work.objects.filter(gsheet__teacher=self.request.user)
 
 
 class RecordViewSet(ModelViewSet):
+    queryset = Record.objects.all()
     serializer_class = RecordSerializer
     permission_classes = (IsTeacherAndOwnerOrReadOnly,)
-
-    def get_queryset(self):
-        return Record.objects.filter(gsheet__teacher=self.request.user)
