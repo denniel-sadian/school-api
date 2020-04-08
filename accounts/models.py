@@ -34,3 +34,8 @@ class ProfileUserCreationPermission(models.Model):
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     code = models.CharField(max_length=50, unique=True)
     used = models.BooleanField(default=False)
+
+    def save(self, **kwargs):
+        self.first_name = self.first_name.upper()
+        self.last_name = self.last_name.upper()
+        super().save(**kwargs)
