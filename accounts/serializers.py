@@ -12,17 +12,17 @@ class UserProfileSerializer(serializers.Serializer):
     This is the serializer that is used to create both
     user and profile objects.
     """
-    code = serializers.CharField(required=False)
+    code = serializers.CharField()
     username = serializers.CharField()
-    first_name = serializers.CharField()
-    last_name = serializers.CharField()
+    first_name = serializers.CharField(required=False)
+    last_name = serializers.CharField(required=False)
     email = serializers.EmailField()
     password = serializers.CharField()
     password1 = serializers.CharField()
-    role = serializers.ChoiceField(ROLES)
-    id_number = serializers.CharField()
+    role = serializers.ChoiceField(ROLES, required=False)
+    id_number = serializers.CharField(required=False)
     department = serializers.PrimaryKeyRelatedField(queryset=Department.objects.all())
-    photo = serializers.ImageField()
+    photo = serializers.ImageField(required=False)
 
 
 class UpdateAccountSerializer(serializers.Serializer):
