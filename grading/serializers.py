@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from accounts.serializers import UserSerializer
 from .models import GradingSheet
 from .models import Work
 from .models import Record
@@ -30,6 +31,7 @@ class WorkSerializer(serializers.HyperlinkedModelSerializer):
 class GradingSheetSerializer(serializers.HyperlinkedModelSerializer):
     works = WorkSerializer(many=True, read_only=True)
     records = RecordSerializer(many=True, read_only=True)
+    teacher = UserSerializer(read_only=True)
 
     class Meta:
         model = GradingSheet
