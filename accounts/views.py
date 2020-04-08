@@ -207,7 +207,7 @@ class CreateUserProfileView(GenericAPIView):
         # Create the profile for the user
         Profile.objects.create(user=user,
                                id_number=data['id_number'],
-                               gender=data['gender']
+                               gender=data['gender'],
                                department=data['department'],
                                role=data['role'],
                                photo=request.FILES['photo'])
