@@ -7,11 +7,8 @@ class IsAuthenticatedOrAdmin(BasePermission):
     This permission will allow viewing for authenticated users,
     but will leave the editing for the admins.
     """
-
-    def has_permission(self, request, view):
-        user = request.user
-        return bool(user.is_authenticated)
     
-    def has_object_permission(self, request, view, obj):
-        user = request.user
-        return bool(user.is_authenticated and user.is_staff)
+    def has_permission(self, request, view):
+        if request.method in SAFE_METHODS and request.user.is_authenticated:
+            return True
+        return bool(request.user and request.user.is_staff)
