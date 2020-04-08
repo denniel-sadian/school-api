@@ -16,3 +16,15 @@ class GradingSheetViewSet(ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(teacher=self.request.user)
+
+
+class WorkViewSet(ModelViewSet):
+    queryset = Work.objects.all()
+    serializer_class = WorkSerializer
+    permission_classes = (IsTeacherAndOwnerOrReadOnly,)
+
+
+class RecordViewSet(ModelViewSet):
+    queryset = Record.objects.all()
+    serializer_class = RecordSerializer
+    permission_classes = (IsTeacherAndOwnerOrReadOnly,)
