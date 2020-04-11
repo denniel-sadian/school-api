@@ -16,6 +16,7 @@ class UserProfileSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField()
     password1 = serializers.CharField()
+    id_number = serializers.CharField(required=False)
     photo = serializers.ImageField()
 
     def validate(self, data):
