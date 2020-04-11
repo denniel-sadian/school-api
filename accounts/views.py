@@ -134,6 +134,7 @@ class ChangePhotoView(UpdateAPIView):
         
         profile = self.get_object()
         profile.photo = request.FILES['photo']
+        profile.save(update_fields=['photo'])
 
         return Response({'detail': 'Photo has been changed.'},
                         status=status.HTTP_200_OK)
