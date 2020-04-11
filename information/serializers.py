@@ -20,7 +20,7 @@ class StudentSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Student
-        fields = ('url', 'first_name', 'last_name', 'gender',
+        fields = ('url', 'id', 'first_name', 'last_name', 'gender',
                   'id_number', 'cp_number', 'guardian_cp_number',
                   'address', 'photo', 'department', 'grade_level',
                   'section', 'records')
@@ -31,7 +31,7 @@ class SectionSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Section
-        fields = ('url', 'name', 'students')
+        fields = ('url', 'id', 'name', 'students')
 
 
 class SubjectSerializer(serializers.HyperlinkedModelSerializer):
@@ -46,11 +46,11 @@ class DepartmentSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Department
-        fields = ('url', 'name', 'sections')
+        fields = ('url', 'id', 'name', 'sections')
 
 
 class GuardianViewingPermissionSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = GuardianViewingPermission
-        fields = ('url', 'code', 'section', 'date')
+        fields = ('url', 'id', 'code', 'section', 'date')
