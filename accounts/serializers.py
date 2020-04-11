@@ -41,7 +41,6 @@ class UpdateAccountSerializer(serializers.Serializer):
     email = serializers.EmailField()
     id_number = serializers.CharField()
     department = serializers.PrimaryKeyRelatedField(queryset=Department.objects.all())
-    photo = serializers.ImageField()
 
 
 class UserSerializer(serializers.ModelSerializer):
