@@ -131,9 +131,10 @@ class ChangePhotoView(UpdateAPIView):
     def update(self, request):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+        
         profile = self.get_object()
         profile.photo = request.FILES['photo']
-        
+
         return Response({'detail': 'Photo has been changed.'},
                         status=status.HTTP_200_OK)
 
