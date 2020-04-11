@@ -13,15 +13,9 @@ class UserProfileSerializer(serializers.Serializer):
     """
     code = serializers.CharField()
     username = serializers.CharField()
-    first_name = serializers.CharField(required=False)
-    last_name = serializers.CharField(required=False)
     email = serializers.EmailField()
     password = serializers.CharField()
     password1 = serializers.CharField()
-    role = serializers.ChoiceField(Profile.ROLES, required=False)
-    gender = serializers.ChoiceField(Profile.GENDERS, required=False)
-    id_number = serializers.CharField(required=False)
-    department = serializers.PrimaryKeyRelatedField(queryset=Department.objects.all())
     photo = serializers.ImageField()
 
     def validate(self, data):
