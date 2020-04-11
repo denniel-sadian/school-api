@@ -46,11 +46,7 @@ class UserSerializer(serializers.ModelSerializer):
             'email',
             'first_name',
             'last_name',
-            'password'
         )
-        extra_kwargs = {
-            'password': {'write_only': True, 'required': False}
-        }
 
 
 class ProfileUserCreationPermissionSerializer(serializers.HyperlinkedModelSerializer):
