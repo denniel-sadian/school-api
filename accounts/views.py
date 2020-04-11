@@ -122,7 +122,7 @@ class ProfileView(GenericAPIView):
             profile.photo = request.FILES['photo']
             profile.save()
         
-        return Response({'message': 'Profile updated.'}, status=status.HTTP_200_OK)
+        return Response({'detail': 'Profile updated.'}, status=status.HTTP_200_OK)
 
 
 class ChangePasswordView(UpdateAPIView):
@@ -167,7 +167,7 @@ class CreateUserProfileView(GenericAPIView):
         
         # Do not accept if passwords will not match
         if data['password'] != data['password1']:
-            return Response({'message': 'Passwords did not match.'},
+            return Response({'detail': 'Passwords did not match.'},
                             status=status.HTTP_400_BAD_REQUEST)
         
         # For the creation permission
@@ -180,7 +180,7 @@ class CreateUserProfileView(GenericAPIView):
                 # Don't accept if permission has been used already
                 if perm.used:
                     return Response({
-                        'message': 'The permission has been used already.'
+                        'detail': 'The permission has been used already.'
                     }, status=status.HTTP_400_BAD_REQUEST)
                 
                 # Override the data and mark permission as used
@@ -194,7 +194,7 @@ class CreateUserProfileView(GenericAPIView):
                     perm.save()
         else:
             return Response({
-                        'message': 'No permission with this code.'
+                        'detail': 'No permission with this code.'
                     }, status=status.HTTP_404_NOT_FOUND)
         
         # Create the user based from the data
@@ -220,7 +220,7 @@ class CreateUserProfileView(GenericAPIView):
         # Log the user in
         login(request, user)
 
-        return Response({'message': 'Registered'}, status=status.HTTP_201_CREATED)
+        return Response({'detail': 'Registered'}, status=status.HTTP_201_CREATED)
 
 
 class AccountCreationPermissionViewSet(ModelViewSet):
