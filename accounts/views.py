@@ -192,6 +192,10 @@ class CreateUserProfileView(GenericAPIView):
                     data['department'] = perm.department
                     perm.used = True
                     perm.save()
+        else:
+            return Response({
+                        'message': 'No permission with this code.'
+                    }, status=status.HTTP_404_NOT_FOUND)
         
         # Create the user based from the data
         user = User.objects.create(first_name=data['first_name'],
