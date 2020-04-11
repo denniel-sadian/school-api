@@ -58,18 +58,12 @@ class LoginView(GenericAPIView):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                data = {
-                    "username": user.username,
-                    "first_name": user.first_name,
-                    "last_name": user.last_name,
-                }
+                user_data = UserSerializer(user)
+                profile_data = {}
                 if Profile.objects.filter(user=request.user).exists():
-                    profile = ProfileSerializer(request.user.profile).data
-                    data['id_number'] = profile['id_number']
-                    data['role'] = profile['role']
-                    data['photo'] = profile['photo']
-                    data['department'] = profile['department']
-                return Response(data, status=status.HTTP_200_OK)
+                    profile_data = ProfileSerializer(request.user.profile).data
+                return Response({'user': user_data, 'profile': profile_data},
+                                status=status.HTTP_200_OK)
         else:
             return Response({"error": "Wrong Credentials"},
                             status=status.HTTP_400_BAD_REQUEST)
@@ -157,7 +151,7 @@ class ChangePasswordView(UpdateAPIView):
 
 class CreateUserProfileView(GenericAPIView):
     serializer_class = UserProfileSerializer
-    permission_classes = (IsAdminOrInvited,)
+    permission_classes = ()
 
     def post(self, request):
         # Do the serializer
@@ -172,7 +166,7 @@ class CreateUserProfileView(GenericAPIView):
         
         # For the creation permission
         if 'code' in data:
-            
+
             # Check if there's the permission
             if ProfileUserCreationPermission.objects.filter(code=data['code']).exists():
                 perm = ProfileUserCreationPermission.objects.get(code=data['code'])
