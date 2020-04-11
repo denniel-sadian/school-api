@@ -58,7 +58,7 @@ class LoginView(GenericAPIView):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                user_data = UserSerializer(user)
+                user_data = UserSerializer(user).data
                 profile_data = {}
                 if Profile.objects.filter(user=request.user).exists():
                     profile_data = ProfileSerializer(request.user.profile).data
