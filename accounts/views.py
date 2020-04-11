@@ -114,7 +114,6 @@ class ProfileView(GenericAPIView):
             profile.id_number = data['id_number']
             profile.department = Department.objects.get(id=data['department'])
             profile.gender = data['gender']
-            profile.photo = request.FILES['photo']
             profile.save()
         
         return Response({'detail': 'Profile updated.'}, status=status.HTTP_200_OK)
