@@ -50,6 +50,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class ProfileUserCreationPermissionSerializer(serializers.HyperlinkedModelSerializer):
+    from_who = UserSerializer(read_only=True)
 
     class Meta:
         model = ProfileUserCreationPermission
