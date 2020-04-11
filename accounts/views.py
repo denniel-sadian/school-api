@@ -3,9 +3,8 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import logout, login
 from rest_framework.generics import GenericAPIView
 from rest_framework.generics import UpdateAPIView
-from rest_framework.mixins import ListModelMixin
-from rest_framework.mixins import RetrieveModelMixin
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ReadOnlyModelViewSet
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -34,7 +33,7 @@ def log_out(request):
     return Response({'detail': 'Logged out'}, status=status.HTTP_200_OK)
 
 
-class UserViewSet(ListModelMixin, RetrieveModelMixin, GenericAPIView):
+class UserViewSet(ReadOnlyModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
