@@ -13,6 +13,7 @@ from rest_framework import status
 from information.models import Department
 from .serializers import UserProfileSerializer
 from .serializers import ProfileSerializer
+from .serializers import PhotoSerializer
 from .serializers import UserSerializer
 from .serializers import LoginSerializer
 from .serializers import ProfileUserCreationPermissionSerializer
@@ -117,6 +118,25 @@ class ProfileView(GenericAPIView):
             profile.save()
         
         return Response({'detail': 'Profile updated.'}, status=status.HTTP_200_OK)
+
+
+class ChangePhotoView(UpdateAPIView):
+    """
+    View for separately updating the photo.
+    """
+    serializer_class = PhotoSerializer
+
+    def get_object(self):
+        return self.request.user.profile
+    
+    def update(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        profile = self.get_object()
+        profile.photo = request.FILES['photo']
+        
+        return Response({'detail': 'Photo has been changed.'},
+                        status=status.HTTP_200_OK)
 
 
 class ChangePasswordView(UpdateAPIView):
