@@ -24,6 +24,12 @@ class UserProfileSerializer(serializers.Serializer):
     department = serializers.PrimaryKeyRelatedField(queryset=Department.objects.all())
     photo = serializers.ImageField()
 
+    def validate(self, data):
+        """Check if both passwords match."""
+        if data['password'] != data['password1']:
+            raise serializers.ValidationError('The passwords did not match.')
+        return data
+
 
 class UpdateAccountSerializer(serializers.Serializer):
     username = serializers.CharField()
