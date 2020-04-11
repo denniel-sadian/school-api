@@ -26,6 +26,13 @@ class UserProfileSerializer(serializers.Serializer):
         return data
 
 
+class PhotoSerializer(serializers.Serializer):
+    """
+    Serializer for the photo of the profile.
+    """
+    photo = serializers.ImageField()
+
+
 class UpdateAccountSerializer(serializers.Serializer):
     username = serializers.CharField()
     first_name = serializers.CharField()
