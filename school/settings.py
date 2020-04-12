@@ -177,7 +177,7 @@ MEDIA_URL = '/media/'
 # GITHUB S3
 
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-if not DEBUG:
+if DEBUG:
     DEFAULT_FILE_STORAGE = 'school.backend.TheStorage'
 GITHUB_HANDLE = 'denniel-sadian'
 ACCESS_TOKEN = os.getenv('ACCESS_TOKEN')
