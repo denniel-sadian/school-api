@@ -247,11 +247,17 @@ class CreateUserProfileView(GenericAPIView):
         user.save()
         
         # Create the profile for the user
-        Profile.objects.create(user=user,
-                               id_number=data['id_number'],
-                               gender=data['gender'],
-                               department=data['department'],
-                               role=data['role'])
+        profile = Profile.objects.create(
+            user=user,
+            id_number=data['id_number'],
+            gender=data['gender'],
+            department=data['department'],
+            role=data['role'],
+            photo=request.FILES['photo']
+        )
+        if request.FILES['photo']:
+            profile.photo = request.FILES['photo']
+            profile.save()
         
         # Log the user in
         login(request, user)
