@@ -46,7 +46,7 @@ class CheckPermissionView(GenericAPIView):
         serializer.is_valid(raise_exception=True)
         code = serializer.data['code']
 
-        if ProfileUserCreationPermission.objects.filter(code=code).exists():
+        if ProfileUserCreationPermission.objects.filter(code=code, used=False).exists():
             perm = ProfileUserCreationPermission.objects.get(code=code)
             data = ProfileUserCreationPermissionSerializer(perm).data
             return Response(data, status=status.HTTP_200_OK)
