@@ -35,11 +35,15 @@ def log_out(request):
     return Response({'detail': 'Logged out'}, status=status.HTTP_200_OK)
 
 
-class CheckPermissionView(RetrieveAPIView):
+class CheckPermissionView(GenericAPIView):
     permission_classes = ()
-    queryset = ProfileUserCreationPermission.objects.all()
     serializer_class = ProfileUserCreationPermissionSerializer
-    lookup_field = 'code'
+
+     def post(self, request):
+        # Do the serializer
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.data
 
 
 class UserViewSet(ReadOnlyModelViewSet):
