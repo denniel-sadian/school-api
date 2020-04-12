@@ -6,6 +6,13 @@ from .models import Profile
 from .models import ProfileUserCreationPermission
 
 
+class CodeView(serializers.Serializer):
+    """
+    Serializer for the code checking.
+    """
+    code = serializers.CharField()
+
+
 class UserProfileSerializer(serializers.Serializer):
     """
     This is the serializer that is used to create both
