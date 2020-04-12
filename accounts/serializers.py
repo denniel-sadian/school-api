@@ -24,7 +24,7 @@ class UserProfileSerializer(serializers.Serializer):
     password = serializers.CharField()
     password1 = serializers.CharField()
     id_number = serializers.CharField(required=False)
-    photo = serializers.ImageField()
+    photo = serializers.ImageField(required=False)
 
     def validate(self, data):
         """Check if both passwords match."""

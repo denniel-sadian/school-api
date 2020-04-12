@@ -251,8 +251,7 @@ class CreateUserProfileView(GenericAPIView):
                                id_number=data['id_number'],
                                gender=data['gender'],
                                department=data['department'],
-                               role=data['role'],
-                               photo=request.FILES['photo'])
+                               role=data['role'])
         
         # Log the user in
         login(request, user)
