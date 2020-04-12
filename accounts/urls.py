@@ -19,7 +19,9 @@ urlpatterns = [
          name='change-password'),
     path('change-dp/', views.ChangePhotoView.as_view(),
          name='change-dp'),
-    
+    path('check-permission/', views.CheckPermissionView.as_view(),
+         name='check-permission'),
+         
     path('obtain-token/', TokenObtainPairView.as_view(), name='token-obtain-pair'),
     path('refresh-token/', TokenRefreshView.as_view(), name='token-refresh')
 ]
