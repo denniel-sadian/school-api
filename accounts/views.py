@@ -38,13 +38,21 @@ def log_out(request):
 
 class CheckPermissionView(GenericAPIView):
     permission_classes = ()
-    serializer_class = ProfileUserCreationPermissionSerializer
+    serializer_class = CodeSerializer
 
-     def post(self, request):
+    def post(self, request):
         # Do the serializer
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        data = serializer.data
+        code = serializer.data['code']
+
+        if ProfileUserCreationPermission.objects.filter(code=code).exists():
+            perm = ProfileUserCreationPermission.objects.get(code=code)
+            data = ProfileUserCreationPermissionSerializer(perm).data
+            return Response(data, status=status.HTTP_200_OK)
+        else:
+            return Response({'detail': 'No permission with this code.'},
+                            status=status.HTTP_404_NOT_FOUND)
 
 
 class UserViewSet(ReadOnlyModelViewSet):
