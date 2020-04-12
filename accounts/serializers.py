@@ -6,7 +6,7 @@ from .models import Profile
 from .models import ProfileUserCreationPermission
 
 
-class CodeView(serializers.Serializer):
+class CodeSerializer(serializers.Serializer):
     """
     Serializer for the code checking.
     """

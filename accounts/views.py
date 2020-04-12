@@ -20,6 +20,7 @@ from .serializers import LoginSerializer
 from .serializers import ProfileUserCreationPermissionSerializer
 from .serializers import UpdateAccountSerializer
 from .serializers import PasswordSerializer
+from .serializers import CodeSerializer
 from .permissions import IsAdminOrInvited
 from .permissions import IsOwnerOrReadOnly
 from .models import Profile
