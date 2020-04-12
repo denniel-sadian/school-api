@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
+import django_heroku
+
 from dotenv import load_dotenv
 
 import os
@@ -179,3 +181,7 @@ if not DEBUG:
 GITHUB_HANDLE = 'denniel-sadian'
 ACCESS_TOKEN = os.getenv('ACCESS_TOKEN')
 GITHUB_REPO_NAME = os.getenv('GITHUB_REPO_NAME', 'school-bucket')
+
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
