@@ -69,6 +69,7 @@ class ProfileUserCreationPermissionSerializer(serializers.HyperlinkedModelSerial
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+    department = serializers.SlugRelatedField(read_only=True, slug_field='name')
 
     class Meta:
         model = Profile
