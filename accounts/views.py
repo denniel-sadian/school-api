@@ -254,7 +254,7 @@ class CreateUserProfileView(GenericAPIView):
             department=data['department'],
             role=data['role']
         )
-        if request.FILES['photo']:
+        if 'photo' in request.FILES:
             profile.photo = request.FILES['photo']
             profile.save()
         
