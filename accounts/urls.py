@@ -1,5 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.views import TokenRefreshView
 
 from . import views
 
@@ -16,5 +18,8 @@ urlpatterns = [
     path('change-password/', views.ChangePasswordView.as_view(),
          name='change-password'),
     path('change-dp/', views.ChangePhotoView.as_view(),
-         name='change-dp')
+         name='change-dp'),
+    
+    path('obtain-token/', TokenObtainPairView.as_view(), name='token-obtain-pair'),
+    path('refresh-token/', TokenRefreshView.as_view(), name='token-refresh')
 ]
