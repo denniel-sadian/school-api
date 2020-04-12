@@ -31,7 +31,7 @@ class SectionSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Section
-        fields = ('url', 'id', 'name', 'students')
+        fields = ('url', 'id', 'name', 'students', 'department')
 
 
 class SubjectSerializer(serializers.HyperlinkedModelSerializer):
