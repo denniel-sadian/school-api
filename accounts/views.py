@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import logout, login
 from rest_framework.generics import GenericAPIView
 from rest_framework.generics import UpdateAPIView
+from rest_framework.generics import RetrieveAPIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.viewsets import ReadOnlyModelViewSet
 from rest_framework.response import Response
@@ -32,6 +33,13 @@ def log_out(request):
     """
     logout(request)
     return Response({'detail': 'Logged out'}, status=status.HTTP_200_OK)
+
+
+class CheckPermissionView(RetrieveAPIView):
+    permission_classes = ()
+    queryset = ProfileUserCreationPermission.objects.all()
+    serializer_class = ProfileUserCreationPermissionSerializer
+    lookup_field = 'code'
 
 
 class UserViewSet(ReadOnlyModelViewSet):
