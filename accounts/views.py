@@ -208,6 +208,7 @@ class CreateUserProfileView(GenericAPIView):
                             status=status.HTTP_400_BAD_REQUEST)
         
         # For the creation permission
+        perm = ProfileUserCreationPermission
         if 'code' in data:
 
             # Check if there's the permission
@@ -220,15 +221,13 @@ class CreateUserProfileView(GenericAPIView):
                         'detail': 'The permission has been used already.'
                     }, status=status.HTTP_400_BAD_REQUEST)
                 
-                # Override the data and mark permission as used
+                # Override the data
                 else:
                     data['first_name'] = perm.first_name
                     data['last_name'] = perm.last_name
                     data['gender'] = perm.gender
                     data['role'] = perm.role
                     data['department'] = perm.department
-                    perm.used = True
-                    perm.save()
         else:
             return Response({
                         'detail': 'No permission with this code.'
@@ -257,6 +256,10 @@ class CreateUserProfileView(GenericAPIView):
         if 'photo' in request.FILES:
             profile.photo = request.FILES['photo']
             profile.save()
+
+        # Mark the permission as used
+        perm.used = True
+        perm.save()
         
         # Log the user in
         login(request, user)
