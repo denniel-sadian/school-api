@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth import logout, login
@@ -121,22 +122,25 @@ class ProfileView(GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.data
-        
-        # Update the user
-        user = request.user
-        user.first_name = data['first_name']
-        user.last_name = data['last_name']
-        user.username = data['username']
-        user.email = data['email']
-        user.save()
-        
-        # Update the profile if it exists
-        if Profile.objects.filter(user=request.user).exists():
-            profile = Profile.objects.get(user=user)
-            profile.id_number = data['id_number']
-            profile.department = Department.objects.get(id=data['department'])
-            profile.gender = data['gender']
-            profile.save()
+
+        try:
+            # Update the user
+            user = request.user
+            user.first_name = data['first_name']
+            user.last_name = data['last_name']
+            user.username = data['username']
+            user.email = data['email']
+            user.save()
+            
+            # Update the profile if it exists
+            if Profile.objects.filter(user=request.user).exists():
+                profile = Profile.objects.get(user=user)
+                profile.id_number = data['id_number']
+                profile.department = Department.objects.get(id=data['department'])
+                profile.gender = data['gender']
+                profile.save()
+        except IntegrityError:
+            return Response({'detail': 'Unique contraint.'}, status=status.HTTP_400_BAD_REQUEST)    
         
         return Response({'detail': 'Profile updated.'}, status=status.HTTP_200_OK)
 
