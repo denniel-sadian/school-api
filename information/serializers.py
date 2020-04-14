@@ -12,7 +12,7 @@ class DepartmentSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Department
-        fields = '__all__'
+        fields = ('url', 'id', 'name')
 
 
 class StudentSerializer(serializers.HyperlinkedModelSerializer):
@@ -38,7 +38,7 @@ class SubjectSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Subject
-        fields = '__all__'
+        fields = ('url', 'id', 'name')
 
 
 class DepartmentSerializer(serializers.HyperlinkedModelSerializer):
