@@ -2,6 +2,8 @@ from django.db import IntegrityError
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth import logout, login
+from rest_framework.parsers import FileUploadParser
+from rest_framework.views import APIView
 from rest_framework.generics import GenericAPIView
 from rest_framework.generics import UpdateAPIView
 from rest_framework.generics import RetrieveAPIView
@@ -145,23 +147,16 @@ class ProfileView(GenericAPIView):
         return Response({'detail': 'Profile updated.'}, status=status.HTTP_200_OK)
 
 
-class ChangePhotoView(UpdateAPIView):
+class ChangePhotoView(APIView):
     """
     View for separately updating the photo.
     """
-    serializer_class = PhotoSerializer
+    parser_class = (FileUploadParser,)
 
-    def get_object(self):
-        return self.request.user.profile
-    
-    def update(self, request):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        
-        profile = self.get_object()
+    def post(self, request, *args, **kwargs):
+        profile = request.user.profile
         profile.photo = request.FILES['photo']
-        profile.save(update_fields=['photo'])
-
+        profile.save()
         return Response({'detail': 'Photo has been changed.'},
                         status=status.HTTP_200_OK)
 
