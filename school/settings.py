@@ -29,7 +29,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -177,9 +177,7 @@ MEDIA_URL = '/media/'
 
 # GITHUB S3
 
-DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-if not DEBUG:
-    DEFAULT_FILE_STORAGE = 'school.backend.TheStorage'
+DEFAULT_FILE_STORAGE = 'school.backend.TheStorage'
 GITHUB_HANDLE = 'denniel-sadian'
 ACCESS_TOKEN = os.getenv('ACCESS_TOKEN')
 GITHUB_REPO_NAME = os.getenv('GITHUB_REPO_NAME', 'school-bucket')
