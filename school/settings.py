@@ -177,15 +177,15 @@ MEDIA_URL = '/media/'
 
 # GITHUB S3
 
-DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 """
 if not DEBUG:
     DEFAULT_FILE_STORAGE = 'school.backend.TheStorage'
-"""
+
 GITHUB_HANDLE = 'denniel-sadian'
 ACCESS_TOKEN = os.getenv('ACCESS_TOKEN')
 GITHUB_REPO_NAME = os.getenv('GITHUB_REPO_NAME', 'school-bucket')
 MEDIA_BUCKET_NAME = 'media'
+"""
 
 
 # Activate Django-Heroku.
