@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
-import django_heroku
+#import django_heroku
 
 from dotenv import load_dotenv
 
@@ -46,12 +46,12 @@ INSTALLED_APPS = [
 
     'corsheaders',
     'rest_framework',
-    'github_storages',
 
     'accounts',
     'grading',
     'information'
 ]
+# 'github_storages',
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -178,8 +178,10 @@ MEDIA_URL = '/media/'
 # GITHUB S3
 
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+"""
 if not DEBUG:
     DEFAULT_FILE_STORAGE = 'school.backend.TheStorage'
+"""
 GITHUB_HANDLE = 'denniel-sadian'
 ACCESS_TOKEN = os.getenv('ACCESS_TOKEN')
 GITHUB_REPO_NAME = os.getenv('GITHUB_REPO_NAME', 'school-bucket')
@@ -187,4 +189,4 @@ MEDIA_BUCKET_NAME = 'media'
 
 
 # Activate Django-Heroku.
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
