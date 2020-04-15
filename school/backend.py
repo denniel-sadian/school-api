@@ -19,7 +19,7 @@ class TheStorage(BackendStorages):
             file_name = file_name[offset:]
             name = os.path.join(dir_name, file_name)
         
-        if self.exists(name, '/'): # filename exists, get dot index
+        if self.exists(name, ''): # filename exists, get dot index
             try:
                 dot_index = file_name.rindex('.')
             except ValueError: # filename has no dot
