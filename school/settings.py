@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
     'corsheaders',
     'rest_framework',
+    'github_storages',
 
     'accounts',
     'grading',
