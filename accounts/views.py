@@ -152,12 +152,8 @@ class ChangePhotoView(APIView):
     View for separately updating the photo.
     """
     parser_class = (FileUploadParser,)
-    serializer_class = PhotoSerializer
     
     def post(self, request):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-
         profile = request.user.profile
         profile.photo = request.FILES['photo']
         profile.save(update_fields=['photo'])
