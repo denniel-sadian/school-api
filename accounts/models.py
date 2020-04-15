@@ -17,7 +17,7 @@ class Profile(models.Model):
     id_number = models.CharField(max_length=255, null=True, unique=True)
     department = models.ForeignKey(Department, on_delete=models.CASCADE, null=True)
     role = models.CharField(max_length=7, choices=ROLES, null=True)
-    photo = models.ImageField(upload_to="photos/", null=True)
+    photo = models.ImageField(null=True)
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name}'
