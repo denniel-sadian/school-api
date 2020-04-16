@@ -73,7 +73,7 @@ class Student(models.Model):
     cp_number = models.CharField(max_length=12)
     guardian_cp_number = models.CharField(max_length=12)
     address = models.CharField(max_length=255)
-    photo = models.ImageField(null=True)
+    photo = models.ImageField(upload_to='pics/', null=True)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     grade_level = models.CharField(max_length=2, choices=LEVELS)
     section = models.ForeignKey(Section, on_delete=models.CASCADE, related_name='students')
