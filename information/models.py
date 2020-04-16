@@ -22,7 +22,7 @@ class Department(ModelWithNameOnly):
 
 
 class Section(ModelWithNameOnly):
-    department = models.ForeignKey(Department, on_delete=models.CASCADE,
+    department = models.ForeignKey(Department, on_delete=models.PROTECT,
                                    related_name='sections')
 
 
@@ -31,9 +31,9 @@ class Subject(ModelWithNameOnly):
 
 
 class GuardianViewingPermission(models.Model):
-    from_who = models.ForeignKey(User, on_delete=models.CASCADE)
+    from_who = models.ForeignKey(User, on_delete=models.PROTECT)
     date = models.DateTimeField(auto_now_add=True)
-    section = models.ForeignKey(Section, on_delete=models.CASCADE)
+    section = models.ForeignKey(Section, on_delete=models.PROTECT)
     code = models.CharField(max_length=100)
 
     class Meta:
@@ -75,9 +75,9 @@ class Student(models.Model):
     guardian_cp_number = models.CharField(max_length=12)
     address = models.CharField(max_length=255)
     photo = ResizedImageField(size=[150, 150], upload_to='pics/', force_format='PNG', null=True)
-    department = models.ForeignKey(Department, on_delete=models.CASCADE)
+    department = models.ForeignKey(Department, on_delete=models.PROTECT)
     grade_level = models.CharField(max_length=2, choices=LEVELS)
-    section = models.ForeignKey(Section, on_delete=models.CASCADE, related_name='students')
+    section = models.ForeignKey(Section, on_delete=models.PROTECT, related_name='students')
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
