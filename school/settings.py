@@ -191,3 +191,6 @@ MEDIA_BUCKET_NAME = 'media'
 
 # Activate Django-Heroku.
 # django_heroku.settings(locals())
+
+
+SECURE_SSL_REDIRECT = True
