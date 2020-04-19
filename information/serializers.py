@@ -16,14 +16,13 @@ class DepartmentSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class StudentSerializer(serializers.HyperlinkedModelSerializer):
-    records = RecordSerializer(many=True, read_only=True)
 
     class Meta:
         model = Student
         fields = ('url', 'id', 'first_name', 'last_name', 'gender',
                   'id_number', 'cp_number', 'guardian_cp_number',
                   'address', 'photo', 'department', 'grade_level',
-                  'section', 'records')
+                  'section')
 
 
 class SectionSerializer(serializers.HyperlinkedModelSerializer):
