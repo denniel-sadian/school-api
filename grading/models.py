@@ -34,7 +34,7 @@ class Work(models.Model):
 
     date = models.DateField(auto_now_add=True)
     name = models.CharField(max_length=100)
-    gsheet = models.ForeignKey(GradingSheet, on_delete=models.PROTECT,
+    gsheet = models.ForeignKey(GradingSheet, on_delete=models.CASCADE,
                                related_name='works')
     work_type = models.CharField(max_length=1, choices=TYPES)
     highest_score = models.IntegerField(default=1)
@@ -45,11 +45,11 @@ class Work(models.Model):
 
 class Record(models.Model):
     date = models.DateField(auto_now_add=True)
-    gsheet = models.ForeignKey(GradingSheet, on_delete=models.PROTECT,
+    gsheet = models.ForeignKey(GradingSheet, on_delete=models.CASCADE,
                                related_name='records')
     student = models.ForeignKey(Student, on_delete=models.PROTECT,
                                 related_name='records')
-    work = models.ForeignKey(Work, on_delete=models.PROTECT, related_name='records')
+    work = models.ForeignKey(Work, on_delete=models.CASCADE, related_name='records')
     score = models.IntegerField(default=1)
 
     def __str__(self):
