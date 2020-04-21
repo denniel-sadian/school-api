@@ -1,4 +1,7 @@
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.generics import GenericAPIView
+from rest_framework.response import Response
+from rest_framework import status
 
 from .models import GradingSheet
 from .models import Work
@@ -28,3 +31,16 @@ class RecordViewSet(ModelViewSet):
     queryset = Record.objects.all()
     serializer_class = RecordSerializer
     permission_classes = (IsTeacherAndOwnerOrReadOnly,)
+
+
+class MultipleRecordCreateView(GenericAPIView):
+    serializer_class = RecordSerializer
+
+    def post(self, request):
+        records = []
+        for r in request.data['records']:
+            serializer = self.get_serializer(data=r)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            records.append(serializer.data)
+        return Response({'records': records}, status=status.HTTP_201_CREATED)
