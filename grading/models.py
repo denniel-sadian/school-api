@@ -29,7 +29,6 @@ class Work(models.Model):
         ('q', 'Quiz'),
         ('e', 'Examination'),
         ('p', 'Performace'),
-        ('c', 'Extra')
     )
 
     date = models.DateField(auto_now_add=True)
@@ -51,6 +50,9 @@ class Record(models.Model):
                                 related_name='records')
     work = models.ForeignKey(Work, on_delete=models.CASCADE, related_name='records')
     score = models.IntegerField(default=1)
+
+    class Meta:
+        unique_together = ('student', 'work')
 
     def __str__(self):
         return f"{self.student}'s {self.work.name} for {self.gsheet.subject}"
