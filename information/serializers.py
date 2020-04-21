@@ -4,7 +4,6 @@ from grading.serializers import RecordSerializer
 from .models import Department
 from .models import Section
 from .models import Subject
-from .models import GuardianViewingPermission
 from .models import Student
 
 
@@ -46,10 +45,3 @@ class DepartmentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Department
         fields = ('url', 'id', 'name', 'sections')
-
-
-class GuardianViewingPermissionSerializer(serializers.HyperlinkedModelSerializer):
-
-    class Meta:
-        model = GuardianViewingPermission
-        fields = ('url', 'id', 'code', 'section', 'date')
