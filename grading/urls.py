@@ -9,5 +9,6 @@ router.register('works', views.WorkViewSet)
 router.register('records', views.RecordViewSet)
 
 urlpatterns = [
-    path('', include(router.urls))
+    path('', include(router.urls)),
+    path('multiple-records/', views.MultipleRecordCreateView.as_view(), name='multiple-records'),
 ]
