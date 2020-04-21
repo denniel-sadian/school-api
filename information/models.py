@@ -30,19 +30,6 @@ class Subject(ModelWithNameOnly):
     pass
 
 
-class GuardianViewingPermission(models.Model):
-    from_who = models.ForeignKey(User, on_delete=models.PROTECT)
-    date = models.DateTimeField(auto_now_add=True)
-    section = models.ForeignKey(Section, on_delete=models.PROTECT)
-    code = models.CharField(max_length=100)
-
-    class Meta:
-        unique_together = ('code', 'section')
-
-    def __str__(self):
-        return self.code
-
-
 class Student(models.Model):
     LEVELS = (
         ('1', 'Grade 1'),
