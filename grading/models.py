@@ -8,6 +8,15 @@ from information.models import Department
 
 
 class GradingSheet(models.Model):
+    GRADINGS = (
+        ('prelim', 'Prelim'),
+        ('midterm', 'Midterm'),
+        ('finals', 'Finals')
+    )
+    SEMESTERS = (
+        ('1', 'First Semester'),
+        ('2', 'Second Semester')
+    )
     date = models.DateField(auto_now_add=True)
     teacher = models.ForeignKey('auth.user', on_delete=models.PROTECT,
                                 related_name='grading_sheets')
@@ -18,6 +27,8 @@ class GradingSheet(models.Model):
     subject = models.ForeignKey(Subject, on_delete=models.PROTECT,
                                 related_name='grading_sheets')
     publish = models.BooleanField(default=False)
+    grading = models.CharField(choices=GRADINGS, max_length=7)
+    sem = models.CharField(choices=SEMESTERS, max_length=1)
 
     def __str__(self):
         return f'{self.section} for {self.subject}'
