@@ -36,7 +36,8 @@ class GradingSheetSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = GradingSheet
         fields = ('url', 'id', 'teacher', 'subject', 'department',
-                  'section', 'date', 'publish', 'works', 'records')
+                  'section', 'date', 'publish', 'works', 'records',
+                  'grading', 'sem')
         extra_kwargs = {
             'date': {'read_only': True},
             'teacher': {'read_only': True}
