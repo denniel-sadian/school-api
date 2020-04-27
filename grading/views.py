@@ -10,10 +10,12 @@ from .models import GradingSheet
 from .models import Work
 from .models import Record
 from .models import Card
+from .models import FinalGrade
 from .serializers import GradingSheetSerializer
 from .serializers import WorkSerializer
 from .serializers import RecordSerializer
 from .serializers import CardSerializer
+from .serializers import FinalGradeSerializer
 from .permissions import IsTeacherAndOwnerOrReadOnly
 
 
@@ -54,6 +56,11 @@ class MultipleRecordCreateView(GenericAPIView):
 class CardViewSet(ModelViewSet):
     serializer_class = CardSerializer
     queryset = Card.objects.all()
+
+
+class FinalGradeViewSet(ModelViewSet):
+    serializer_class = FinalGradeSerializer
+    queryset = FinalGrade.objects.all()
 
 
 class WriteGradesToCardsView(GenericAPIView):
