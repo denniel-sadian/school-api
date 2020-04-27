@@ -86,3 +86,4 @@ class FinalGrade(models.Model):
                              related_name='final_grades')
     teacher = models.ForeignKey('auth.user', on_delete=models.CASCADE)
     score = models.IntegerField(default=60)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
