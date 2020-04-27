@@ -76,3 +76,6 @@ class Card(models.Model):
     date = models.DateField(auto_now_add=True)
     student = models.ForeignKey(Student, on_delete=models.PROTECT,
                                 related_name='records')
+    
+    class Meta:
+        unique_together = ('student', 'sem', 'grading')
