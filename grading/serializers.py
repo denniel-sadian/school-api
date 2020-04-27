@@ -4,6 +4,8 @@ from accounts.serializers import UserSerializer
 from .models import GradingSheet
 from .models import Work
 from .models import Record
+from .models import Card
+from .models import FinalGrade
 
 
 class RecordSerializer(serializers.HyperlinkedModelSerializer):
@@ -41,4 +43,14 @@ class GradingSheetSerializer(serializers.HyperlinkedModelSerializer):
         extra_kwargs = {
             'date': {'read_only': True},
             'teacher': {'read_only': True}
+        }
+
+
+class CardSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = Card
+        fields = ('url', 'id', 'sem', 'grading', 'student', 'date')
+        extra_kwargs = {
+            'date': {'read_only': True}
         }
