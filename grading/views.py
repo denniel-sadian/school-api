@@ -75,12 +75,12 @@ class WriteGradesToCardsView(GenericAPIView):
                 student=student,
                 sem=sem,
                 grading=grading
-            )
+            )[0]
             final_grade = FinalGrade.objects.get_or_create(
-                card__id=card.id,
-                subject__id=subject.id,
-                teacher__id=teacher.id
-            )
+                card=card,
+                subject=subject,
+                teacher=teacher
+            )[0]
             final_grade.score = grade['score']
             final_grade.save()
         
