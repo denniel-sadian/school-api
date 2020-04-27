@@ -3,9 +3,14 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework import status
 
+
+from information.models import Student
+from information.models import Subject
 from .models import GradingSheet
 from .models import Work
 from .models import Record
+from .models import Card
+from .models import FinalGrade
 from .serializers import GradingSheetSerializer
 from .serializers import WorkSerializer
 from .serializers import RecordSerializer
@@ -47,3 +52,30 @@ class MultipleRecordCreateView(GenericAPIView):
 
 
 class WriteGradesToCards(GenericAPIView):
+
+    def post(self, request):
+        # Get these first
+        sem = request.data['sem']
+        grading = request.data['grading']
+        grades = request.data['grades']
+        teacher = request.user
+        subject = Subject.objects.get(id=request.data['subject'])
+
+        # Run to all of the grades
+        for grade in grades:
+            student = Student.objects.get(id=grade['student'])
+            card = Card.objects.get_or_create(
+                student=student,
+                sem=sem,
+                grading=grading
+            )
+            final_grade = FinalGrade.objects.get_or_create(
+                card=card,
+                subject=subject,
+                teacher=teacher
+            )
+            final_grade.score = grade['score']
+            final_grade.save()
+        
+        return Response({'detail': 'Grades have been written to their cards'},
+                        status=status.HTTP_200_OK)
