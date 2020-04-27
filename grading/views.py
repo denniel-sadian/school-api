@@ -52,7 +52,7 @@ class MultipleRecordCreateView(GenericAPIView):
         return Response({'records': records}, status=status.HTTP_201_CREATED)
 
 
-class CardListView(ModelViewSet):
+class CardViewSet(ModelViewSet):
     serializer_class = CardSerializer
     queryset = Card.objects.all()
 
