@@ -76,11 +76,10 @@ class WriteGradesToCardsView(GenericAPIView):
                 sem=sem,
                 grading=grading
             )
-            print('fuck:', teacher)
             final_grade = FinalGrade.objects.get_or_create(
                 card=card,
                 subject=subject,
-                teacher=teacher
+                teacher=teacher.id
             )
             final_grade.score = grade['score']
             final_grade.save()
