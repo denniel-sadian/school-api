@@ -20,3 +20,5 @@ class WorkAdmin(admin.ModelAdmin):
 admin.site.register(models.GradingSheet, GradingSheetAdmin)
 admin.site.register(models.Work, WorkAdmin)
 admin.site.register(models.Record)
+admin.site.register(models.Card)
+admin.site.register(models.FinalGrade)
