@@ -79,3 +79,10 @@ class Card(models.Model):
     
     class Meta:
         unique_together = ('student', 'sem', 'grading')
+
+
+class FinalGrade(models.Model):
+    card = models.ForeignKey(Card, on_delete=models.CASCADE,
+                             related_name='final_grades')
+    teacher = models.ForeignKey('auth.user', on_delete=models.CASCADE)
+    score = models.IntegerField(default=60)
