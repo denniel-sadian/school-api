@@ -75,7 +75,7 @@ class Card(models.Model):
     sem = models.CharField(choices=SEMESTERS, max_length=1)
     date = models.DateField(auto_now_add=True)
     student = models.ForeignKey(Student, on_delete=models.PROTECT,
-                                related_name='records')
+                                related_name='cards')
     remarks = models.CharField(max_length=255, default="How's this student?")
     
     class Meta:
