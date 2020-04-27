@@ -66,5 +66,8 @@ class CardSerializer(serializers.HyperlinkedModelSerializer):
                   'final_grades')
         depth = 2
         extra_kwargs = {
-            'date': {'read_only': True}
+            'date': {'read_only': True},
+            'sem': {'read_only': True},
+            'grading': {'read_only': True},
+            'student': {'read_only': True}
         }
