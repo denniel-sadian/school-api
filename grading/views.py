@@ -76,6 +76,7 @@ class WriteGradesToCardsView(GenericAPIView):
                 sem=sem,
                 grading=grading
             )
+            print('fuck:', teacher)
             final_grade = FinalGrade.objects.get_or_create(
                 card=card,
                 subject=subject,
