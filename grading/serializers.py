@@ -54,3 +54,10 @@ class CardSerializer(serializers.HyperlinkedModelSerializer):
         extra_kwargs = {
             'date': {'read_only': True}
         }
+
+
+class FinalGrade(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = FinalGrade
+        fields = ('url', 'id', 'teacher', 'score', 'subject')
