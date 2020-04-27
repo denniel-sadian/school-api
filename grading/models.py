@@ -6,17 +6,18 @@ from information.models import Subject
 from information.models import Section
 from information.models import Department
 
+GRADINGS = (
+    ('prelim', 'Prelim'),
+    ('midterm', 'Midterm'),
+    ('finals', 'Finals')
+)
+SEMESTERS = (
+    ('1', 'First Semester'),
+    ('2', 'Second Semester')
+)
+
 
 class GradingSheet(models.Model):
-    GRADINGS = (
-        ('prelim', 'Prelim'),
-        ('midterm', 'Midterm'),
-        ('finals', 'Finals')
-    )
-    SEMESTERS = (
-        ('1', 'First Semester'),
-        ('2', 'Second Semester')
-    )
     date = models.DateField(auto_now_add=True)
     teacher = models.ForeignKey('auth.user', on_delete=models.PROTECT,
                                 related_name='grading_sheets')
@@ -67,3 +68,11 @@ class Record(models.Model):
 
     def __str__(self):
         return f"{self.student}'s {self.work.name} for {self.gsheet.subject}"
+
+
+class Card(models.Model):
+    grading = models.CharField(choices=GRADINGS, max_length=7)
+    sem = models.CharField(choices=SEMESTERS, max_length=1)
+    date = models.DateField(auto_now_add=True)
+    student = models.ForeignKey(Student, on_delete=models.PROTECT,
+                                related_name='records')
