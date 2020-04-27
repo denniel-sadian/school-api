@@ -1,6 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import GenericAPIView
-from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -53,7 +52,7 @@ class MultipleRecordCreateView(GenericAPIView):
         return Response({'records': records}, status=status.HTTP_201_CREATED)
 
 
-class CardListView(ListAPIView):
+class CardListView(ModelViewSet):
     serializer_class = CardSerializer
     queryset = Card.objects.all()
 
