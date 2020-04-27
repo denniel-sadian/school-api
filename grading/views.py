@@ -44,3 +44,6 @@ class MultipleRecordCreateView(GenericAPIView):
             serializer.save()
             records.append(serializer.data)
         return Response({'records': records}, status=status.HTTP_201_CREATED)
+
+
+class WriteGradesToCards(GenericAPIView):
