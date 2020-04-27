@@ -51,7 +51,7 @@ class MultipleRecordCreateView(GenericAPIView):
         return Response({'records': records}, status=status.HTTP_201_CREATED)
 
 
-class WriteGradesToCards(GenericAPIView):
+class WriteGradesToCardsView(GenericAPIView):
 
     def post(self, request):
         # Get these first
