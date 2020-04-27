@@ -47,6 +47,10 @@ class GradingSheetSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class FinalGradeSerializer(serializers.HyperlinkedModelSerializer):
+    subject = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field='name'
+    )
 
     class Meta:
         model = FinalGrade
