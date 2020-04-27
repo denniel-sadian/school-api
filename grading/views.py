@@ -10,7 +10,6 @@ from .models import GradingSheet
 from .models import Work
 from .models import Record
 from .models import Card
-from .models import FinalGrade
 from .serializers import GradingSheetSerializer
 from .serializers import WorkSerializer
 from .serializers import RecordSerializer

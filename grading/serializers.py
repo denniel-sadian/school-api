@@ -46,7 +46,7 @@ class GradingSheetSerializer(serializers.HyperlinkedModelSerializer):
         }
 
 
-class FinalGrade(serializers.HyperlinkedModelSerializer):
+class FinalGradeSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = FinalGrade
@@ -54,6 +54,7 @@ class FinalGrade(serializers.HyperlinkedModelSerializer):
 
 
 class CardSerializer(serializers.HyperlinkedModelSerializer):
+    final_grades = FinalGradeSerializer(many=True, read_only=True)
 
     class Meta:
         model = Card
