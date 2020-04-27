@@ -1,5 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import GenericAPIView
+from rest_framework.generics import ListApiView
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -14,6 +15,7 @@ from .models import FinalGrade
 from .serializers import GradingSheetSerializer
 from .serializers import WorkSerializer
 from .serializers import RecordSerializer
+from .serializers import CardSerializer
 from .permissions import IsTeacherAndOwnerOrReadOnly
 
 
@@ -49,6 +51,11 @@ class MultipleRecordCreateView(GenericAPIView):
             serializer.save()
             records.append(serializer.data)
         return Response({'records': records}, status=status.HTTP_201_CREATED)
+
+
+class CardListView(ListApiView):
+    serializer_class = CardSerializer
+    queryset = Card.objects.all()
 
 
 class WriteGradesToCardsView(GenericAPIView):
