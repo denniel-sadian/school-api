@@ -31,7 +31,7 @@ class WorkSerializer(serializers.HyperlinkedModelSerializer):
         }
 
 
-class ViewingPermissionSerializer(models.HyperlinkedModelSerializer):
+class ViewingPermissionSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = ViewingPermission
