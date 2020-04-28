@@ -36,6 +36,7 @@ class ViewingPermissionSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ViewingPermission
         fields = ('url', 'id', 'section', 'code', 'date')
+        depth = 2
         extra_kwargs = {
             'date': {'read_only': True},
         }
