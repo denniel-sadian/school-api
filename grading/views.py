@@ -106,11 +106,13 @@ class ViewingCardsView(GenericAPIView):
 
     def post(self, request):
         code = request.data['code']
-        name = request.data['name']
+        fname = request.data['fname']
+        lname = request.data['lname']
         perm = get_object_or_404(ViewingPermission, code=code)
         cards = Card.objects.filter(
             student__section=perm.section,
-            student__name__icontains=name
+            student__first_name__icontains=fname,
+            student__last_name__icontains=lname
         )
         data = CardSerializer(cards, many=True, context={'request': request}).data
 
