@@ -6,6 +6,7 @@ from .models import Work
 from .models import Record
 from .models import Card
 from .models import FinalGrade
+from .models import ViewingPermission
 
 
 class RecordSerializer(serializers.HyperlinkedModelSerializer):
@@ -25,6 +26,16 @@ class WorkSerializer(serializers.HyperlinkedModelSerializer):
         model = Work
         fields = ('url', 'id', 'name', 'gsheet', 'work_type',
                   'date', 'records', 'highest_score')
+        extra_kwargs = {
+            'date': {'read_only': True},
+        }
+
+
+class ViewingPermissionSerializer(models.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = ViewingPermission
+        fields = ('url', 'id', 'section', 'code', 'date')
         extra_kwargs = {
             'date': {'read_only': True},
         }
