@@ -103,10 +103,11 @@ class WriteGradesToCardsView(GenericAPIView):
 
 class ViewingCardsView(GenericAPIView):
     permission_classes = ()
+    serializer_class = CardSerializer
 
     def post(self, request):
         perm = get_object_or_404(ViewingPermission, code=request.data['code'])
         cards = Card.objects.filter(student__section=perm.section)
-        data = CardSerializer(cards, many=true).data
+        data = self.get_serializer_class(cards, many=true).data
 
         return Response({'cards': data}, status=status.HTTP_200_OK)
