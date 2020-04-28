@@ -8,6 +8,7 @@ router.register('sheets', views.GradingSheetViewSet)
 router.register('works', views.WorkViewSet)
 router.register('records', views.RecordViewSet)
 router.register('cards', views.CardViewSet)
+router.register('permissions', views.ViewingPermissionViewSet)
 router.register('finalgrades', views.FinalGradeViewSet)
 
 urlpatterns = [
