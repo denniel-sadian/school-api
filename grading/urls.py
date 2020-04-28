@@ -14,5 +14,6 @@ router.register('finalgrades', views.FinalGradeViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('multiple-records/', views.MultipleRecordCreateView.as_view(), name='multiple-records'),
-    path('write-grades/', views.WriteGradesToCardsView.as_view(), name='write-grades')
+    path('write-grades/', views.WriteGradesToCardsView.as_view(), name='write-grades'),
+    path('view-cards/', views.ViewingCardsView.as_view(), name='view-cards')
 ]
