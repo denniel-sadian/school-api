@@ -94,7 +94,7 @@ class ViewingPermission(models.Model):
     date = models.DateField(auto_now_add=True)
     section = models.ForeignKey(Section, on_delete=models.CASCADE,
                                 related_name='viewing_permissions')
-    code = models.CharField(max_length=100)
+    code = models.CharField(max_length=100, unique=True)
     
     class Meta:
         unique_together = ('section', 'code')
