@@ -88,3 +88,13 @@ class FinalGrade(models.Model):
     teacher = models.ForeignKey('auth.user', on_delete=models.CASCADE)
     score = models.IntegerField(default=60)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+
+
+class ViewingPermission(models.Model):
+    date = models.DateField(auto_now_add=True)
+    section = models.ForeignKey(Section, on_delete=models.CASCADE,
+                                related_name='viewing_permissions')
+    code = models.CharField(max_length=100)
+    
+    class Meta:
+        unique_together = ('section', 'code')
