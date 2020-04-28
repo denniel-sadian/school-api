@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
@@ -98,3 +99,14 @@ class WriteGradesToCardsView(GenericAPIView):
         
         return Response({'detail': 'Grades have been written to their cards'},
                         status=status.HTTP_200_OK)
+
+
+class ViewingCardsView(GenericAPIView):
+    permission_classes = ()
+
+    def post(self, request):
+        perm = get_object_or_404(ViewingPermission, code=request.data['code'])
+        cards = Card.objects.filter(student__section=perm.section)
+        data = CardSerializer(cards, many=true).data
+
+        return Response({'cards': data}, status=status.HTTP_200_OK)
