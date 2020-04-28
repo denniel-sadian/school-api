@@ -107,6 +107,6 @@ class ViewingCardsView(GenericAPIView):
     def post(self, request):
         perm = get_object_or_404(ViewingPermission, code=request.data['code'])
         cards = Card.objects.filter(student__section=perm.section)
-        data = CardSerializer(cards, many=True).data
+        data = CardSerializer(cards, many=True, context={'request': request}).data
 
         return Response({'cards': data}, status=status.HTTP_200_OK)
