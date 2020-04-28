@@ -11,11 +11,13 @@ from .models import Work
 from .models import Record
 from .models import Card
 from .models import FinalGrade
+from .models import ViewingPermission
 from .serializers import GradingSheetSerializer
 from .serializers import WorkSerializer
 from .serializers import RecordSerializer
 from .serializers import CardSerializer
 from .serializers import FinalGradeSerializer
+from .serializers import ViewingPermissionSerializer
 from .permissions import IsTeacherAndOwnerOrReadOnly
 
 
@@ -61,6 +63,11 @@ class CardViewSet(ModelViewSet):
 class FinalGradeViewSet(ModelViewSet):
     serializer_class = FinalGradeSerializer
     queryset = FinalGrade.objects.all()
+
+
+class ViewingPermissionViewSet(ModelViewSet):
+    serializer_class = ViewingPermissionSerializer
+    queryset = ViewingPermission.objects.all()
 
 
 class WriteGradesToCardsView(GenericAPIView):
