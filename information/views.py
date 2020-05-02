@@ -1,9 +1,16 @@
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.generics import GenericAPIView
+from rest_framework.response import Response
+from rest_framework import status
 
 from .models import Department
 from .models import Section
 from .models import Subject
 from .models import Student
+from grading.models import GradingSheet
+from grading.models import Card
+from grading.models import ViewingPermission
+from accounts.models import ProfileUserCreationPermission
 from .serializers import DepartmentSerializer
 from .serializers import SectionSerializer
 from .serializers import SubjectSerializer
@@ -31,3 +38,19 @@ class SubjectViewSet(ModelViewSet):
 class StudentViewSet(ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
+
+
+class SummaryView(GenericAPIView):
+
+    def get(self, request):
+        data = {
+            'departments': Department.objects.all().count(),
+            'sections': Section.objects.all().count(),
+            'subjects': Subject.objects.all().count(),
+            'students': Student.objects.all().count(),
+            'cards': Card.objects.all().count(),
+            'sheets': GradingSheet.objects.all().count(),
+            'vperms': ViewingPermission.objects.all().count(),
+            'regperms': ProfileUserCreationPermission.objects.all().count()
+        }
+        return Response(data, status=status.HTTP_200_OK)
