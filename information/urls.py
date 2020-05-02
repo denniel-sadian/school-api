@@ -10,5 +10,6 @@ router.register('subjects', views.SubjectViewSet)
 router.register('students', views.StudentViewSet)
 
 urlpatterns = [
-    path('', include(router.urls))
+    path('', include(router.urls)),
+    path('summary/', views.SummaryView.as_view(), name='summary')
 ]
