@@ -27,10 +27,12 @@ from .serializers import ProfileUserCreationPermissionSerializer
 from .serializers import UpdateAccountSerializer
 from .serializers import PasswordSerializer
 from .serializers import CodeSerializer
+from .serializers import StudentAccountCreationPermissionSerializer
 from .permissions import IsAdminOrInvited
 from .permissions import IsOwnerOrReadOnly
 from .models import Profile
 from .models import ProfileUserCreationPermission
+from .models import StudentAccountCreationPermission
 
 
 @api_view(['GET'])
@@ -296,6 +298,12 @@ class CreateUserProfileView(GenericAPIView):
         login(request, user)
 
         return Response({'detail': 'Registered'}, status=status.HTTP_201_CREATED)
+
+
+class StudentAccountPermissionViewSet(ModelViewSet):
+    queryset = StudentAccountCreationPermission
+    serializer_class = StudentAccountCreationPermissionSerializer
+    permission_classes = (IsAdminUser,)
 
 
 class AccountCreationPermissionViewSet(ModelViewSet):
