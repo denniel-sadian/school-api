@@ -1,4 +1,5 @@
 from django.db import IntegrityError
+from django.db.models import Q
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth import logout, login
@@ -13,7 +14,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.viewsets import ReadOnlyModelViewSet
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAdminUser
 from rest_framework import status
 
 from information.models import Department
@@ -61,13 +62,30 @@ class CheckPermissionView(GenericAPIView):
                             status=status.HTTP_404_NOT_FOUND)
 
 
-class UserListView(ListAPIView):
-    queryset = User.objects.all()
+class UserQuery:
+    """
+    Queryset of users that are admins and teachers only.
+    """
+
+    def get_queryset(self):
+        return User.objects.filter(
+            Q(profile__role='admin') | Q(profile__role='teacher')
+        )
+
+
+class UserListView(UserQuery, ListAPIView):
+    """
+    List view of users.
+    """
     serializer_class = UserSerializer
 
 
-class UserDeleteView(DestroyAPIView):
-    queryset = User.objects.all()
+class UserDeleteView(UserQuery, DestroyAPIView):
+    """
+    Delete view of the users
+    """
+    permission_classes = (IsAdminUser,)
+    pass
 
 
 class LoginView(GenericAPIView):
