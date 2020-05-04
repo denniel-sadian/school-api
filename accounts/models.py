@@ -2,6 +2,7 @@ from django.db import models
 from django_resized import ResizedImageField
 
 from information.models import Department
+from information.models import Section
 
 
 class Profile(models.Model):
@@ -40,3 +41,8 @@ class ProfileUserCreationPermission(models.Model):
         self.first_name = self.first_name.upper()
         self.last_name = self.last_name.upper()
         super().save(**kwargs)
+
+
+class StudentAccountCreationPermission(models.Model):
+    section = models.ForeignKey(Section, on_delete=models.CASCADE)
+    code = models.CharField(max_length=50, unique=True)
