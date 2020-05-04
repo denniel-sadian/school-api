@@ -13,7 +13,7 @@ class Profile(models.Model):
         ('m', 'Male'),
         ('f', 'Female')
     )
-    user = models.OneToOneField('auth.user', on_delete=models.PROTECT)
+    user = models.OneToOneField('auth.user', on_delete=models.CASCADE)
     gender = models.CharField(max_length=1, choices=GENDERS)
     id_number = models.CharField(max_length=255, null=True, unique=True)
     department = models.ForeignKey(Department, on_delete=models.PROTECT, null=True)
