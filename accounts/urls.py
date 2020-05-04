@@ -6,6 +6,7 @@ from rest_framework_simplejwt.views import TokenRefreshView
 from . import views
 
 router = DefaultRouter()
+router.register('student-permissions', views.StudentAccountPermissionViewSet)
 router.register('permissions', views.AccountCreationPermissionViewSet)
 
 urlpatterns = [
