@@ -6,13 +6,14 @@ from rest_framework_simplejwt.views import TokenRefreshView
 from . import views
 
 router = DefaultRouter()
-router.register('users', views.UserViewSet)
 router.register('permissions', views.AccountCreationPermissionViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
     path('login/', views.LoginView.as_view(), name='login'),
     path('logout/', views.log_out, name='logout'),
+    path('users/', views.UserListView.as_view(), name='user-list'),
+    path('users/<int:pk>/', views.UserDeleteView.as_view(), name='user-delete'),
     path('profile/', views.ProfileView.as_view(), name='profile'),
     path('register/', views.CreateUserProfileView.as_view(), name='register'),
     path('change-password/', views.ChangePasswordView.as_view(),

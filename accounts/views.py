@@ -5,6 +5,8 @@ from django.contrib.auth import logout, login
 from rest_framework.parsers import FileUploadParser
 from rest_framework.views import APIView
 from rest_framework.generics import GenericAPIView
+from rest_framework.generics import ListAPIView
+from rest_framework.generics import DestroyAPIView
 from rest_framework.generics import UpdateAPIView
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.viewsets import ModelViewSet
@@ -59,7 +61,12 @@ class CheckPermissionView(GenericAPIView):
                             status=status.HTTP_404_NOT_FOUND)
 
 
-class UserViewSet(ReadOnlyModelViewSet):
+class UserListView(ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class UserDeleteView(DestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
