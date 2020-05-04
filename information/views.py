@@ -11,6 +11,7 @@ from grading.models import GradingSheet
 from grading.models import Card
 from grading.models import ViewingPermission
 from accounts.models import ProfileUserCreationPermission
+from accounts.models import StudentAccountCreationPermission
 from .serializers import DepartmentSerializer
 from .serializers import SectionSerializer
 from .serializers import SubjectSerializer
@@ -51,6 +52,7 @@ class SummaryView(GenericAPIView):
             'cards': Card.objects.all().count(),
             'sheets': GradingSheet.objects.all().count(),
             'vperms': ViewingPermission.objects.all().count(),
-            'regperms': ProfileUserCreationPermission.objects.all().count()
+            'regperms': ProfileUserCreationPermission.objects.all().count(),
+            'studentperms': StudentAccountCreationPermission.objects.all().count
         }
         return Response(data, status=status.HTTP_200_OK)
