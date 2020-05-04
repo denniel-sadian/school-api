@@ -176,3 +176,5 @@ MEDIA_URL = '/media/'
 # SSL
 
 SECURE_SSL_REDIRECT = True
+if DEBUG:
+    SECURE_SSL_REDIRECT = False
