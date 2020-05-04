@@ -42,6 +42,14 @@ def log_out(request):
     return Response({'detail': 'Logged out'}, status=status.HTTP_200_OK)
 
 
+
+class StudentAccountCreation(GenericAPIView):
+    """
+    View for registering a student account.
+    """
+    permission_classes = ()
+
+
 class CheckPermissionView(GenericAPIView):
     permission_classes = ()
     serializer_class = CodeSerializer
