@@ -46,3 +46,6 @@ class ProfileUserCreationPermission(models.Model):
 class StudentAccountCreationPermission(models.Model):
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
     code = models.CharField(max_length=50, unique=True)
+
+    class Meta:
+        unique_together = ('section', 'code')
