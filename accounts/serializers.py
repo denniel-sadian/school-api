@@ -4,6 +4,7 @@ from rest_framework import serializers
 from information.models import Department
 from .models import Profile
 from .models import ProfileUserCreationPermission
+from .models import StudentAccountCreationPermission
 
 
 class CodeSerializer(serializers.Serializer):
@@ -75,6 +76,14 @@ class ProfileUserCreationPermissionSerializer(serializers.ModelSerializer):
             'used': {'read_only': True},
             'from_who': {'read_only': True}
         }
+
+
+class StudentAccountCreationPermissionSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = StudentAccountCreationPermission
+        fields = ('section', 'code')
+        depth = 1
 
 
 class ProfileSerializer(serializers.ModelSerializer):
