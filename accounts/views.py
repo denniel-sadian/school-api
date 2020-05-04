@@ -54,9 +54,11 @@ class StudentAccountCreation(GenericAPIView):
     permission_classes = ()
 
     def post(self, request):
+        # Get the permission
         perm = get_object_or_404(StudentAccountCreationPermission,
                                  code=request.data['code'])
-        students = perm.section.students
+        # Get all of the profiles that aren't yet claimed
+        students = perm.section.students.filter(user=None)
         
         try:
             # Get the credentials from the data
