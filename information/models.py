@@ -61,7 +61,7 @@ class Student(models.Model):
     cp_number = models.CharField(max_length=12)
     guardian_cp_number = models.CharField(max_length=12)
     address = models.CharField(max_length=255)
-    photo = ResizedImageField(size=[150, 150], upload_to='pics/', force_format='PNG', null=True)
+    photo = ResizedImageField(size=[400, 400], upload_to='pics/', force_format='PNG', null=True)
     department = models.ForeignKey(Department, on_delete=models.PROTECT)
     grade_level = models.CharField(max_length=2, choices=LEVELS)
     section = models.ForeignKey(Section, on_delete=models.PROTECT, related_name='students')
