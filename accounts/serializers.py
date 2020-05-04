@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 
 from information.models import Department
+from information.models import Section
 from .models import Profile
 from .models import ProfileUserCreationPermission
 from .models import StudentAccountCreationPermission
@@ -79,11 +80,14 @@ class ProfileUserCreationPermissionSerializer(serializers.ModelSerializer):
 
 
 class StudentAccountCreationPermissionSerializer(serializers.HyperlinkedModelSerializer):
+    section = serializers.SlugRelatedField(
+        queryset=Section.objects.all(),
+        slug_field='name'
+     )
 
     class Meta:
         model = StudentAccountCreationPermission
-        fields = ('section', 'code')
-        depth = 1
+        fields = ('url', 'id', 'section', 'code')
 
 
 class ProfileSerializer(serializers.ModelSerializer):
