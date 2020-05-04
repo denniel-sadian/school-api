@@ -60,7 +60,9 @@ class UserSerializer(serializers.ModelSerializer):
             'email',
             'first_name',
             'last_name',
+            'profile'
         )
+        depth = 1
 
 
 class ProfileUserCreationPermissionSerializer(serializers.ModelSerializer):
