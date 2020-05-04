@@ -54,6 +54,7 @@ class Student(models.Model):
         ('f', 'Female')
     )
 
+    user = models.OneToOneField('auth.user', null=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     gender = models.CharField(max_length=1, choices=GENDERS)
