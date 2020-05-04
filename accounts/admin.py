@@ -12,4 +12,5 @@ class ProfileUserCreationPermissionAdmin(admin.ModelAdmin):
 
 
 admin.site.register(models.Profile, ProfileAdmin)
+admin.site.register(models.StudentAccountCreationPermission)
 admin.site.register(models.ProfileUserCreationPermission, ProfileUserCreationPermissionAdmin)
