@@ -68,7 +68,6 @@ class UserListView(ListAPIView):
 
 class UserDeleteView(DestroyAPIView):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
 
 
 class LoginView(GenericAPIView):
