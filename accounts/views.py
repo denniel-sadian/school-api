@@ -301,7 +301,7 @@ class CreateUserProfileView(GenericAPIView):
 
 
 class StudentAccountPermissionViewSet(ModelViewSet):
-    queryset = StudentAccountCreationPermission
+    queryset = StudentAccountCreationPermission.objects.all()
     serializer_class = StudentAccountCreationPermissionSerializer
     permission_classes = (IsAdminUser,)
 
