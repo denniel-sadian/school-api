@@ -53,6 +53,6 @@ class SummaryView(GenericAPIView):
             'sheets': GradingSheet.objects.all().count(),
             'vperms': ViewingPermission.objects.all().count(),
             'regperms': ProfileUserCreationPermission.objects.all().count(),
-            'studentperms': StudentAccountCreationPermission.objects.all().count
+            'studentperms': StudentAccountCreationPermission.objects.all().count()
         }
         return Response(data, status=status.HTTP_200_OK)
