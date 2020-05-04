@@ -32,7 +32,7 @@ class ProfileUserCreationPermission(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     gender = models.CharField(max_length=1, choices=Profile.GENDERS)
-    department = models.ForeignKey(Department, on_delete=models.PROTECT)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE)
     code = models.CharField(max_length=50, unique=True)
     used = models.BooleanField(default=False)
 
