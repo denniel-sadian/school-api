@@ -1,5 +1,6 @@
 from django.db import IntegrityError
 from django.db.models import Q
+from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth import logout, login
@@ -18,6 +19,8 @@ from rest_framework.permissions import IsAdminUser
 from rest_framework import status
 
 from information.models import Department
+from information.models import Section
+from information.serializers import StudentSerializer
 from .serializers import UserProfileSerializer
 from .serializers import ProfileSerializer
 from .serializers import PhotoSerializer
@@ -44,12 +47,46 @@ def log_out(request):
     return Response({'detail': 'Logged out'}, status=status.HTTP_200_OK)
 
 
-
 class StudentAccountCreation(GenericAPIView):
     """
     View for registering a student account.
     """
     permission_classes = ()
+
+    def post(self, request):
+        perm = get_object_or_404(StudentAccountCreationPermission,
+                                 code=request.data['code'])
+        students = perm.section.students
+        
+        try:
+            # Get the credentials from the data
+            student_id = request.data['student']
+            email = request.data['email']
+            username = request.data['username']
+            password = request.data['password']
+            
+            # Get the student
+            student = students.get(id=student_id)
+            
+            # Create the user
+            user = User.objects.create(
+                first_name=student.first_name,
+                last_name=student.last_name,
+                email=email,
+                username=username
+            )
+            user.set_password(password)
+            user.save()
+
+            # Set the user for the student profile
+            student.user = user
+            student.save()
+
+            return Response({'detail': 'Registered'}, status=status.HTTP_201_CREATED)
+        
+        except KeyError:
+            data = StudentSerializer(students, many=True, context={'request': request}).data
+            return Response(data, status=status.HTTP_200_OK)
 
 
 class CheckPermissionView(GenericAPIView):
