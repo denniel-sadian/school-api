@@ -21,7 +21,7 @@ class StudentSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'id', 'first_name', 'last_name', 'gender',
                   'id_number', 'cp_number', 'guardian_cp_number',
                   'address', 'photo', 'department', 'grade_level',
-                  'section')
+                  'section', 'user')
 
 
 class SectionSerializer(serializers.HyperlinkedModelSerializer):
