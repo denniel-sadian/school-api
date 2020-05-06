@@ -21,5 +21,5 @@ class ItemViewSet(ModelViewSet):
 
 
 class ChoiceViewSet(ModelViewSet):
-    queryset = Item.objects.all()
+    queryset = Choice.objects.all()
     serializer_class = ChoiceSerializer
