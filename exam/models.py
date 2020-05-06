@@ -16,9 +16,6 @@ class Exam(models.Model):
     date = models.DateField(auto_now_add=True)
     sheets = models.ManyToManyField(GradingSheet)
 
-    class Meta:
-        unique_together = ('teacher', 'sheet')
-
 
 class Item(models.Model):
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE, related_name='items')
