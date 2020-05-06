@@ -28,6 +28,9 @@ class Choice(models.Model):
     letter = models.CharField(choices=CHOICES, max_length=1)
     text = models.CharField(max_length=255)
 
+    class Meta:
+        unique_together = ('item', 'letter')
+
 
 class Session(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
