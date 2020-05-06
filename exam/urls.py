@@ -9,5 +9,6 @@ router.register('items', views.ItemViewSet)
 router.register('choices', views.ChoiceViewSet)
 
 urlpatterns = [
-    path('', include(router.urls))
+    path('', include(router.urls)),
+    path('check/', views.CheckAnswers.as_view(), name='checking')
 ]
