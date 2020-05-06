@@ -18,3 +18,8 @@ class ExamViewSet(ModelViewSet):
 class ItemViewSet(ModelViewSet):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
+
+
+class ChoiceViewSet(ModelViewSet):
+    queryset = Item.objects.all()
+    serializer_class = ChoiceSerializer
