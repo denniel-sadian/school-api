@@ -1,3 +1,5 @@
+from django.contrib.auth.models import User
+from django.db.models import Q
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
@@ -53,6 +55,9 @@ class SummaryView(GenericAPIView):
             'sheets': GradingSheet.objects.all().count(),
             'vperms': ViewingPermission.objects.all().count(),
             'regperms': ProfileUserCreationPermission.objects.all().count(),
-            'studentperms': StudentAccountCreationPermission.objects.all().count()
+            'studentperms': StudentAccountCreationPermission.objects.all().count(),
+            'staff': User.objects.filter(
+                Q(profile__role='admin') | Q(profile__role='teacher')
+            ).count()
         }
         return Response(data, status=status.HTTP_200_OK)
