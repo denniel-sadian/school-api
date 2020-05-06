@@ -137,6 +137,14 @@ class UserDeleteView(UserQuery, DestroyAPIView):
     pass
 
 
+class UserDetailView(RetrieveAPIView):
+    """
+    Delete view of the users
+    """
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
 class LoginView(GenericAPIView):
     """
     View for logging user in.
