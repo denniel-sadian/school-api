@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from grading.serializers import RecordSerializer
+from accounts.serializers import UserSerializer
 from .models import Department
 from .models import Section
 from .models import Subject
@@ -15,6 +15,7 @@ class DepartmentSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class StudentSerializer(serializers.HyperlinkedModelSerializer):
+    user = UserSerializer(read_only=True)
 
     class Meta:
         model = Student
