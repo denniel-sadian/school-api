@@ -4,10 +4,10 @@ from grading.models import GradingSheet
 from information.models import Student
 
 CHOICES = (
-    ('a': 'A'),
-    ('b': 'B'),
-    ('c': 'C'),
-    ('d': 'D')
+    ('a', 'A'),
+    ('b', 'B'),
+    ('c', 'C'),
+    ('d', 'D')
 )
 
 
