@@ -10,7 +10,7 @@ class ExamSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Exam
-        fields = ('url', 'id', 'teacher', 'date', 'sheets')
+        fields = ('url', 'id', 'teacher', 'date', 'sheets', 'items')
         extra_kwargs = {
             'date': {'read_only': True},
             'teacher': {'view_name': 'user-detail'}
@@ -21,7 +21,7 @@ class ItemSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Item
-        fields = ('url', 'id', 'exam', 'question', 'correct')
+        fields = ('url', 'id', 'exam', 'question', 'correct', 'choices')
 
 
 class ChoiceSerializer(serializers.HyperlinkedModelSerializer):
