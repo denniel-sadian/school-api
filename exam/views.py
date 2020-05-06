@@ -1,3 +1,15 @@
-from django.shortcuts import render
+from rest_framework.viewsets import ModelViewSet
 
-# Create your views here.
+from .models import Exam
+from .models import Item
+from .models import Choice
+from .models import Session
+from .serializers import ExamSerializer
+from .serializers import ItemSerializer
+from .serializers import ChoiceSerializer
+from .serializers import SessionSerializer
+
+
+class ExamViewSet(ModelViewSet):
+    queryset = Exam.objects.all()
+    serializer_class = ExamSerializer
