@@ -19,6 +19,9 @@ class ExamViewSet(ModelViewSet):
     queryset = Exam.objects.all()
     serializer_class = ExamSerializer
 
+    def perform_create(self, serializer):
+        serializer.save(teacher=self.request.user)
+
 
 class ItemViewSet(ModelViewSet):
     queryset = Item.objects.all()
