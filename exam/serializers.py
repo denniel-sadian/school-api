@@ -13,7 +13,7 @@ class ExamSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'id', 'teacher', 'date', 'sheets', 'items')
         extra_kwargs = {
             'date': {'read_only': True},
-            'teacher': {'view_name': 'user-detail'}
+            'teacher': {'view_name': 'user-detail', 'read_only': True}
         }
 
 
