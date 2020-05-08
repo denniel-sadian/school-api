@@ -27,6 +27,7 @@ class ExamViewSet(ModelViewSet):
     def perform_destroy(self, instance):
         for sheet in instance.sheets.all():
             sheet.works.filter(work_type='e').delete()
+        instance.delete()
 
 
 class ItemViewSet(ModelViewSet):
