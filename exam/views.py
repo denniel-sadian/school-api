@@ -21,6 +21,11 @@ class ExamViewSet(ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(teacher=self.request.user)
+    
+    def perform_destroy(self, instance):
+        sheets = instance.sheets.all()
+        for s in sheets:
+            sheets.works.filter(work_type='e').delete()
 
 
 class ItemViewSet(ModelViewSet):
