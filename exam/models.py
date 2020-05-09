@@ -13,6 +13,7 @@ CHOICES = (
 
 class Exam(models.Model):
     teacher = models.ForeignKey('auth.user', on_delete=models.CASCADE)
+    published = models.BooleanField(default=False)
     date = models.DateField(auto_now_add=True)
     sheets = models.ManyToManyField(GradingSheet)
 
