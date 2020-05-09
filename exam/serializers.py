@@ -43,6 +43,7 @@ class ExamSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class StrippedItemSerializer(serializers.HyperlinkedModelSerializer):
+    choices = ChoiceSerializer(many=True, read_only=True)
 
     class Meta:
         model = Item
