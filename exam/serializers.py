@@ -42,7 +42,15 @@ class ExamSerializer(serializers.HyperlinkedModelSerializer):
         }
 
 
+class StrippedItemSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = Item
+        fields = ('url', 'id', 'exam', 'question', 'choices')
+
+
 class StrippedExamSerializer(serializers.HyperlinkedModelSerializer):
+    items = StrippedItemSerializer(many=True, read_only=True)
 
     class Meta:
         model = Exam
