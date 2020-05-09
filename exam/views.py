@@ -1,4 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ReadOnlyModelViewSet
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -38,6 +39,13 @@ class ItemViewSet(ModelViewSet):
 class ChoiceViewSet(ModelViewSet):
     queryset = Choice.objects.all()
     serializer_class = ChoiceSerializer
+
+
+class SessionViewSet(ReadOnlyModelViewSet):
+    serializer_class = SessionSerializer
+
+    def get_queryset(self):
+        return Session.objects.filter(student=self.request.user.student)
 
 
 class CheckAnswers(GenericAPIView):
