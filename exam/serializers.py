@@ -55,4 +55,4 @@ class StrippedExamSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Exam
-        fields = ('url', 'id', 'teacher', 'date', 'published', 'sheets', 'items', 'sessions')
+        fields = ('url', 'id', 'teacher', 'date', 'published', 'sheets', 'items')
