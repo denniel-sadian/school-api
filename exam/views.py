@@ -39,7 +39,7 @@ class StrippedExamViewSet(ReadOnlyModelViewSet):
     
     def get_queryset(self):
         section = self.request.user.student.section
-        return Exam.objects.filter(sheets__section=section)
+        return Exam.objects.filter(sheets__section=section, published=True)
 
 
 class ItemViewSet(ModelViewSet):
