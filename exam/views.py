@@ -36,13 +36,13 @@ class ExamViewSet(ModelViewSet):
 class ItemViewSet(ModelViewSet):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
-    permission_class = (IsTeacherOrAdmin,)
+    permission_classes = (IsTeacherOrAdmin,)
 
 
 class ChoiceViewSet(ModelViewSet):
     queryset = Choice.objects.all()
     serializer_class = ChoiceSerializer
-    permission_class = (IsTeacherOrAdmin,)
+    permission_classes = (IsTeacherOrAdmin,)
 
 
 class SessionViewSet(ModelViewSet):
