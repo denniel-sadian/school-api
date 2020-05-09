@@ -14,11 +14,13 @@ from .serializers import ExamSerializer
 from .serializers import ItemSerializer
 from .serializers import ChoiceSerializer
 from .serializers import SessionSerializer
+from .permissions import IsTeacherOrAdmin
 
 
 class ExamViewSet(ModelViewSet):
     queryset = Exam.objects.all()
     serializer_class = ExamSerializer
+    permission_class = (IsTeacherOrAdmin,)
 
     def perform_create(self, serializer):
         serializer.save(teacher=self.request.user)
@@ -34,11 +36,13 @@ class ExamViewSet(ModelViewSet):
 class ItemViewSet(ModelViewSet):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
+    permission_class = (IsTeacherOrAdmin,)
 
 
 class ChoiceViewSet(ModelViewSet):
     queryset = Choice.objects.all()
     serializer_class = ChoiceSerializer
+    permission_class = (IsTeacherOrAdmin,)
 
 
 class SessionViewSet(ModelViewSet):
