@@ -40,3 +40,10 @@ class ExamSerializer(serializers.HyperlinkedModelSerializer):
             'date': {'read_only': True},
             'teacher': {'view_name': 'user-detail', 'read_only': True},
         }
+
+
+class StrippedExamSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = Exam
+        fields = ('url', 'id', 'teacher', 'date', 'published', 'sheets', 'items', 'sessions')
