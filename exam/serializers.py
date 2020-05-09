@@ -6,17 +6,6 @@ from .models import Choice
 from .models import Session
 
 
-class ExamSerializer(serializers.HyperlinkedModelSerializer):
-
-    class Meta:
-        model = Exam
-        fields = ('url', 'id', 'teacher', 'date', 'published', 'sheets', 'items')
-        extra_kwargs = {
-            'date': {'read_only': True},
-            'teacher': {'view_name': 'user-detail', 'read_only': True}
-        }
-
-
 class ItemSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
@@ -38,4 +27,16 @@ class SessionSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'id', 'student', 'exam', 'date')
         extra_kwargs = {
             'date': {'read_only': True}
+        }
+
+
+class ExamSerializer(serializers.HyperlinkedModelSerializer):
+    sessions = SessionSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Exam
+        fields = ('url', 'id', 'teacher', 'date', 'published', 'sheets', 'items', 'sessions')
+        extra_kwargs = {
+            'date': {'read_only': True},
+            'teacher': {'view_name': 'user-detail', 'read_only': True},
         }
