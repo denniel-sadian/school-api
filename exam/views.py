@@ -86,6 +86,7 @@ class CheckAnswers(GenericAPIView):
         gsheet = exam.sheets.get(section=student.section)
         work = gsheet.works.get_or_create(work_type='e')[0]
         work.highest_score = exam.items.all().count()
+        work.save()
         record = Record.objects.get_or_create(gsheet=gsheet, student=student, work=work)
         record.score = score
         record.save()
