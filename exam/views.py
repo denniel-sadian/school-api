@@ -1,5 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.viewsets import ReadOnlyModelViewSet
+from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -41,7 +41,7 @@ class ChoiceViewSet(ModelViewSet):
     serializer_class = ChoiceSerializer
 
 
-class SessionViewSet(ReadOnlyModelViewSet):
+class SessionViewSet(ModelViewSet):
     serializer_class = SessionSerializer
 
     def get_queryset(self):
