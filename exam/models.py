@@ -34,6 +34,6 @@ class Choice(models.Model):
 
 
 class Session(models.Model):
-    student = models.ForeignKey(Student, on_delete=models.CASCADE)
-    exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='sessions')
+    exam = models.ForeignKey(Exam, on_delete=models.CASCADE, related_name='sessions')
     date = models.DateField(auto_now_add=True)
