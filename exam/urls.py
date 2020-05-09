@@ -5,7 +5,7 @@ from . import views
 
 router = DefaultRouter()
 router.register('exams', views.ExamViewSet)
-router.register('stripped-exams', views.StrippedExamViewSet)
+router.register('stripped-exams', views.StrippedExamViewSet, basename='stripped-exam')
 router.register('items', views.ItemViewSet)
 router.register('choices', views.ChoiceViewSet)
 router.register('sessions', views.SessionViewSet, basename='session')
