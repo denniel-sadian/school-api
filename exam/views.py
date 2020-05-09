@@ -20,7 +20,7 @@ from .permissions import IsTeacherOrAdmin
 class ExamViewSet(ModelViewSet):
     queryset = Exam.objects.all()
     serializer_class = ExamSerializer
-    permission_class = (IsTeacherOrAdmin,)
+    permission_classes = (IsTeacherOrAdmin,)
 
     def perform_create(self, serializer):
         serializer.save(teacher=self.request.user)
