@@ -1,5 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ReadOnlyModelViewSet
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -11,6 +11,7 @@ from .models import Item
 from .models import Choice
 from .models import Session
 from .serializers import ExamSerializer
+from .serializers import StrippedExamSerializer
 from .serializers import ItemSerializer
 from .serializers import ChoiceSerializer
 from .serializers import SessionSerializer
@@ -31,6 +32,14 @@ class ExamViewSet(ModelViewSet):
         for sheet in instance.sheets.all():
             sheet.works.filter(work_type='e').delete()
         instance.delete()
+
+
+class StrippedExamViewSet(ReadOnlyModelViewSet):
+    serializer_class = StrippedExamSerializer
+    
+    def get_queryset(self):
+        section = self.request.user.student.section
+        return Exam.objects.filter(sheets__section=section)
 
 
 class ItemViewSet(ModelViewSet):
