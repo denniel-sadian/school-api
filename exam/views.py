@@ -54,7 +54,7 @@ class ChoiceViewSet(ModelViewSet):
     permission_classes = (IsTeacherOrAdmin,)
 
 
-class StudentSessionViewSet(ModelViewSet):
+class StudentSessionViewSet(ReadOnlyModelViewSet):
     serializer_class = SessionSerializer
 
     def get_queryset(self):
