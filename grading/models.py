@@ -28,6 +28,7 @@ class GradingSheet(models.Model):
     subject = models.ForeignKey(Subject, on_delete=models.PROTECT,
                                 related_name='grading_sheets')
     publish = models.BooleanField(default=False)
+    has_multiple_choice_exam = models.BooleanField(default=False)
     grading = models.CharField(choices=GRADINGS, max_length=7)
     sem = models.CharField(choices=SEMESTERS, max_length=1)
 
