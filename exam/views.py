@@ -26,10 +26,14 @@ class ExamViewSet(ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(teacher=self.request.user)
         for sheet in serializer.instance.sheets.all():
+            sheet.has_multiple_choice_exam = True
+            sheet.save()
             sheet.works.create(work_type='e', name='Examination')
     
     def perform_destroy(self, instance):
         for sheet in instance.sheets.all():
+            sheet.has_multiple_choice_exam = True
+            sheet.save()
             sheet.works.filter(work_type='e').delete()
         instance.delete()
 
