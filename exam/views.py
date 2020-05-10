@@ -32,7 +32,7 @@ class ExamViewSet(ModelViewSet):
     
     def perform_destroy(self, instance):
         for sheet in instance.sheets.all():
-            sheet.has_multiple_choice_exam = True
+            sheet.has_multiple_choice_exam = False
             sheet.save()
             sheet.works.filter(work_type='e').delete()
         instance.delete()
