@@ -32,7 +32,19 @@ class SessionSerializer(serializers.HyperlinkedModelSerializer):
         }
 
 
+class AdminCommentSerializer(serializers.HyperlinkedModelSerializer):
+    admin = UserSerializer(read_only=True)
+
+    class Meta:
+        model = AdminComment
+        fields = ('url', 'id', 'admin', 'exam', 'comment', 'date')
+        extra_kwargs = {
+            'date': {'read_only': True}
+        }
+
+
 class ExamSerializer(serializers.HyperlinkedModelSerializer):
+    comments = AdminCommentSerializer(many=True, read_only=True)
 
     class Meta:
         model = Exam
@@ -58,14 +70,3 @@ class StrippedExamSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Exam
         fields = ('url', 'id', 'teacher', 'date', 'published', 'sheets', 'items')
-
-
-class AdminCommentSerializer(serializers.HyperlinkedModelSerializer):
-    admin = UserSerializer(read_only=True)
-
-    class Meta:
-        model = AdminComment
-        fields = ('url', 'id', 'admin', 'exam', 'comment', 'date')
-        extra_kwargs = {
-            'date': {'read_only': True}
-        }
