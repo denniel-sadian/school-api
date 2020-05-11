@@ -17,7 +17,6 @@ from .serializers import ItemSerializer
 from .serializers import ChoiceSerializer
 from .serializers import SessionSerializer
 from .serializers import AdminCommentSerializer
-from .serializers import InformativeAdminCommentSerializer
 from .permissions import IsTeacherOrAdmin
 
 
@@ -112,10 +111,5 @@ class CheckAnswers(GenericAPIView):
 
 class AdminCommentViewSet(ModelViewSet):
     queryset = AdminComment.objects.all()
-    serializer_class = InformativeAdminCommentSerializer
+    serializer_class = AdminCommentSerializer
     permission_classes = (IsTeacherOrAdmin,)
-
-    def get_serializer_class(self):
-        if self.request.method == 'POST':
-            return AdminCommentSerializer
-        return super().get_serializer_class()
