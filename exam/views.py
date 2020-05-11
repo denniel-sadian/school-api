@@ -27,7 +27,7 @@ class ExamViewSet(ModelViewSet):
         # For students
         if self.request.user.profile.role == None:
             section = self.request.user.student.section
-            return Exam.objects.filter(sheets__section=section, published=True)
+            return Exam.objects.filter(sheets__section=section)
         
         # For staff
         return self.queryset
