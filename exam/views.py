@@ -112,7 +112,7 @@ class CheckAnswers(GenericAPIView):
 
 class AdminCommentViewSet(ModelViewSet):
     queryset = AdminComment.objects.all()
-    serializer_class = AdminCommentSerializer
+    serializer_class = InformativeAdminCommentSerializer
     permission_classes = (IsTeacherOrAdmin,)
 
     def get_serializer_class(self):
