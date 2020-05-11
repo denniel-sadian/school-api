@@ -36,7 +36,8 @@ class ExamSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Exam
-        fields = ('url', 'id', 'teacher', 'date', 'published', 'sheets', 'items')
+        fields = ('url', 'id', 'teacher', 'date', 'published', 'sheets', 'items',
+                  'comments')
         extra_kwargs = {
             'date': {'read_only': True},
             'teacher': {'view_name': 'user-detail', 'read_only': True},
