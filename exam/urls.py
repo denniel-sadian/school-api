@@ -8,7 +8,7 @@ router.register('exams', views.ExamViewSet)
 router.register('items', views.ItemViewSet)
 router.register('choices', views.ChoiceViewSet)
 router.register('sessions', views.StudentSessionViewSet, basename='session')
-router.register('admincomments', views.AdminCommentViewSet)
+router.register('staffcomments', views.StaffCommentViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
