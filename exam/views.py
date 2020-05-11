@@ -120,3 +120,6 @@ class StaffCommentViewSet(ModelViewSet):
     queryset = StaffComment.objects.all()
     serializer_class = StaffCommentSerializer
     permission_classes = (IsTeacherOrAdmin,)
+
+    def perform_create(self, serializer):
+        serializer.save(staff=self.request.user)
