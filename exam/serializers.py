@@ -77,3 +77,4 @@ class InformativeAdminCommentSerializer(serializers.HyperlinkedModelSerializer):
             'date': {'read_only': True},
             'admin': {'view_name': 'user-detail', 'read_only': True}
         }
+        depth = 1
