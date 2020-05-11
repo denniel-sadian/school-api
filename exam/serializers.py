@@ -43,7 +43,16 @@ class AdminCommentSerializer(serializers.HyperlinkedModelSerializer):
         }
 
 
+class ItemSerializer(serializers.HyperlinkedModelSerializer):
+    choices = ChoiceSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Item
+        fields = ('url', 'id', 'exam', 'correct', 'question', 'choices')
+
+
 class ExamSerializer(serializers.HyperlinkedModelSerializer):
+    items = ItemSerializer(many=True, read_only=True)
     comments = AdminCommentSerializer(many=True, read_only=True)
 
     class Meta:
