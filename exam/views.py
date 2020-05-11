@@ -116,6 +116,6 @@ class AdminCommentViewSet(ModelViewSet):
     permission_classes = (IsTeacherOrAdmin,)
 
     def get_serializer_class(self):
-        if self.request.method === 'POST':
+        if self.request.method == 'POST':
             return AdminCommentSerializer
         super().get_serializer_class()
