@@ -10,11 +10,13 @@ from .models import Exam
 from .models import Item
 from .models import Choice
 from .models import Session
+from .models import AdminComment
 from .serializers import ExamSerializer
 from .serializers import StrippedExamSerializer
 from .serializers import ItemSerializer
 from .serializers import ChoiceSerializer
 from .serializers import SessionSerializer
+from .serializers import AdminCommentSerializer
 from .permissions import IsTeacherOrAdmin
 
 
@@ -105,3 +107,8 @@ class CheckAnswers(GenericAPIView):
         }
 
         return Response(result, status=status.HTTP_200_OK)
+
+
+class AdminCommentViewSet(ModelViewSet):
+    queryset = AdminComment.objects.all()
+    serializer_class = AdminCommentSerializer
