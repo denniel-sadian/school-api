@@ -62,7 +62,18 @@ class AdminCommentSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = AdminComment
-        fields = ('url', 'id', 'admin', 'exam', 'comment', 'data')
+        fields = ('url', 'id', 'admin', 'exam', 'comment', 'date')
+        extra_kwargs = {
+            'date': {'read_only': True}
+        }
+
+
+class InformativeAdminCommentSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = AdminComment
+        fields = ('url', 'id', 'admin', 'exam', 'comment', 'date')
         extra_kwargs = {
             'date': {'read_only': True},
+            'admin': {'view_name': 'user-detail', 'read_only': True}
         }
