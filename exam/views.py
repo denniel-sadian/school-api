@@ -24,15 +24,21 @@ class ExamViewSet(ModelViewSet):
     queryset = Exam.objects.all()
 
     def get_queryset(self):
+        # For students
         if self.request.user.profile.role == None:
-            return self.queryset
-        section = self.request.user.student.section
-        return Exam.objects.filter(sheets__section=section, published=True)
+            section = self.request.user.student.section
+            return Exam.objects.filter(sheets__section=section, published=True)
+        
+        # For staff
+        return self.queryset
 
     def get_serializer_class(self):
+        # For students
         if self.request.user.profile.role == None:
-            return ExamSerializer
-        return StrippedExamSerializer
+            return StrippedExamSerializer
+        
+        # For staff
+        return ExamSerializer
 
     def perform_create(self, serializer):
         serializer.save(teacher=self.request.user)
