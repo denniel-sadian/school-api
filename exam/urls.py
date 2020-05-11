@@ -8,8 +8,8 @@ router.register('exams', views.ExamViewSet)
 router.register('stripped-exams', views.StrippedExamViewSet, basename='stripped-exam')
 router.register('items', views.ItemViewSet)
 router.register('choices', views.ChoiceViewSet)
-router.register('sessions', views.AdminCommentViewSet, basename='session')
-router.register('admin-comments', views.StudentSessionViewSet, basename='admin-comment')
+router.register('sessions', views.StudentSessionViewSet, basename='session')
+router.register('admin-comments', views.AdminCommentViewSet, basename='admin-comment')
 
 urlpatterns = [
     path('', include(router.urls)),
