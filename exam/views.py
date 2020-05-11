@@ -24,13 +24,13 @@ class ExamViewSet(ModelViewSet):
     queryset = Exam.objects.all()
 
     def get_queryset(self):
-        if self.request.user.student == None:
+        if self.request.user.profile.role == None:
             return self.queryset
         section = self.request.user.student.section
         return Exam.objects.filter(sheets__section=section, published=True)
 
     def get_serializer_class(self):
-        if self.request.user.student == None:
+        if self.request.user.profile.role == None:
             return ExamSerializer
         return StrippedExamSerializer
 
