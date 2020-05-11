@@ -21,9 +21,17 @@ from .permissions import IsTeacherOrAdmin
 
 
 class ExamViewSet(ModelViewSet):
-    queryset = Exam.objects.all()
-    serializer_class = ExamSerializer
-    permission_classes = (IsTeacherOrAdmin,)
+
+    def get_queryset(self):
+        if self.request.user.student == None:
+            return Exam.objects.all()
+        section = self.request.user.student.section
+        return Exam.objects.filter(sheets__section=section, published=True)
+
+    def get_serializer_class(self):
+        if self.request.user.student == None:
+            return ExamSerializer
+        return StrippedExamSerializer
 
     def perform_create(self, serializer):
         serializer.save(teacher=self.request.user)
@@ -38,14 +46,6 @@ class ExamViewSet(ModelViewSet):
             sheet.save()
             sheet.works.filter(work_type='e').delete()
         instance.delete()
-
-
-class StrippedExamViewSet(ReadOnlyModelViewSet):
-    serializer_class = StrippedExamSerializer
-    
-    def get_queryset(self):
-        section = self.request.user.student.section
-        return Exam.objects.filter(sheets__section=section, published=True)
 
 
 class ItemViewSet(ModelViewSet):
