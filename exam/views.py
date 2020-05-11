@@ -118,4 +118,4 @@ class AdminCommentViewSet(ModelViewSet):
     def get_serializer_class(self):
         if self.request.method == 'POST':
             return AdminCommentSerializer
-        super().get_serializer_class()
+        return super().get_serializer_class()
