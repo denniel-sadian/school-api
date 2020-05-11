@@ -37,3 +37,10 @@ class Session(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='sessions')
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE, related_name='sessions')
     date = models.DateField(auto_now_add=True)
+
+
+class AdminComment(models.Model):
+    admin = models.ForeignKey('auth.user', on_delete=models.CASCADE)
+    exam = models.ForeignKey(Exam, on_delete=models.CASCADE, related_name='comments')
+    comment = models.CharField(max_length=255)
+    date = models.DateField(auto_now_add=True)
