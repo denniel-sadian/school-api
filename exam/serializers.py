@@ -5,7 +5,7 @@ from .models import Exam
 from .models import Item
 from .models import Choice
 from .models import Session
-from .models import AdminComment
+from .models import StaffComment
 
 
 class ItemSerializer(serializers.HyperlinkedModelSerializer):
@@ -32,12 +32,12 @@ class SessionSerializer(serializers.HyperlinkedModelSerializer):
         }
 
 
-class AdminCommentSerializer(serializers.HyperlinkedModelSerializer):
-    admin = UserSerializer(read_only=True)
+class StaffCommentSerializer(serializers.HyperlinkedModelSerializer):
+    staff = UserSerializer(read_only=True)
 
     class Meta:
-        model = AdminComment
-        fields = ('url', 'id', 'admin', 'exam', 'comment', 'date')
+        model = StaffComment
+        fields = ('url', 'id', 'staff', 'exam', 'comment', 'date')
         extra_kwargs = {
             'date': {'read_only': True}
         }
@@ -53,7 +53,7 @@ class ItemSerializer(serializers.HyperlinkedModelSerializer):
 
 class ExamSerializer(serializers.HyperlinkedModelSerializer):
     items = ItemSerializer(many=True, read_only=True)
-    comments = AdminCommentSerializer(many=True, read_only=True)
+    comments = StaffCommentSerializer(many=True, read_only=True)
 
     class Meta:
         model = Exam
