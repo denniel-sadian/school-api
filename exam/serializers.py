@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from accounts.serializers import UserSerializer
 from .models import Exam
 from .models import Item
 from .models import Choice
@@ -59,6 +60,7 @@ class StrippedExamSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class AdminCommentSerializer(serializers.HyperlinkedModelSerializer):
+    admin = UserSerializer(read_only=True)
 
     class Meta:
         model = AdminComment
@@ -66,15 +68,3 @@ class AdminCommentSerializer(serializers.HyperlinkedModelSerializer):
         extra_kwargs = {
             'date': {'read_only': True}
         }
-
-
-class InformativeAdminCommentSerializer(serializers.HyperlinkedModelSerializer):
-
-    class Meta:
-        model = AdminComment
-        fields = ('url', 'id', 'admin', 'exam', 'comment', 'date')
-        extra_kwargs = {
-            'date': {'read_only': True},
-            'admin': {'read_only': True}
-        }
-        depth = 1
