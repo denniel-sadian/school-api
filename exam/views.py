@@ -21,10 +21,11 @@ from .permissions import IsTeacherOrAdmin
 
 
 class ExamViewSet(ModelViewSet):
+    queryset = Exam.objects.all()
 
     def get_queryset(self):
         if self.request.user.student == None:
-            return Exam.objects.all()
+            return self.queryset
         section = self.request.user.student.section
         return Exam.objects.filter(sheets__section=section, published=True)
 
