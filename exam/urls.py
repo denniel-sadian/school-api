@@ -9,7 +9,7 @@ router.register('stripped-exams', views.StrippedExamViewSet, basename='stripped-
 router.register('items', views.ItemViewSet)
 router.register('choices', views.ChoiceViewSet)
 router.register('sessions', views.StudentSessionViewSet, basename='session')
-router.register('admin-comments', views.AdminCommentViewSet, basename='admin-comment')
+router.register('admincomments', views.AdminCommentViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
