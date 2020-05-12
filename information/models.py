@@ -78,6 +78,6 @@ class Student(models.Model):
 
 
 class Announcement(models.Model):
-    staff = models.OneToOneField('auth.user', null=True, on_delete=models.CASCADE)
+    staff = models.OneToOneField('auth.user', on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     message = models.TextField()
