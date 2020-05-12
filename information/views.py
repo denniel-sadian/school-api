@@ -5,6 +5,7 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework import status
 
+from .models import Announcement
 from .models import Department
 from .models import Section
 from .models import Subject
@@ -18,6 +19,7 @@ from .serializers import DepartmentSerializer
 from .serializers import SectionSerializer
 from .serializers import SubjectSerializer
 from .serializers import StudentSerializer
+from .serializers import AnnouncementSerializer
 from .permissions import IsAuthenticatedOrAdmin
 
 
@@ -46,6 +48,14 @@ class StudentViewSet(ModelViewSet):
         if instance.user:
             instance.user.delete()
         instance.delete()
+
+
+class AnnouncementViewSet(ModelViewSet):
+    queryset = Announcement.objects.all().order_by('-date')
+    serializer_class = AnnouncementSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(from_who=self.request.user)
 
 
 class SummaryView(GenericAPIView):
