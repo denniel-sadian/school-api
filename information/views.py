@@ -21,6 +21,7 @@ from .serializers import SubjectSerializer
 from .serializers import StudentSerializer
 from .serializers import AnnouncementSerializer
 from .permissions import IsAuthenticatedOrAdmin
+from .permissions import IsTeacherOrAdmin
 
 
 class DepartmentViewSet(ModelViewSet):
@@ -53,6 +54,7 @@ class StudentViewSet(ModelViewSet):
 class AnnouncementViewSet(ModelViewSet):
     queryset = Announcement.objects.all().order_by('-date')
     serializer_class = AnnouncementSerializer
+    permission_classes = (IsTeacherOrAdmin,)
 
     def perform_create(self, serializer):
         serializer.save(from_who=self.request.user)
