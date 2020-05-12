@@ -9,6 +9,7 @@ class StudentAdmin(admin.ModelAdmin):
                     'section')
 
 
+admin.site.register(models.Announcement)
 admin.site.register(models.Department)
 admin.site.register(models.Section)
 admin.site.register(models.Subject)
