@@ -59,7 +59,7 @@ class AnnouncementViewSet(ModelViewSet):
     permission_classes = (IsAuthenticated, IsTeacherOrAdmin)
 
     def perform_create(self, serializer):
-        serializer.save(from_who=self.request.user)
+        serializer.save(staff=self.request.user)
 
 
 class SummaryView(GenericAPIView):
