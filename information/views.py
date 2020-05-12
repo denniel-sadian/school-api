@@ -16,6 +16,7 @@ from grading.models import Card
 from grading.models import ViewingPermission
 from accounts.models import ProfileUserCreationPermission
 from accounts.models import StudentAccountCreationPermission
+from exam.models import Exam
 from .serializers import DepartmentSerializer
 from .serializers import SectionSerializer
 from .serializers import SubjectSerializer
@@ -74,6 +75,7 @@ class SummaryView(GenericAPIView):
             'vperms': ViewingPermission.objects.all().count(),
             'regperms': ProfileUserCreationPermission.objects.all().count(),
             'studentperms': StudentAccountCreationPermission.objects.all().count(),
+            'exams': Exam.objects.all().count(),
             'staff': User.objects.filter(
                 Q(profile__role='admin') | Q(profile__role='teacher')
             ).count()
