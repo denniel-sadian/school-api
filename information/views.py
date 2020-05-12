@@ -3,6 +3,7 @@ from django.db.models import Q
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 
 from .models import Announcement
@@ -54,7 +55,7 @@ class StudentViewSet(ModelViewSet):
 class AnnouncementViewSet(ModelViewSet):
     queryset = Announcement.objects.all().order_by('-date')
     serializer_class = AnnouncementSerializer
-    permission_classes = (IsTeacherOrAdmin,)
+    permission_classes = (IsAuthenticated, IsTeacherOrAdmin)
 
     def perform_create(self, serializer):
         serializer.save(from_who=self.request.user)
