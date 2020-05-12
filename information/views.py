@@ -56,7 +56,6 @@ class StudentViewSet(ModelViewSet):
 class AnnouncementViewSet(ModelViewSet):
     queryset = Announcement.objects.all().order_by('-date')
     serializer_class = AnnouncementSerializer
-    permission_classes = (IsAuthenticated, IsTeacherOrAdmin)
 
     def perform_create(self, serializer):
         serializer.save(staff=self.request.user)
