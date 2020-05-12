@@ -21,7 +21,7 @@ from .serializers import SubjectSerializer
 from .serializers import StudentSerializer
 from .serializers import AnnouncementSerializer
 from .permissions import IsAuthenticatedOrAdmin
-from .permissions import IsTeacherOrAdmin
+from exam.permissions import IsTeacherOrAdmin
 
 
 class DepartmentViewSet(ModelViewSet):
