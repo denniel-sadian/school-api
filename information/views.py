@@ -43,7 +43,8 @@ class StudentViewSet(ModelViewSet):
     serializer_class = StudentSerializer
 
     def perform_destroy(self, instance):
-        instance.user.delete()
+        if instance.user:
+            instance.user.delete()
         instance.delete()
 
 
