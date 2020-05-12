@@ -27,10 +27,10 @@ class ExamViewSet(ModelViewSet):
         # For students
         if self.request.user.profile.role == None:
             section = self.request.user.student.section
-            return Exam.objects.filter(sheets__section=section)
+            return Exam.objects.filter(sheets__section=section, published=True)
         
         # For staff
-        return self.queryset
+        return super().get_queryset()
 
     def get_serializer_class(self):
         # For students
