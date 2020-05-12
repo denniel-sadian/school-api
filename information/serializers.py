@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from accounts.serializers import UserSerializer
+from .models import Announcement
 from .models import Department
 from .models import Section
 from .models import Subject
@@ -46,3 +47,11 @@ class DepartmentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Department
         fields = ('url', 'id', 'name', 'sections')
+
+
+class AnnouncementSerializer(serializers.HyperlinkedModelSerializer):
+    staff = UserSerializer(read_only=True)
+
+    class Meta:
+        model = Announcement
+        fields = ('url', 'id', 'staff', 'message')
