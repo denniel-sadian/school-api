@@ -66,6 +66,7 @@ class SummaryView(GenericAPIView):
 
     def get(self, request):
         data = {
+            'announcements': Announcement.objects.all().count(),
             'departments': Department.objects.all().count(),
             'sections': Section.objects.all().count(),
             'subjects': Subject.objects.all().count(),
