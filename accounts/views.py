@@ -129,10 +129,11 @@ class CheckPermissionView(GenericAPIView):
                             status=status.HTTP_404_NOT_FOUND)
 
 
-class UserQuery:
+class UserListView(ListAPIView):
     """
-    Queryset of users that are admins and teachers only.
+    List view of users.
     """
+    serializer_class = UserSerializer
 
     def get_queryset(self):
         return User.objects.filter(
@@ -140,19 +141,12 @@ class UserQuery:
         )
 
 
-class UserListView(UserQuery, ListAPIView):
-    """
-    List view of users.
-    """
-    serializer_class = UserSerializer
-
-
-class UserDeleteView(UserQuery, DestroyAPIView):
+class UserDeleteView(DestroyAPIView):
     """
     Delete view of the users
     """
+    queryset = User.objects.all()
     permission_classes = (IsAdminUser,)
-    pass
 
 
 class UserDetailView(RetrieveAPIView):
