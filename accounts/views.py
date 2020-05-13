@@ -392,7 +392,7 @@ class ActivateAccount(View):
             user.save()
             if 'sid' in kwargs:
                 sid = force_text(urlsafe_base64_decode(kwargs['sid']))
-                student = get_object_or_404(Student, id=sid)
+                student = Student.objects.get(pk=sid)
                 student.user = user
                 student.save()
             return redirect('https://gradingsystem.now.sh/registration/verified/')
