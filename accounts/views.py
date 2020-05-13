@@ -12,6 +12,7 @@ from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
 from django.views.generic import View
 from django.shortcuts import redirect
+from django.http import HttpResponse
 from rest_framework.parsers import FileUploadParser
 from rest_framework.views import APIView
 from rest_framework.generics import GenericAPIView
@@ -395,7 +396,7 @@ class ActivateAccount(View):
                 student = Student.objects.get(pk=sid)
                 student.user = user
                 student.save()
-            return redirect('https://gradingsystem.now.sh/registration/verified/')
+            return HttpResponse(f"{kwargs} {'sid' in kwargs}")
         else:
             return redirect('https://gradingsystem.now.sh/registration/error/')
 
