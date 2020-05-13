@@ -393,9 +393,9 @@ class ActivateAccount(View):
         if user is not None and account_activation_token.check_token(user, token):
             user.is_active = True
             user.save()
-            return redirect('https://gradingsystem.now.sh/verified/')
+            return redirect('https://gradingsystem.now.sh/registration/verified/')
         else:
-            return redirect('https://gradingsystem.now.sh/verification-error/')
+            return redirect('https://gradingsystem.now.sh/registration/error/')
 
 
 class StudentAccountPermissionViewSet(ModelViewSet):
