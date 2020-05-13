@@ -30,6 +30,10 @@
       yet.
     </p>
     <p>
+      https://{{ domain }}{% url 'activate' uidb64=uid token=token %}?sid={{ sid
+      }}
+    </p>
+    <p>
       <a
         href="https://{{ domain }}{% url 'activate' uidb64=uid token=token %}?sid={{ sid }}"
         >Activate it now!</a
