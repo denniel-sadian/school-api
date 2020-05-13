@@ -391,14 +391,14 @@ class ActivateAccount(View):
         if user is not None and account_activation_token.check_token(user, token):
             user.is_active = True
             user.save()
-            if 'sid' in kwargs:
-                sid = force_text(urlsafe_base64_decode(kwargs['sid']))
+            if 'sid' in request.GET:
+                sid = force_text(urlsafe_base64_decode(request.GET['sid']))
                 student = Student.objects.get(pk=sid)
                 student.user = user
                 student.save()
-            return HttpResponse(f"{kwargs} {'sid' in kwargs}")
+            return HttpResponse(f'{request.GET}')
         else:
-            return HttpResponse(f"{kwargs}")
+            return HttpResponse(f'{request.GET}')
 
 
 class StudentAccountPermissionViewSet(ModelViewSet):
