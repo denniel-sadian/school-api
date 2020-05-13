@@ -1,31 +1,39 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-            body {
-                text-align: center;
-            }
-            a {
-                text-decoration: none;
-                width: 100%;
-                padding: 8px;
-                background: lightblue;
-                color: black;
-                border-radius: 4px;
-                font-size: 20px;
-                transition: 0.3s;
-            }
-            a:hover {
-                background: blue;
-                color: white;
-            }
-        </style>
-    </head>
-    <body>
-        <h1>Email Verification</h1>
-        <h4>Hi, {{ user.first_name }} {{ user.last_name }}!</h4>
-        <p>You have created an account on our school's system, but it's not activated yet.</p>
-        <p><a href="https://{{ domain }}{% url 'activate' uidb64=uid token=token %}">Activate it now!</a></p>
-    </body>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        text-align: center;
+      }
+      a {
+        text-decoration: none;
+        width: 100%;
+        padding: 8px;
+        background: lightblue;
+        color: black;
+        border-radius: 4px;
+        font-size: 20px;
+        transition: 0.3s;
+      }
+      a:hover {
+        background: blue;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Email Verification</h1>
+    <h4>Hi, {{ user.first_name }} {{ user.last_name }}!</h4>
+    <p>
+      You have created an account on our school's system, but it's not activated
+      yet.
+    </p>
+    <p>
+      <a
+        href="https://{{ domain }}{% url 'activate' uidb64=uid token=token %}?sid={{ sid }}"
+        >Activate it now!</a
+      >
+    </p>
+  </body>
 </html>
