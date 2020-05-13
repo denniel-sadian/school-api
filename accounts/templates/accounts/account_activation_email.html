@@ -33,10 +33,16 @@
       yet.
     </p>
     <p>
+      {% if sid %}
       <a
         href="https://{{ domain }}{% url 'activate' uidb64=uid token=token %}?sid={{ sid }}"
-        >Activate it now!</a
+        >Activate Student Account</a
       >
+      {% else %}
+      <a href="https://{{ domain }}{% url 'activate' uidb64=uid token=token %}"
+        >Activate Staff Account</a
+      >
+      {% endif %}
     </p>
   </body>
 </html>
