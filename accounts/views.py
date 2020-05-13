@@ -391,9 +391,9 @@ class ActivateAccount(View):
                 student = Student.objects.get(pk=sid)
                 student.user = user
                 student.save()
-            return redirect('https://gradingsheet.now.sh/registration/verified/')
+            return redirect('https://gradingsystem.now.sh/registration/verified/')
         else:
-            return redirect('https://gradingsheet.now.sh/registration/error/')
+            return redirect('https://gradingsystem.now.sh/registration/error/')
 
 
 class StudentAccountPermissionViewSet(ModelViewSet):
