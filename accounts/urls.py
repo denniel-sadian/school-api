@@ -24,9 +24,10 @@ urlpatterns = [
          name='change-dp'),
     path('check-permission/', views.CheckPermissionView.as_view(),
          name='check-permission'),
+    path('activate/<uidb64>/<token>/', views.ActivateAccount.as_view(), name='activate'),
 
     path('student-register/', views.StudentAccountCreation.as_view(), name='student-register'),
-         
+
     path('obtain-token/', TokenObtainPairView.as_view(), name='token-obtain-pair'),
     path('refresh-token/', TokenRefreshView.as_view(), name='token-refresh')
 ]

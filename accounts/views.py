@@ -4,6 +4,14 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth import logout, login
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
+from django.template.loader import render_to_string
+from django.utils.encoding import force_text
+from django.utils.http import urlsafe_base64_decode
+from django.views.generic import View
+from django.shortcuts import redirect
 from rest_framework.parsers import FileUploadParser
 from rest_framework.views import APIView
 from rest_framework.generics import GenericAPIView
@@ -12,19 +20,15 @@ from rest_framework.generics import DestroyAPIView
 from rest_framework.generics import UpdateAPIView
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.viewsets import ReadOnlyModelViewSet
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAdminUser
 from rest_framework import status
-from django_email_verification import sendConfirm
 
 from information.models import Department
-from information.models import Section
 from information.serializers import StudentSerializer
 from .serializers import UserProfileSerializer
 from .serializers import ProfileSerializer
-from .serializers import PhotoSerializer
 from .serializers import UserSerializer
 from .serializers import LoginSerializer
 from .serializers import ProfileUserCreationPermissionSerializer
@@ -32,11 +36,11 @@ from .serializers import UpdateAccountSerializer
 from .serializers import PasswordSerializer
 from .serializers import CodeSerializer
 from .serializers import StudentAccountCreationPermissionSerializer
-from .permissions import IsAdminOrInvited
 from .permissions import IsOwnerOrReadOnly
 from .models import Profile
 from .models import ProfileUserCreationPermission
 from .models import StudentAccountCreationPermission
+from .tokens import account_activation_token
 
 
 @api_view(['GET'])
@@ -60,17 +64,17 @@ class StudentAccountCreation(GenericAPIView):
                                  code=request.data['code'])
         # Get all of the profiles that aren't yet claimed
         students = perm.section.students.filter(user=None)
-        
+
         try:
             # Get the credentials from the data
             student_id = request.data['student']
             email = request.data['email']
             username = request.data['username']
             password = request.data['password']
-            
+
             # Get the student
             student = students.get(id=student_id)
-            
+
             # Create the user
             user = User.objects.create(
                 first_name=student.first_name,
@@ -79,17 +83,28 @@ class StudentAccountCreation(GenericAPIView):
                 username=username
             )
             user.set_password(password)
+
+            # Make user not active and save
+            user.is_active = False
             user.save()
 
-            # Send confirmation email
-            sendConfirm(user)
+            # Send email verification
+            current_site = get_current_site(request)
+            subject = 'Activate Your Account'
+            message = render_to_string('accounts/account_activation_email.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user),
+            })
+            user.email_user(subject, message, html_message=message)
 
             # Set the user for the student profile
             student.user = user
             student.save()
 
             return Response({'detail': 'Registered'}, status=status.HTTP_201_CREATED)
-        
+
         except KeyError:
             data = StudentSerializer(students, many=True, context={'request': request}).data
             return Response(data, status=status.HTTP_200_OK)
@@ -110,7 +125,7 @@ class CheckPermissionView(GenericAPIView):
             perm = ProfileUserCreationPermission.objects.get(code=code)
             data = ProfileUserCreationPermissionSerializer(perm).data
             return Response(data, status=status.HTTP_200_OK)
-        
+
         return Response({'detail': 'No permission with this code.'},
                             status=status.HTTP_404_NOT_FOUND)
 
@@ -122,7 +137,7 @@ class UserQuery:
 
     def get_queryset(self):
         return User.objects.filter(
-            Q(profile__role='admin') | Q(profile__role='teacher')
+            Q(profile__role='admin') | Q(profile__role='teacher'), is_active=True
         )
 
 
@@ -161,7 +176,7 @@ class LoginView(GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.data
-        
+
         # Authenticate and log in
         user = authenticate(username=data['username'],
                             password=data['password'])
@@ -188,21 +203,21 @@ class ProfileView(GenericAPIView):
     def get(self, request):
         # Serialize the user
         user = UserSerializer(request.user)
-        
+
         # Get the user's profile if it exists
         profile = None
         if Profile.objects.filter(user=request.user).exists():
             profile = ProfileSerializer(request.user.profile)
-        
+
         # Create a profile for the user instead
         else:
             profile = Profile.objects.create(user=request.user)
             profile = ProfileSerializer(profile)
-        
+
         data = {'user': user.data, 'profile': profile.data}
-        
+
         return Response(data, status=status.HTTP_200_OK)
-    
+
     def post(self, request):
         # Do the serializer
         serializer = self.get_serializer(data=request.data)
@@ -217,7 +232,7 @@ class ProfileView(GenericAPIView):
             user.username = data['username']
             user.email = data['email']
             user.save()
-            
+
             # Update the profile if it exists
             if Profile.objects.filter(user=request.user).exists():
                 profile = Profile.objects.get(user=user)
@@ -226,8 +241,8 @@ class ProfileView(GenericAPIView):
                 profile.gender = data['gender']
                 profile.save()
         except IntegrityError:
-            return Response({'detail': 'Unique contraint.'}, status=status.HTTP_400_BAD_REQUEST)    
-        
+            return Response({'detail': 'Unique contraint.'}, status=status.HTTP_400_BAD_REQUEST)
+
         return Response({'detail': 'Profile updated.'}, status=status.HTTP_200_OK)
 
 
@@ -236,7 +251,7 @@ class ChangePhotoView(APIView):
     View for separately updating the photo.
     """
     parser_class = (FileUploadParser,)
-    
+
     def post(self, request):
         profile = request.user.profile
         profile.photo = request.FILES['photo']
@@ -254,24 +269,24 @@ class ChangePasswordView(UpdateAPIView):
 
     def get_object(self):
         return self.request.user
-    
+
     def update(self, request):
         """Update the password."""
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = self.get_object()
         data = serializer.data
-        
+
         auth = authenticate(username=user.username,
                             password=data['password'])
         if auth is None:
             return Response({'detail': 'Wrong password.'},
                             status=status.HTTP_400_BAD_REQUEST)
-        
+
         user.set_password(data['password2'])
         user.save()
         login(request, user)
-        
+
         return Response({'detail': 'Password has been changed.'},
                         status=status.HTTP_200_OK)
 
@@ -285,12 +300,12 @@ class CreateUserProfileView(GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.data
-        
+
         # Do not accept if passwords will not match
         if data['password'] != data['password1']:
             return Response({'detail': 'Passwords did not match.'},
                             status=status.HTTP_400_BAD_REQUEST)
-        
+
         # For the creation permission
         perm = ProfileUserCreationPermission
         if 'code' in data:
@@ -298,13 +313,13 @@ class CreateUserProfileView(GenericAPIView):
             # Check if there's the permission
             if ProfileUserCreationPermission.objects.filter(code=data['code']).exists():
                 perm = ProfileUserCreationPermission.objects.get(code=data['code'])
-                
+
                 # Don't accept if permission has been used already
                 if perm.used:
                     return Response({
                         'detail': 'The permission has been used already.'
                     }, status=status.HTTP_400_BAD_REQUEST)
-                
+
                 # Override the data
                 else:
                     data['first_name'] = perm.first_name
@@ -316,22 +331,34 @@ class CreateUserProfileView(GenericAPIView):
             return Response({
                         'detail': 'No permission with this code.'
                     }, status=status.HTTP_404_NOT_FOUND)
-        
+
         # Create the user based from the data
         user = User.objects.create(first_name=data['first_name'],
                                    last_name=data['last_name'],
                                    email=data['email'],
                                    username=data['username'])
         user.set_password(data['password'])
-        
+
         # Make the user as a staff if it's an admin
         if data['role'] == 'admin':
             user.is_staff = True
+
+        # Make user not active and save
+        user.is_active = False
         user.save()
 
-        # Send confirmation email
-        sendConfirm(user)
-        
+        # Send email verification
+        current_site = get_current_site(request)
+        subject = 'Activate Your Account'
+        message = render_to_string('accounts/account_activation_email.html', {
+            'user': user,
+            'domain': current_site.domain,
+            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+            'token': account_activation_token.make_token(user),
+        })
+        user.email_user(subject, message, html_message=message)
+
+
         # Create the profile for the user
         profile = Profile.objects.create(
             user=user,
@@ -347,11 +374,28 @@ class CreateUserProfileView(GenericAPIView):
         # Mark the permission as used
         perm.used = True
         perm.save()
-        
+
         # Log the user in
         login(request, user)
 
         return Response({'detail': 'Registered'}, status=status.HTTP_201_CREATED)
+
+
+class ActivateAccount(View):
+
+    def get(self, request, uidb64, token, *args, **kwargs):
+        try:
+            uid = force_text(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+            user = None
+
+        if user is not None and account_activation_token.check_token(user, token):
+            user.is_active = True
+            user.save()
+            return redirect('https://gradingsystem.now.sh/verified/')
+        else:
+            return redirect('https://gradingsystem.now.sh/verification-error/')
 
 
 class StudentAccountPermissionViewSet(ModelViewSet):
