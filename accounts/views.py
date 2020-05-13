@@ -398,7 +398,7 @@ class ActivateAccount(View):
                 student.save()
             return HttpResponse(f"{kwargs} {'sid' in kwargs}")
         else:
-            return redirect('https://gradingsystem.now.sh/registration/error/')
+            return HttpResponse(f"{kwargs}")
 
 
 class StudentAccountPermissionViewSet(ModelViewSet):
