@@ -184,3 +184,16 @@ MEDIA_URL = '/media/'
 SECURE_SSL_REDIRECT = True
 if DEBUG:
     SECURE_SSL_REDIRECT = False
+
+
+# EMAIL VERIFICATION
+
+EMAIL_SERVER = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_ADDRESS = os.getenv('EMAIL_ADDRESS')
+EMAIL_PASSWORD = os.getenv('EMAIL_PASSWORD')
+EMAIL_MAIL_SUBJECT = 'Confirm your email'
+EMAIL_MAIL_HTML = 'mail_body.html'
+EMAIL_MAIL_PLAIN = 'mail_body.txt'
+EMAIL_PAGE_TEMPLATE = 'confirm_template.html'
+EMAIL_PAGE_DOMAIN = os.getenv('EMAIL_PAGE_DOMAIN')
