@@ -95,13 +95,10 @@ class StudentAccountCreation(GenericAPIView):
                 'user': user,
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'sid': urlsafe_base64_encode(force_bytes(student.id)),
                 'token': account_activation_token.make_token(user),
             })
             user.email_user(subject, message, html_message=message)
-
-            # Set the user for the student profile
-            student.user = user
-            student.save()
 
             return Response({'detail': 'Registered'}, status=status.HTTP_201_CREATED)
 
@@ -393,6 +390,11 @@ class ActivateAccount(View):
         if user is not None and account_activation_token.check_token(user, token):
             user.is_active = True
             user.save()
+            if 'sid' in kwargs:
+                sid = force_text(urlsafe_base64_decode(kwargs['sid']))
+                student = get_object_or_404(Student, id=sid)
+                student.user = user
+                student.save()
             return redirect('https://gradingsystem.now.sh/registration/verified/')
         else:
             return redirect('https://gradingsystem.now.sh/registration/error/')
