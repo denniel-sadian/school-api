@@ -17,6 +17,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAdminUser
 from rest_framework import status
+from django_email_verification import sendConfirm
 
 from information.models import Department
 from information.models import Section
@@ -79,6 +80,9 @@ class StudentAccountCreation(GenericAPIView):
             )
             user.set_password(password)
             user.save()
+
+            # Send confirmation email
+            sendConfirm(user)
 
             # Set the user for the student profile
             student.user = user
@@ -324,6 +328,9 @@ class CreateUserProfileView(GenericAPIView):
         if data['role'] == 'admin':
             user.is_staff = True
         user.save()
+
+        # Send confirmation email
+        sendConfirm(user)
         
         # Create the profile for the user
         profile = Profile.objects.create(
