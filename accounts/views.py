@@ -27,6 +27,7 @@ from rest_framework.permissions import IsAdminUser
 from rest_framework import status
 
 from information.models import Department
+from information.models import Student
 from information.serializers import StudentSerializer
 from .serializers import UserProfileSerializer
 from .serializers import ProfileSerializer
@@ -396,9 +397,9 @@ class ActivateAccount(View):
                 student = Student.objects.get(pk=sid)
                 student.user = user
                 student.save()
-            return HttpResponse(f'{request.GET}')
+            return redirect('https://gradingsheet.now.sh/registration/verified/')
         else:
-            return HttpResponse(f'{request.GET}')
+            return redirect('https://gradingsheet.now.sh/registration/error/')
 
 
 class StudentAccountPermissionViewSet(ModelViewSet):
