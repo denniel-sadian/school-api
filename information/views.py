@@ -50,8 +50,8 @@ class StudentViewSet(ModelViewSet):
     def perform_update(self, serializer):
         user = self.get_object().user
         if user:
-            user.first_name = serializer.data['first_name']
-            user.last_name = serializer.data['last_name']
+            user.first_name = serializer.validated_data['first_name']
+            user.last_name = serializer.validated_data['last_name']
             user.save()
         serializer.save()
 
