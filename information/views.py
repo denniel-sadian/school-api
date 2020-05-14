@@ -47,6 +47,14 @@ class StudentViewSet(ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
 
+    def perform_update(self, serializer):
+        user = self.get_object().user
+        if user:
+            user.first_name = serializer.data['first_name']
+            user.last_name = serializer.data['last_name']
+            user.save()
+        serializer.save()
+
     def perform_destroy(self, instance):
         if instance.user:
             instance.user.delete()
