@@ -48,12 +48,12 @@ class StudentViewSet(ModelViewSet):
     serializer_class = StudentSerializer
 
     def perform_update(self, serializer):
+        serializer.save()
         user = self.get_object().user
         if user:
             user.first_name = serializer.validated_data['first_name']
             user.last_name = serializer.validated_data['last_name']
             user.save()
-        serializer.save()
 
     def perform_destroy(self, instance):
         if instance.user:
