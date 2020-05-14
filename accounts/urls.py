@@ -29,5 +29,7 @@ urlpatterns = [
     path('student-register/', views.StudentAccountCreation.as_view(), name='student-register'),
 
     path('obtain-token/', TokenObtainPairView.as_view(), name='token-obtain-pair'),
-    path('refresh-token/', TokenRefreshView.as_view(), name='token-refresh')
+    path('refresh-token/', TokenRefreshView.as_view(), name='token-refresh'),
+
+    path('dj/', include('django.contrib.auth.urls'))
 ]
