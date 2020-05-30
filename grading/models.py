@@ -35,6 +35,9 @@ class GradingSheet(models.Model):
     has_multiple_choice_exam = models.BooleanField(default=False)
     grading = models.CharField(choices=GRADINGS, max_length=7)
     sem = models.CharField(choices=SEMESTERS, max_length=1)
+    wo_percent = models.IntegerField(default=20)
+    pt_percent = models.IntegerField(default=60)
+    qa_percent = models.IntegerField(default=20)
 
     def __str__(self):
         return f'{self.section} for {self.subject}'
