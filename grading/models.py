@@ -9,7 +9,11 @@ from information.models import Department
 GRADINGS = (
     ('prelim', 'Prelim'),
     ('midterm', 'Midterm'),
-    ('finals', 'Finals')
+    ('finals', 'Finals'),
+    ('1st', 'First Grading'),
+    ('2nd', 'Second Grading'),
+    ('3rd', 'Third Grading'),
+    ('4th', 'Fourth Grading')
 )
 SEMESTERS = (
     ('1', 'First Semester'),
