@@ -16,5 +16,6 @@ urlpatterns = [
     path('multiple-records/', views.MultipleRecordCreateView.as_view(), name='multiple-records'),
     path('write-grades/', views.WriteGradesToCardsView.as_view(), name='write-grades'),
     path('related-sheets/<int:pk>/', views.RelatedGradingSheets.as_view(), name='related-sheets'),
-    path('view-cards/', views.ViewingCardsView.as_view(), name='view-cards')
+    path('view-cards/', views.ViewingCardsView.as_view(), name='view-cards'),
+    path('view-summary/', views.QuarterlySummary.as_view(), name='view-summary')
 ]
