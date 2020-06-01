@@ -127,6 +127,6 @@ class RelatedGradingSheets(GenericAPIView):
         sheets = GradingSheet.objects.filter(
             section=sheet.section,
             subject=sheet.subject,
-        )
+        ).order_by('-date')[:4]
         data = VerboseGradingSheetSerializer(sheets, many=True).data
         return Response(data, status=status.HTTP_200_OK)
