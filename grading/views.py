@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404
+from django.forms.models import model_to_dict
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
@@ -138,3 +139,13 @@ class QuarterlySummary(GenericAPIView):
         sheets = []
         for pk in request.data['sheets']:
             sheets.append(get_object_or_404(GradingSheet, pk=pk))
+
+        # Build the data
+        data = []
+        for s in sheets:
+            sheet = VerboseGradingSheetSerializer(s)
+            sheet['grades'] = FinalGradeSerializer(
+                FinalGrade.objects.filter(card__sheet=s),
+                many=True
+            )
+            data.append(sheet)
