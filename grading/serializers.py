@@ -100,4 +100,4 @@ class VerboseFinalGradeSerializer(serializers.ModelSerializer):
     class Meta:
         model = FinalGrade
         fields = ('id', 'score', 'card')
-        depth = 3
+        depth = 2
