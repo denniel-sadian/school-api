@@ -96,8 +96,8 @@ class CardSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class VerboseFinalGradeSerializer(serializers.ModelSerializer):
-    card = CardSerializer(read_only=True)
     
     class Meta:
         model = FinalGrade
         fields = ('id', 'score', 'card')
+        depth = 3
