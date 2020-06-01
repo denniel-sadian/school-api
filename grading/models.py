@@ -10,10 +10,10 @@ GRADINGS = (
     ('prelim', 'Prelim'),
     ('midterm', 'Midterm'),
     ('finals', 'Finals'),
-    ('1st', 'First Grading'),
-    ('2nd', 'Second Grading'),
-    ('3rd', 'Third Grading'),
-    ('4th', 'Fourth Grading')
+    ('1st', 'First Quarter'),
+    ('2nd', 'Second Quarter'),
+    ('3rd', 'Third Quarter'),
+    ('4th', 'Fourth Quarter')
 )
 SEMESTERS = (
     ('1', 'First Semester'),
