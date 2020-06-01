@@ -154,7 +154,8 @@ class QuarterlySummary(GenericAPIView):
             sheet = VerboseGradingSheetSerializer(s).data
             sheet['grades'] = FinalGradeSerializer(
                 FinalGrade.objects.filter(sheet=s),
-                many=True
+                many=True,
+                context={'request': request}
             ).data
             data.append(sheet)
         
