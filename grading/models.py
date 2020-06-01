@@ -33,7 +33,6 @@ class GradingSheet(models.Model):
                                 related_name='grading_sheets')
     publish = models.BooleanField(default=False)
     has_multiple_choice_exam = models.BooleanField(default=False)
-    is_mapeh = models.BooleanField(default=False, editable=True)
     grading = models.CharField(choices=GRADINGS, max_length=7)
     sem = models.CharField(choices=SEMESTERS, max_length=1)
     wo_percent = models.IntegerField(default=30)
@@ -42,15 +41,6 @@ class GradingSheet(models.Model):
 
     def __str__(self):
         return f'{self.section} for {self.subject}'
-    
-    def save(self, **kwargs):
-        mapeh = (
-            'music arts physical education health',
-            'mapeh'
-        )
-        if self.subject.name.lower() in mapeh:
-            self.is_mapeh = True
-        super().save(**kwargs)
 
 
 class Work(models.Model):
