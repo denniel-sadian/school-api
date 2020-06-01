@@ -65,7 +65,7 @@ class VerboseGradingSheetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = GradingSheet
-        fields = ('id', 'section', 'grading', 'sem', 'subject')
+        fields = ('id', 'section', 'grading', 'sem', 'subject', 'publish')
 
 
 class FinalGradeSerializer(serializers.HyperlinkedModelSerializer):
