@@ -59,6 +59,15 @@ class GradingSheetSerializer(serializers.HyperlinkedModelSerializer):
         }
 
 
+class VerboseGradingSheetSerializer(serializers.ModelSerializer):
+    section = serializers.SlugRelatedField(read_only=True, slug_field='name')
+    subject = serializers.SlugRelatedField(read_only=True, slug_field='name')
+
+    class Meta:
+        model = GradingSheet
+        fields = ('id', 'section', 'grading', 'sem', 'subject')
+
+
 class FinalGradeSerializer(serializers.HyperlinkedModelSerializer):
     subject = serializers.SlugRelatedField(
         read_only=True,
