@@ -130,3 +130,12 @@ class RelatedGradingSheets(GenericAPIView):
         ).order_by('-date')[:4]
         data = VerboseGradingSheetSerializer(sheets, many=True).data
         return Response(data, status=status.HTTP_200_OK)
+
+
+class QuarterlySummary(GenericAPIView):
+
+    def post(self, request):
+        # Get the sheets
+        sheets = []
+        for pk in request.data['sheets']:
+            sheets.append(get_object_or_404(GradingSheet, pk=pk))
