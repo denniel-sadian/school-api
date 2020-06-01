@@ -1,9 +1,9 @@
 from django.shortcuts import get_object_or_404
+from django.forms.models import model_to_dict
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework import status
-
 
 from information.models import Student
 from information.models import Subject
@@ -117,3 +117,17 @@ class ViewingCardsView(GenericAPIView):
         data = CardSerializer(cards, many=True, context={'request': request}).data
 
         return Response({'cards': data}, status=status.HTTP_200_OK)
+
+
+class RelatedGradingSheets(GenericAPIView):
+
+    def get(self, request, *args, **kwargs):
+        sheet = get_object_or_404(GradingSheet, pk=kwargs['pk'])
+        sheets = GradingSheet.objects.filter(
+            section=sheet.section,
+            subject=sheet.subject,
+            sem=sheet.sem,
+            grading=sheet.grading,
+        )
+        data = [model_to_dict(s) for s in sheets]
+        return Response({'sheets': data}, status=status.HTTP_200_OK)
