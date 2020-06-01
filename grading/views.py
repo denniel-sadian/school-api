@@ -14,6 +14,7 @@ from .models import Card
 from .models import FinalGrade
 from .models import ViewingPermission
 from .serializers import GradingSheetSerializer
+from .serializers import VerboseGradingSheetSerializer
 from .serializers import WorkSerializer
 from .serializers import RecordSerializer
 from .serializers import CardSerializer
@@ -127,5 +128,5 @@ class RelatedGradingSheets(GenericAPIView):
             section=sheet.section,
             subject=sheet.subject,
         )
-        data = [model_to_dict(s) for s in sheets]
+        data = VerboseGradingSheetSerializer(sheets, many=True).data
         return Response({'sheets': data}, status=status.HTTP_200_OK)
