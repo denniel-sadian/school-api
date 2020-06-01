@@ -22,7 +22,7 @@ SEMESTERS = (
 
 
 class GradingSheet(models.Model):
-    date = models.DateField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True)
     teacher = models.ForeignKey('auth.user', on_delete=models.CASCADE,
                                 related_name='grading_sheets')
     department = models.ForeignKey(Department, on_delete=models.PROTECT,
