@@ -68,6 +68,14 @@ class VerboseGradingSheetSerializer(serializers.ModelSerializer):
         fields = ('id', 'section', 'grading', 'sem', 'subject', 'publish')
 
 
+class VerboseFinalGradeSerializer(serializers.ModelSerializer):
+    student = serializers.SlugRelatedField(read_only=True, slug_field='card.student.id')
+    
+    class Meta:
+        model = FinalGrade
+        fields = ('id', 'score', 'student')
+
+
 class FinalGradeSerializer(serializers.HyperlinkedModelSerializer):
     subject = serializers.SlugRelatedField(
         read_only=True,

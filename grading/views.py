@@ -19,6 +19,7 @@ from .serializers import WorkSerializer
 from .serializers import RecordSerializer
 from .serializers import CardSerializer
 from .serializers import FinalGradeSerializer
+from .serializers import VerboseFinalGradeSerializer
 from .serializers import ViewingPermissionSerializer
 from .permissions import IsTeacherAndOwnerOrReadOnly
 
@@ -152,10 +153,9 @@ class QuarterlySummary(GenericAPIView):
         data = []
         for s in sheets:
             sheet = VerboseGradingSheetSerializer(s).data
-            sheet['grades'] = FinalGradeSerializer(
+            sheet['grades'] = VerboseFinalGradeSerializer(
                 FinalGrade.objects.filter(sheet=s),
-                many=True,
-                context={'request': request}
+                many=True
             ).data
             data.append(sheet)
         
