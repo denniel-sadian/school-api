@@ -126,8 +126,6 @@ class RelatedGradingSheets(GenericAPIView):
         sheets = GradingSheet.objects.filter(
             section=sheet.section,
             subject=sheet.subject,
-            sem=sheet.sem,
-            grading=sheet.grading,
         )
         data = [model_to_dict(s) for s in sheets]
         return Response({'sheets': data}, status=status.HTTP_200_OK)
