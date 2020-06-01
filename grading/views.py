@@ -129,4 +129,4 @@ class RelatedGradingSheets(GenericAPIView):
             subject=sheet.subject,
         )
         data = VerboseGradingSheetSerializer(sheets, many=True).data
-        return Response({'sheets': data}, status=status.HTTP_200_OK)
+        return Response(data, status=status.HTTP_200_OK)
