@@ -36,8 +36,8 @@ class GradingSheet(models.Model):
     is_mapeh = models.BooleanField(default=False, editable=True)
     grading = models.CharField(choices=GRADINGS, max_length=7)
     sem = models.CharField(choices=SEMESTERS, max_length=1)
-    wo_percent = models.IntegerField(default=20)
-    pt_percent = models.IntegerField(default=60)
+    wo_percent = models.IntegerField(default=30)
+    pt_percent = models.IntegerField(default=50)
     qa_percent = models.IntegerField(default=20)
 
     def __str__(self):
