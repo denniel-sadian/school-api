@@ -76,11 +76,12 @@ class WriteGradesToCardsView(GenericAPIView):
 
     def post(self, request):
         # Get these first
-        sem = request.data['sem']
-        grading = request.data['grading']
-        grades = request.data['grades']
         teacher = request.user
-        subject = Subject.objects.get(id=request.data['subject'])
+        subject = get_object_or_404(Subject, pk=request.data['subject'])
+        sheet = get_object_or_404(GradingSheet, pk=request.data['sheet'])
+        sem = sheet.sem
+        grading = sheet.grading
+        grades = request.data['grades']
 
         # Run to all of the grades
         for grade in grades:
@@ -91,6 +92,7 @@ class WriteGradesToCardsView(GenericAPIView):
                 grading=grading
             )[0]
             final_grade = FinalGrade.objects.get_or_create(
+                sheet=sheet,
                 card=card,
                 subject=subject,
                 teacher=teacher
