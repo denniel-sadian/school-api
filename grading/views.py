@@ -150,7 +150,7 @@ class QuarterlySummary(GenericAPIView):
                                 status=status.HTTP_400_BAD_REQUEST)
         
         # Get the students
-        students = sheets[0].section.students.all()
+        students = sheets[0].section.students.all().order_by('last_name')
 
         # Build the data
         data = {'sheets': [], 'rows': []}
