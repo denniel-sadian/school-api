@@ -157,7 +157,9 @@ class QuarterlySummary(GenericAPIView):
         for s in sheets:
             sheet = {
                 'id': s.id,
-                'grading': s.grading
+                'grading': s.grading,
+                'section': s.section.name,
+                'subject': s.subject.name
             }
             data['sheets'].append(sheet)
         for student in students:
