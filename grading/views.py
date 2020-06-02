@@ -153,7 +153,13 @@ class QuarterlySummary(GenericAPIView):
         students = sheets[0].section.students.all()
 
         # Build the data
-        data = []
+        data = {'sheets': [], 'rows': []}
+        for s in sheets:
+            sheet {
+                'id': s.id,
+                'grading': sheet.grading
+            }
+            data['sheets'].append(sheet)
         for student in students:
             row = {'grades': []}
             row['name'] = f'{student.last_name} {student.first_name}'
@@ -166,6 +172,6 @@ class QuarterlySummary(GenericAPIView):
                         FinalGrade, sheet=sheet, card__student=student).score
                 }
                 row['grades'].append(grade)
-            data.append(row)
+            data['rows'].append(row)
         
         return Response(data, status=status.HTTP_200_OK)
