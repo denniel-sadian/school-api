@@ -130,6 +130,7 @@ class RelatedGradingSheets(GenericAPIView):
             sheets = GradingSheet.objects.filter(
                 section=sheet.section,
                 subject__name__icontains='MAPEH',
+                grading=sheet.grading
             ).order_by('-date')[:4]
         else:
             sheets = GradingSheet.objects.filter(
