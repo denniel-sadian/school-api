@@ -155,7 +155,7 @@ class QuarterlySummary(GenericAPIView):
         # Build the data
         data = {'sheets': [], 'rows': []}
         for s in sheets:
-            sheet {
+            sheet = {
                 'id': s.id,
                 'grading': s.grading
             }
