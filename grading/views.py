@@ -33,7 +33,7 @@ class GradingSheetGroupView(ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save()
         instance = serializer.instance
-        if 'mapeh' in instance.subject.name.lower:
+        if 'mapeh' in instance.subject.name.lower():
             MAPEH = Subject.objects.filter(name___icontains='MAPEH')
             for subj in MAPEH:
                 if subj.name.lower() == 'mapeh':
