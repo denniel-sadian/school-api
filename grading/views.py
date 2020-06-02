@@ -175,6 +175,7 @@ class QuarterlySummary(GenericAPIView):
             for sheet in sheets:
                 grade = {
                     'col': sheets.index(sheet),
+                    'subject': sheet.subject.name,
                     'grading': sheet.grading,
                     'grade': get_object_or_404(
                         FinalGrade, sheet=sheet, card__student=student).score
