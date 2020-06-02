@@ -13,6 +13,7 @@ router.register('finalgrades', views.FinalGradeViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('grading-sheet-groups/', views.MultipleRecordCreateView.as_view(), name='sheet-groups'),
     path('multiple-records/', views.MultipleRecordCreateView.as_view(), name='multiple-records'),
     path('write-grades/', views.WriteGradesToCardsView.as_view(), name='write-grades'),
     path('related-sheets/<int:pk>/', views.RelatedGradingSheets.as_view(), name='related-sheets'),
