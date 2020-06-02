@@ -19,7 +19,6 @@ from .serializers import WorkSerializer
 from .serializers import RecordSerializer
 from .serializers import CardSerializer
 from .serializers import FinalGradeSerializer
-from .serializers import VerboseFinalGradeSerializer
 from .serializers import ViewingPermissionSerializer
 from .permissions import IsTeacherAndOwnerOrReadOnly
 
