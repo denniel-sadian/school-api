@@ -91,7 +91,7 @@ class Card(models.Model):
 
 
 class FinalGrade(models.Model):
-    sheet = models.ForeignKey(GradingSheet, on_delete=models.SET_NULL,
+    sheet = models.ForeignKey(GradingSheet, on_delete=models.CASCADE,
                               related_name='final_grades', null=True)
     card = models.ForeignKey(Card, on_delete=models.CASCADE,
                              related_name='final_grades')
