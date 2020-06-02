@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from accounts.serializers import UserSerializer
+from .models import GradingSheetGroup
 from .models import GradingSheet
 from .models import Work
 from .models import Record
@@ -66,6 +67,17 @@ class VerboseGradingSheetSerializer(serializers.ModelSerializer):
     class Meta:
         model = GradingSheet
         fields = ('id', 'section', 'grading', 'sem', 'subject', 'publish')
+
+
+class GradingSheetGroupSerializer(serializers.ModelSerializer):
+    department = serializers.SlugRelatedField(read_only=True, slug_field='name')
+    section = serializers.SlugRelatedField(read_only=True, slug_field='name')
+    subject = serializers.SlugRelatedField(read_only=True, slug_field='name')
+    grading_sheets = VerboseGradingSheetSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = GradingSheetGroup
+        fields = ('id', 'department', 'section', 'subject', 'grading', 'sem')
 
 
 class FinalGradeSerializer(serializers.HyperlinkedModelSerializer):
