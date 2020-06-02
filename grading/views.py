@@ -126,10 +126,16 @@ class RelatedGradingSheets(GenericAPIView):
 
     def get(self, request, *args, **kwargs):
         sheet = get_object_or_404(GradingSheet, pk=kwargs['pk'])
-        sheets = GradingSheet.objects.filter(
-            section=sheet.section,
-            subject=sheet.subject,
-        ).order_by('-date')[:4]
+        if 'MAPEH' in sheet.subject.name:
+            sheets = GradingSheet.objects.filter(
+                section=sheet.section,
+                subject_icontains='MAPEH',
+            ).order_by('-date')[:4]
+        else:
+            sheets = GradingSheet.objects.filter(
+                section=sheet.section,
+                subject=sheet.subject,
+            ).order_by('-date')[:4]
         data = VerboseGradingSheetSerializer(sheets, many=True).data
         return Response(data, status=status.HTTP_200_OK)
 
