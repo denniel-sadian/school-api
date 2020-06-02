@@ -26,7 +26,7 @@ from .serializers import ViewingPermissionSerializer
 from .permissions import IsTeacherAndOwnerOrReadOnly
 
 
-class GradingSheetGroupCreateView(ListCreateAPIView):
+class GradingSheetGroupView(ListCreateAPIView):
     queryset = GradingSheetGroup.objects.all()
     serializer_class = GradingSheetGroupSerializer
 
