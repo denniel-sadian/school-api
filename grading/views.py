@@ -3,6 +3,7 @@ from django.forms.models import model_to_dict
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import GenericAPIView
 from rest_framework.generics import ListCreateAPIView
+from rest_framework.generics import DestroyAPIView
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -61,6 +62,10 @@ class GradingSheetGroupView(ListCreateAPIView):
                     grading=grading,
                     sem=sem
                 )
+
+
+class GSheetGroupDestroyView(DestroyAPIView):
+    queryset = GradingSheetGroup.objects.all()
 
 
 class GradingSheetViewSet(ModelViewSet):
