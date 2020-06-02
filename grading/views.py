@@ -141,21 +141,31 @@ class QuarterlySummary(GenericAPIView):
         sheets = []
         for pk in request.data['sheets']:
             sheets.append(get_object_or_404(GradingSheet, pk=pk))
+        sheets.sort(key=lambda s: s.pk)
         
         # Check if sheets are published already
         for s in sheets:
             if not s.publish:
                 return Response({"error": "A grading sheet is not published yet."},
                                 status=status.HTTP_400_BAD_REQUEST)
+        
+        # Get the students
+        students = sheets[0].section.students.all()
 
         # Build the data
         data = []
-        for s in sheets:
-            sheet = VerboseGradingSheetSerializer(s).data
-            sheet['grades'] = VerboseFinalGradeSerializer(
-                FinalGrade.objects.filter(sheet=s),
-                many=True
-            ).data
-            data.append(sheet)
+        for student in students:
+            row = {'grades': []}
+            row['name'] = f'{student.last_name} {student.first_name}'
+            row['gender'] = student.gender
+            for sheet in sheets:
+                grade = {
+                    'col': sheets.index(sheet)
+                    'grading': sheet.grading,
+                    'grade': get_object_or_404(
+                        FinalGrade, sheet=sheet, card__student=student).score
+                }
+                row['grades'].append(grade)
+            data.append(row)
         
         return Response(data, status=status.HTTP_200_OK)
