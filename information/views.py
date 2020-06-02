@@ -11,7 +11,7 @@ from .models import Department
 from .models import Section
 from .models import Subject
 from .models import Student
-from grading.models import GradingSheet
+from grading.models import GradingSheetGroup
 from grading.models import Card
 from grading.models import ViewingPermission
 from accounts.models import ProfileUserCreationPermission
@@ -79,7 +79,7 @@ class SummaryView(GenericAPIView):
             'subjects': Subject.objects.all().count(),
             'students': Student.objects.all().count(),
             'cards': Card.objects.all().count(),
-            'sheets': GradingSheet.objects.all().count(),
+            'sheets': GradingSheetGroup.objects.all().count(),
             'vperms': ViewingPermission.objects.all().count(),
             'regperms': ProfileUserCreationPermission.objects.all().count(),
             'studentperms': StudentAccountCreationPermission.objects.all().count(),
