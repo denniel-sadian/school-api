@@ -84,7 +84,7 @@ class GradingSheetGroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = GradingSheetGroup
         fields = ('id', 'department', 'section', 'subject', 'grading', 'sem',
-                  'grading_sheets')
+                  'grading_sheets', 'wo_percent', 'pt_percent', 'qa_percent')
 
 
 class FinalGradeSerializer(serializers.HyperlinkedModelSerializer):
