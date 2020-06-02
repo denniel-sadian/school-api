@@ -7,9 +7,6 @@ from information.models import Section
 from information.models import Department
 
 GRADINGS = (
-    ('prelim', 'Prelim'),
-    ('midterm', 'Midterm'),
-    ('finals', 'Finals'),
     ('1st', 'First Quarter'),
     ('2nd', 'Second Quarter'),
     ('3rd', 'Third Quarter'),
