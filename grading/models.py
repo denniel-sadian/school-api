@@ -24,6 +24,9 @@ class GradingSheetGroup(models.Model):
     subject = models.ForeignKey(Subject, on_delete=models.PROTECT)
     grading = models.CharField(choices=GRADINGS, max_length=7)
     sem = models.CharField(choices=SEMESTERS, max_length=1)
+    wo_percent = models.IntegerField(default=30)
+    pt_percent = models.IntegerField(default=50)
+    qa_percent = models.IntegerField(default=20)
     
     def __str__(self):
         return f'{self.section} for {self.subject}'
