@@ -15,8 +15,7 @@ from .models import Record
 from .models import Card
 from .models import FinalGrade
 from .models import ViewingPermission
-from .serializers import CreateGradingSheetGroupSerializer
-from .serializers import ListGradingSheetGroupSerializer
+from .serializers import GradingSheetGroupSerializer
 from .serializers import GradingSheetSerializer
 from .serializers import VerboseGradingSheetSerializer
 from .serializers import WorkSerializer
@@ -28,7 +27,8 @@ from .permissions import IsTeacherAndOwnerOrReadOnly
 
 
 class GradingSheetGroupCreateView(ListCreateAPIView):
-    pass
+    queryset = GradingSheetGroup.objects.all()
+    serializer_class = GradingSheetGroupSerializer
 
 
 class GradingSheetViewSet(ListCreateAPIView):
