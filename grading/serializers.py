@@ -8,6 +8,9 @@ from .models import Record
 from .models import Card
 from .models import FinalGrade
 from .models import ViewingPermission
+from information.models import Department
+from information.models import Section
+from information.models import Subject
 
 
 class RecordSerializer(serializers.HyperlinkedModelSerializer):
@@ -70,9 +73,12 @@ class VerboseGradingSheetSerializer(serializers.ModelSerializer):
 
 
 class GradingSheetGroupSerializer(serializers.ModelSerializer):
-    department = serializers.SlugRelatedField(read_only=True, slug_field='name')
-    section = serializers.SlugRelatedField(read_only=True, slug_field='name')
-    subject = serializers.SlugRelatedField(read_only=True, slug_field='name')
+    department = serializers.SlugRelatedField(
+        queryset=Department.objects.all(), slug_field='name')
+    section = serializers.SlugRelatedField(
+        queryset=Section.objects.all(), slug_field='name')
+    subject = serializers.SlugRelatedField(
+        queryset=Subject.objects.all(), slug_field='name')
     grading_sheets = VerboseGradingSheetSerializer(many=True, read_only=True)
 
     class Meta:
