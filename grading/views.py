@@ -34,7 +34,19 @@ class GradingSheetGroupView(ListCreateAPIView):
         serializer.save()
         instance = serializer.instance
         if 'mapeh' in instance.subject.name.lower:
-            pass
+            MAPEH = Subject.objects.filter(name___icontains='MAPEH')
+            for subj in MAPEH:
+                if subj.name.lower() == 'mapeh':
+                    continue
+                GradingSheet.objects.create(
+                    group=instance,
+                    teacher=self.request.user,
+                    department=instance.department,
+                    section=instance.section,
+                    subject=subj,
+                    grading=instance.grading,
+                    sem=sem
+                )
         else:
             for grading in ['1st', '2nd', '3rd', '4th']:
                 sem = '1'
