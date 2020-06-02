@@ -2,17 +2,21 @@ from django.shortcuts import get_object_or_404
 from django.forms.models import model_to_dict
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import GenericAPIView
+from rest_framework.generics import ListCreateAPIView
 from rest_framework.response import Response
 from rest_framework import status
 
 from information.models import Student
 from information.models import Subject
+from .models import GradingSheetGroup
 from .models import GradingSheet
 from .models import Work
 from .models import Record
 from .models import Card
 from .models import FinalGrade
 from .models import ViewingPermission
+from .serializers import CreateGradingSheetGroupSerializer
+from .serializers import ListGradingSheetGroupSerializer
 from .serializers import GradingSheetSerializer
 from .serializers import VerboseGradingSheetSerializer
 from .serializers import WorkSerializer
@@ -23,7 +27,11 @@ from .serializers import ViewingPermissionSerializer
 from .permissions import IsTeacherAndOwnerOrReadOnly
 
 
-class GradingSheetViewSet(ModelViewSet):
+class GradingSheetGroupCreateView(ListCreateAPIView):
+    pass
+
+
+class GradingSheetViewSet(ListCreateAPIView):
     queryset = GradingSheet.objects.all()
     serializer_class = GradingSheetSerializer
     permission_classes = (IsTeacherAndOwnerOrReadOnly,)
