@@ -31,7 +31,7 @@ class GradingSheetGroupView(ListCreateAPIView):
     serializer_class = GradingSheetGroupSerializer
 
 
-class GradingSheetViewSet(ListCreateAPIView):
+class GradingSheetViewSet(ModelViewSet):
     queryset = GradingSheet.objects.all()
     serializer_class = GradingSheetSerializer
     permission_classes = (IsTeacherAndOwnerOrReadOnly,)
