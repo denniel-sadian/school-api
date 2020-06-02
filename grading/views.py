@@ -160,7 +160,7 @@ class QuarterlySummary(GenericAPIView):
             row['gender'] = student.gender
             for sheet in sheets:
                 grade = {
-                    'col': sheets.index(sheet)
+                    'col': sheets.index(sheet),
                     'grading': sheet.grading,
                     'grade': get_object_or_404(
                         FinalGrade, sheet=sheet, card__student=student).score
