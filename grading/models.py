@@ -19,12 +19,9 @@ SEMESTERS = (
 
 
 class GradingSheetGroup(models.Model):
-    department = models.ForeignKey(Department, on_delete=models.PROTECT,
-                                   related_name='grading_sheets')
-    section = models.ForeignKey(Section, on_delete=models.PROTECT,
-                                related_name='grading_sheets')
-    subject = models.ForeignKey(Subject, on_delete=models.PROTECT,
-                                related_name='grading_sheets')
+    department = models.ForeignKey(Department, on_delete=models.PROTECT)
+    section = models.ForeignKey(Section, on_delete=models.PROTECT)
+    subject = models.ForeignKey(Subject, on_delete=models.PROTECT)
     grading = models.CharField(choices=GRADINGS, max_length=7)
     sem = models.CharField(choices=SEMESTERS, max_length=1)
     
