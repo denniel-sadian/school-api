@@ -79,12 +79,14 @@ class GradingSheetGroupSerializer(serializers.ModelSerializer):
         queryset=Section.objects.all(), slug_field='name')
     subject = serializers.SlugRelatedField(
         queryset=Subject.objects.all(), slug_field='name')
+    teacher = UserSerializer(read_only=True)
     grading_sheets = VerboseGradingSheetSerializer(many=True, read_only=True)
 
     class Meta:
         model = GradingSheetGroup
         fields = ('id', 'department', 'section', 'subject', 'grading', 'sem',
-                  'grading_sheets', 'wo_percent', 'pt_percent', 'qa_percent')
+                  'grading_sheets', 'wo_percent', 'pt_percent', 'qa_percent',
+                  'teacher')
 
 
 class FinalGradeSerializer(serializers.HyperlinkedModelSerializer):
