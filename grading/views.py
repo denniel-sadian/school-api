@@ -30,6 +30,26 @@ class GradingSheetGroupView(ListCreateAPIView):
     queryset = GradingSheetGroup.objects.all()
     serializer_class = GradingSheetGroupSerializer
 
+    def perform_create(self, serializer):
+        serializer.save()
+        instance = serializer.instance
+        if 'mapeh' in instance.subject.name.lower:
+            pass
+        else:
+            for grading in ['1st', '2nd', '3rd', '4th']:
+                sem = '1'
+                if grading in ['3rd', '4th']:
+                    sem = '2'
+                GradingSheet.objects.create(
+                    group=instance,
+                    teacher=self.request.user,
+                    department=instance.department,
+                    section=instance.section,
+                    subject=instance.subject,
+                    grading=grading,
+                    sem=sem
+                )
+
 
 class GradingSheetViewSet(ModelViewSet):
     queryset = GradingSheet.objects.all()
