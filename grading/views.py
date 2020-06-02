@@ -32,7 +32,7 @@ class GradingSheetGroupView(ListCreateAPIView):
     serializer_class = GradingSheetGroupSerializer
 
     def perform_create(self, serializer):
-        serializer.save()
+        serializer.save(teacher=self.request.user)
         instance = serializer.instance
         if 'mapeh' in instance.subject.name.lower():
             MAPEH = Subject.objects.filter(name__icontains='MAPEH')
