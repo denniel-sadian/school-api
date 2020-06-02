@@ -46,7 +46,7 @@ class GradingSheetGroupView(ListCreateAPIView):
                     section=instance.section,
                     subject=subj,
                     grading=instance.grading,
-                    sem=sem
+                    sem=instance.sem
                 )
         else:
             for grading in ['1st', '2nd', '3rd', '4th']:
