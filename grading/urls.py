@@ -14,6 +14,7 @@ router.register('finalgrades', views.FinalGradeViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('grading-sheet-groups/', views.GradingSheetGroupView.as_view(), name='grading-sheet-groups'),
+    path('grading-sheet-groups/<int:pk>/', views.GSheetGroupDestroyView.as_view(), name='gsheet-group-destroy'),
     path('multiple-records/', views.MultipleRecordCreateView.as_view(), name='multiple-records'),
     path('write-grades/', views.WriteGradesToCardsView.as_view(), name='write-grades'),
     path('related-sheets/<int:pk>/', views.RelatedGradingSheets.as_view(), name='related-sheets'),
