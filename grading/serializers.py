@@ -69,7 +69,7 @@ class VerboseGradingSheetSerializer(serializers.ModelSerializer):
         fields = ('id', 'section', 'grading', 'sem', 'subject', 'publish')
 
 
-class ListGradingSheetGroupSerializer(serializers.ModelSerializer):
+class GradingSheetGroupSerializer(serializers.ModelSerializer):
     department = serializers.SlugRelatedField(read_only=True, slug_field='name')
     section = serializers.SlugRelatedField(read_only=True, slug_field='name')
     subject = serializers.SlugRelatedField(read_only=True, slug_field='name')
