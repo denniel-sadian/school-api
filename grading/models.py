@@ -18,7 +18,23 @@ SEMESTERS = (
 )
 
 
+class GradingSheetGroup(models.Model):
+    department = models.ForeignKey(Department, on_delete=models.PROTECT,
+                                   related_name='grading_sheets')
+    section = models.ForeignKey(Section, on_delete=models.PROTECT,
+                                related_name='grading_sheets')
+    subject = models.ForeignKey(Subject, on_delete=models.PROTECT,
+                                related_name='grading_sheets')
+    grading = models.CharField(choices=GRADINGS, max_length=7)
+    sem = models.CharField(choices=SEMESTERS, max_length=1)
+    
+    def __str__(self):
+        return f'{self.section} for {self.subject}'
+
+
 class GradingSheet(models.Model):
+    group = models.ForeignKey(GradingSheetGroup, on_delete=models.CASCADE,
+                              related_name='grading_sheets')
     date = models.DateField(auto_now_add=True)
     teacher = models.ForeignKey('auth.user', on_delete=models.CASCADE,
                                 related_name='grading_sheets')
