@@ -22,6 +22,7 @@ class GradingSheetGroup(models.Model):
     department = models.ForeignKey(Department, on_delete=models.PROTECT)
     section = models.ForeignKey(Section, on_delete=models.PROTECT)
     subject = models.ForeignKey(Subject, on_delete=models.PROTECT)
+    teacher = models.ForeignKey('auth.user', on_delete=models.CASCADE)
     grading = models.CharField(choices=GRADINGS, max_length=7)
     sem = models.CharField(choices=SEMESTERS, max_length=1)
     wo_percent = models.IntegerField(default=30)
