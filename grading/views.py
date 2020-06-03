@@ -45,22 +45,17 @@ class GradingSheetGroupView(ListCreateAPIView):
                     department=instance.department,
                     section=instance.section,
                     subject=subj,
-                    grading=instance.grading,
-                    sem=instance.sem
+                    grading=instance.grading
                 )
         else:
             for grading in ['1st', '2nd', '3rd', '4th']:
-                sem = '1'
-                if grading in ['3rd', '4th']:
-                    sem = '2'
                 GradingSheet.objects.create(
                     group=instance,
                     teacher=self.request.user,
                     department=instance.department,
                     section=instance.section,
                     subject=instance.subject,
-                    grading=grading,
-                    sem=sem
+                    grading=grading
                 )
 
 
@@ -124,7 +119,6 @@ class WriteGradesToCardsView(GenericAPIView):
         teacher = request.user
         subject = get_object_or_404(Subject, pk=request.data['subject'])
         sheet = get_object_or_404(GradingSheet, pk=request.data['sheet'])
-        sem = sheet.sem
         grading = sheet.grading
         grades = request.data['grades']
 
@@ -133,7 +127,6 @@ class WriteGradesToCardsView(GenericAPIView):
             student = Student.objects.get(id=grade['student'])
             card = Card.objects.get_or_create(
                 student=student,
-                sem=sem,
                 grading=grading
             )[0]
             final_grade = FinalGrade.objects.get_or_create(
