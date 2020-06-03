@@ -54,7 +54,7 @@ class GradingSheetSerializer(serializers.HyperlinkedModelSerializer):
         model = GradingSheet
         fields = ('url', 'id', 'teacher', 'subject', 'department',
                   'section', 'date', 'publish', 'works', 'records',
-                  'grading', 'sem', 'has_multiple_choice_exam',
+                  'grading', 'has_multiple_choice_exam',
                   'wo_percent', 'pt_percent', 'qa_percent')
         extra_kwargs = {
             'date': {'read_only': True},
@@ -69,7 +69,7 @@ class VerboseGradingSheetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = GradingSheet
-        fields = ('id', 'section', 'grading', 'sem', 'subject', 'publish')
+        fields = ('id', 'section', 'grading', 'subject', 'publish')
 
 
 class GradingSheetGroupSerializer(serializers.ModelSerializer):
@@ -84,7 +84,7 @@ class GradingSheetGroupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = GradingSheetGroup
-        fields = ('id', 'department', 'section', 'subject', 'grading', 'sem',
+        fields = ('id', 'department', 'section', 'subject', 'grading',
                   'grading_sheets', 'wo_percent', 'pt_percent', 'qa_percent',
                   'teacher')
 
@@ -105,12 +105,11 @@ class CardSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Card
-        fields = ('url', 'id', 'sem', 'grading', 'student', 'date', 'remarks',
+        fields = ('url', 'id', 'grading', 'student', 'date', 'remarks',
                   'final_grades')
         depth = 2
         extra_kwargs = {
             'date': {'read_only': True},
-            'sem': {'read_only': True},
             'grading': {'read_only': True},
             'student': {'read_only': True}
         }
