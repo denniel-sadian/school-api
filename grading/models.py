@@ -92,14 +92,13 @@ class Record(models.Model):
 
 class Card(models.Model):
     grading = models.CharField(choices=GRADINGS, max_length=7)
-    sem = models.CharField(choices=SEMESTERS, max_length=1)
     date = models.DateField(auto_now_add=True)
     student = models.ForeignKey(Student, on_delete=models.PROTECT,
                                 related_name='cards')
     remarks = models.CharField(max_length=255, default="How's this student?")
     
     class Meta:
-        unique_together = ('student', 'sem', 'grading')
+        unique_together = ('student', 'grading')
 
 
 class FinalGrade(models.Model):
