@@ -12,10 +12,6 @@ GRADINGS = (
     ('3rd', 'Third Quarter'),
     ('4th', 'Fourth Quarter')
 )
-SEMESTERS = (
-    ('1', 'First Semester'),
-    ('2', 'Second Semester')
-)
 
 
 class GradingSheetGroup(models.Model):
