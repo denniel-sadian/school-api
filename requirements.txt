@@ -17,7 +17,7 @@ idna==2.9
 mysqlclient==1.4.6
 Pillow==7.1.1
 psycopg2==2.8.5
-PyJWT==1.7.1
+PyJWT==2.4.0
 python-dotenv==0.12.0
 python-http-client==3.2.7
 pytz==2019.3
